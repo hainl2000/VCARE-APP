@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-
     /// RxJava and RxAndroid
 
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
@@ -51,6 +50,9 @@ dependencies {
     // Gson convert
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //img slider
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

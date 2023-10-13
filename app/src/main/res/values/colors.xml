@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="weak_green">#69FA6F</color>
     <color name="strong_green">#068E5E</color>
+    <color name="link_text">#2196F3</color>
+    <color name="primary_bg">#E1E1E1</color>
 </resources>
