@@ -1,1 +1,2 @@
 # VCARE-APP
+check init 
