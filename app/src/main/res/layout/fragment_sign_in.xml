@@ -7,47 +7,55 @@
     tools:context=".login.signin.SignInFragment">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_user_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone_number_user_name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/user_name_input"
-            android:hint="Phone Number/ User name" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:id="@+id/password_input"
-            android:inputType="textPassword"
-            android:hint="Password" />
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sign_in_confirm_btn"
-        android:layout_margin="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_margin="12dp"
         android:background="@drawable/app_button_background_clicked"
-        android:text="@string/log_in" />
+        android:text="@string/log_in"
+        android:textColor="@color/white" />
 
     <TextView
-        android:layout_margin="12dp"
         android:id="@+id/forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="12dp"
         android:gravity="right"
-        android:textColor="@color/link_text"
-        android:text="@string/forgot_password" />
+        android:text="@string/forgot_password"
+        android:textColor="@color/link_text" />
+
+    <TextView
+        android:id="@+id/error_text_sign_in"
+        android:textSize="20sp"
+        android:textColor="@color/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

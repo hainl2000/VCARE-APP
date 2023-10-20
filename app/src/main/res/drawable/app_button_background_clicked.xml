@@ -4,5 +4,6 @@
     <solid android:color="@color/strong_green" />
     <gradient
         android:endColor="@color/strong_green"
+        android:centerColor="@color/mid_green"
         android:startColor="@color/weak_green" />
 </shape>

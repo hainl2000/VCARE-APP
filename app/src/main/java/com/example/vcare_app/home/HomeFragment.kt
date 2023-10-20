@@ -7,9 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.vcare_app.R
+import com.example.vcare_app.adapter.NewsAdapter
 import com.example.vcare_app.adapter.ViewPagerAdapter
+import com.example.vcare_app.model.News
+import com.example.vcare_app.onclickinterface.OnCardItemClick
 import java.util.Timer
 import java.util.TimerTask
 
@@ -23,20 +27,21 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnCardItemClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
     }
 
-    lateinit var viewPager2: ViewPager2
+    private lateinit var viewPager2: ViewPager2
     private lateinit var handler: Handler
     private lateinit var timer: Timer
 
@@ -44,6 +49,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("Songlai", "Songlai")
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         viewPager2 = view.findViewById<ViewPager2>(R.id.viewpager2)
         viewPager2.adapter = ViewPagerAdapter(
@@ -53,6 +59,19 @@ class HomeFragment : Fragment() {
         )
         startAutoScroll()
 
+        val newsRecyclerView = view.findViewById<RecyclerView>(R.id.news_recycler_view)
+        val newsRecyclerViewAdapter = NewsAdapter(
+            listOf(
+                News("R.drawable.banner1", "Banner1", "whofre are you"),
+                News("R.drawable.banner1", "Banner1", "whoe are you\nfreiushfres"),
+                News("R.drawable.banner1", "Banner1", "who grare you\nfrhuifheirsuhfresf\nfreuygfhuers"),
+                News("R.drawable.banner1", "Banner1", "who are you"),
+                News("R.drawable.banner1", "Banner1", "who are you")
+            ), this
+        )
+        newsRecyclerView.apply {
+            adapter = newsRecyclerViewAdapter
+        }
         Log.i("Viewpager", "${viewPager2.currentItem}")
         return view
     }
@@ -103,5 +122,9 @@ class HomeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onCardItemClick(news: News) {
+        TODO("Not yet implemented")
     }
 }

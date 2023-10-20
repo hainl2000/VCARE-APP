@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        fragmentNavigation(HomeFragment(), "home")
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.fragment_container_view,HomeFragment())
+            commit()
+        }
 
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {

@@ -2,8 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="weak_green">#69FA6F</color>
-    <color name="strong_green">#068E5E</color>
+    <color name="grey">#7E7E7E</color>
+    <color name="weak_green">#4fc58d</color>
+    <color name="mid_green">#48b392</color>
+    <color name="strong_green">#45a298</color>
     <color name="link_text">#2196F3</color>
-    <color name="primary_bg">#E1E1E1</color>
+    <color name="primary_bg">#f9fafc</color>
+    <color name="error">#FF0000</color>
 </resources>

@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.vcare_app.R
+import com.example.vcare_app.repository.CurrentUser
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +38,12 @@ class PersonalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_personal, container, false)
+        val view = inflater.inflate(R.layout.fragment_personal, container, false)
+        val email = view.findViewById<TextView>(R.id.email)
+        val phoneNumber = view.findViewById<TextView>(R.id.user_phone)
+        email.text = CurrentUser.data.email
+        phoneNumber.text = CurrentUser.data.phone
+        return view
     }
 
     companion object {

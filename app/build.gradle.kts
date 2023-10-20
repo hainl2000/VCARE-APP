@@ -36,13 +36,15 @@ android {
 }
 
 dependencies {
-    /// RxJava and RxAndroid
+
+    /// RxJava3 and RxAndroid3
 
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     // (see https://github.com/ReactiveX/RxJava/releases for latest 3.x.x version)
     implementation("io.reactivex.rxjava3:rxjava:3.1.5")
+    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
     /// Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -51,7 +53,10 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //img slider
+    //img circle
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    implementation("androidx.preference:preference-ktx:1.2.1")
 
 
     implementation("androidx.core:core-ktx:1.9.0")
