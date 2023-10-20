@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
+import com.example.vcare_app.adapter.SettingsAdapter
+import com.example.vcare_app.model.SettingsItem
+import com.example.vcare_app.onclickinterface.OnSettingClick
 import com.example.vcare_app.repository.CurrentUser
+import com.example.vcare_app.utilities.ItemSettings
 import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
@@ -20,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PersonalFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PersonalFragment : Fragment() {
+class PersonalFragment : Fragment(), OnSettingClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -33,6 +38,14 @@ class PersonalFragment : Fragment() {
         }
     }
 
+    private val listSetting = listOf(
+        SettingsItem(R.drawable.resume_icon, ItemSettings.Profile.name),
+        SettingsItem(R.drawable.history_icon, ItemSettings.History.name),
+        SettingsItem(R.drawable.password_change_icon, ItemSettings.ChangePassword.name),
+        SettingsItem(R.drawable.delete_icon, ItemSettings.DeleteAccount.name),
+        SettingsItem(R.drawable.logout_icon, ItemSettings.Logout.name)
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +54,8 @@ class PersonalFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_personal, container, false)
         val email = view.findViewById<TextView>(R.id.email)
         val phoneNumber = view.findViewById<TextView>(R.id.user_phone)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.settings_recyclerView)
+        recyclerView.adapter = SettingsAdapter(listSetting, this)
         email.text = CurrentUser.data.email
         phoneNumber.text = CurrentUser.data.phone
         return view
@@ -64,5 +79,15 @@ class PersonalFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onSettingClick(settings: SettingsItem) {
+        when (settings.title) {
+            ItemSettings.Profile.name -> {}
+            ItemSettings.History.name -> {}
+            ItemSettings.ChangePassword.name -> {}
+            ItemSettings.DeleteAccount.name -> {}
+            ItemSettings.Logout.name -> {}
+        }
     }
 }
