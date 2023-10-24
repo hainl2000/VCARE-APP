@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".login.signin.SignInFragment">
+    tools:context=".present.login.signin.SignInFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -32,6 +32,15 @@
 
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/sign_in_check_data"
+        android:layout_marginEnd="12dp"
+       android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_account"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sign_in_confirm_btn"

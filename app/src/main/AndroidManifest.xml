@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,12 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VCARE_APP"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".onboarding.OnBoardingActivity"
+            android:name=".present.networkerror.NetworkErrorActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".present.booking.bookingdate.BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".present.onboarding.OnBoardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".present.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +34,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
 
-        </activity>
+        <receiver
+            android:name=".broadcast.NetworkChangeReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

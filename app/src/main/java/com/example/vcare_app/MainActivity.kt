@@ -5,21 +5,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.example.vcare_app.booking.BookingFragment
-import com.example.vcare_app.home.HomeFragment
-import com.example.vcare_app.notification.NotificationFragment
-import com.example.vcare_app.personal.PersonalFragment
+import com.example.vcare_app.base.BaseActivity
+import com.example.vcare_app.present.booking.BookingFragment
+import com.example.vcare_app.data.sharepref.SharePrefManager
+import com.example.vcare_app.present.home.HomeFragment
+import com.example.vcare_app.present.notification.NotificationFragment
+import com.example.vcare_app.present.personal.PersonalFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
         supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragment_container_view,HomeFragment())
+            add(R.id.fragment_container_view, HomeFragment())
             commit()
         }
 

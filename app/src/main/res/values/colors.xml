@@ -10,4 +10,5 @@
     <color name="link_text">#2196F3</color>
     <color name="primary_bg">#f9fafc</color>
     <color name="error">#FF0000</color>
+    <color name="transparent">#000000</color>
 </resources>
