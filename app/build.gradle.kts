@@ -33,11 +33,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
-
-    implementation ("androidx.security:security-crypto:1.0.0")
 
     /// RxJava3 and RxAndroid3
 
@@ -46,7 +47,7 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     // (see https://github.com/ReactiveX/RxJava/releases for latest 3.x.x version)
     implementation("io.reactivex.rxjava3:rxjava:3.1.5")
-    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
     /// Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -56,11 +57,11 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     //img circle
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
     implementation("androidx.preference:preference-ktx:1.2.1")
 
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

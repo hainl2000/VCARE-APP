@@ -10,4 +10,14 @@
     <string name="success">Success</string>
     <string name="save_account">Save Account</string>
     <string name="no_network_please_reconnect">Network Error\nPlease reconnect</string>
+    <string name="address">Address:</string>
+    <string name="identity_number">Identity Number:</string>
+    <string name="gender">Gender:</string>
+    <string name="full_name">Full Name:</string>
+    <string name="social_insurance_number">Social Insurance Number:</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password_and_confirm_password_not_same">Lỗi: 2 mật khẩu không trùng nhau.</string>
+    <string name="error_unknown">Lỗi: Không xác định</string>
 </resources>

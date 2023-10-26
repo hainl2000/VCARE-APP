@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import com.example.vcare_app.MainActivity
 import com.example.vcare_app.R
 import com.example.vcare_app.data.sharepref.SharePrefManager
+import com.example.vcare_app.databinding.FragmentSignInBinding
 import com.example.vcare_app.present.login.LoginActivityViewModel
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
@@ -45,30 +46,29 @@ class SignInFragment : Fragment() {
     }
 
     private val viewModel: SignInFragmentViewModel by viewModels()
+    private lateinit var binding: FragmentSignInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        binding = FragmentSignInBinding.inflate(inflater)
 
         if (SharePrefManager.getStatusSave()) {
             viewModel.login(SharePrefManager.getEmail(), SharePrefManager.getPassword())
         }
 
-        val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
-        val loginBtn = view.findViewById<Button>(R.id.sign_in_confirm_btn)
-        val errorView = view.findViewById<TextView>(R.id.error_text_sign_in)
-        val userName = view.findViewById<EditText>(R.id.sign_in_user_name_input)
-        val password = view.findViewById<EditText>(R.id.sign_in_password_input)
-        val checkSaveData = view.findViewById<CheckBox>(R.id.sign_in_check_data)
-        userName.setText(SharePrefManager.getEmail())
-        password.setText(SharePrefManager.getPassword())
-        checkSaveData.isChecked = SharePrefManager.getStatusSave()
-        loginBtn.setOnClickListener {
-            viewModel.login(userName.text.toString(), password.text.toString())
+        binding.signInUserNameInput.setText(SharePrefManager.getEmail())
+        binding.signInPasswordInput.setText(SharePrefManager.getPassword())
+        binding.signInCheckData.isChecked = SharePrefManager.getStatusSave()
+        binding.signInBtn.setOnClickListener {
+            viewModel.login(
+                binding.signInUserNameInput.text.toString(),
+                binding.signInPasswordInput.text.toString()
+            )
         }
         viewModel.errorMsg.observe(requireActivity()) {
-            errorView.text = it
+            binding.errorTextSignIn.text = it
         }
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
@@ -76,13 +76,13 @@ class SignInFragment : Fragment() {
             } else if (it == LoadingStatus.Success) {
                 LoadingDialogManager.dismissLoadingDialog()
 
-                if (checkSaveData.isChecked) {
+                if (binding.signInCheckData.isChecked) {
                     viewModel.saveUserData(
-                        email = userName.text.toString(),
-                        password = password.text.toString()
+                        email = binding.signInUserNameInput.text.toString(),
+                        password = binding.signInPasswordInput.text.toString()
                     )
                 } else {
-                    viewModel.saveUserData("", "")
+                    viewModel.saveUserData("", "", false)
                 }
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -90,7 +90,7 @@ class SignInFragment : Fragment() {
 
             }
         }
-        return view
+        return binding.root
     }
 
     companion object {

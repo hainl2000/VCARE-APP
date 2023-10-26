@@ -36,10 +36,10 @@ class SignInFragmentViewModel : BaseViewModel() {
         )
     }
 
-    fun saveUserData(email: String, password: String) {
+    fun saveUserData(email: String, password: String,statusSave:Boolean = true) {
         SharePrefManager.savePassword(password)
         SharePrefManager.saveEmail(email)
-        SharePrefManager.saveStatusSave(true)
+        SharePrefManager.saveStatusSave(statusSave)
     }
 
     override fun onCleared() {

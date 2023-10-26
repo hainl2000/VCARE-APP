@@ -14,6 +14,7 @@ import com.example.vcare_app.model.SettingsItem
 import com.example.vcare_app.onclickinterface.OnSettingClick
 import com.example.vcare_app.data.repository.CurrentUser
 import com.example.vcare_app.data.sharepref.SharePrefManager
+import com.example.vcare_app.databinding.FragmentPersonalBinding
 import com.example.vcare_app.present.login.LoginActivity
 import com.example.vcare_app.utilities.ItemSettings
 
@@ -48,19 +49,18 @@ class PersonalFragment : Fragment(), OnSettingClick {
         SettingsItem(R.drawable.logout_icon, ItemSettings.Logout.name)
     )
 
+    lateinit var binding: FragmentPersonalBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_personal, container, false)
-        val email = view.findViewById<TextView>(R.id.email)
-        val phoneNumber = view.findViewById<TextView>(R.id.user_phone)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.settings_recyclerView)
-        recyclerView.adapter = SettingsAdapter(listSetting, this)
-        email.text = CurrentUser.data.email
-        phoneNumber.text = CurrentUser.data.phone
-        return view
+        binding = FragmentPersonalBinding.inflate(inflater)
+
+        binding.userProfile = CurrentUser.data
+        binding.settingsRecyclerView.adapter = SettingsAdapter(listSetting, this)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     companion object {

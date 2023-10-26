@@ -1,7 +1,5 @@
 package com.example.vcare_app.present.login.signup
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
 import com.example.vcare_app.base.BaseViewModel
 import com.example.vcare_app.data.repository.AppRepository

@@ -42,9 +42,4 @@ open class BaseActivity(@LayoutRes private val layoutResId: Int) : AppCompatActi
         })
 
     }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
 }

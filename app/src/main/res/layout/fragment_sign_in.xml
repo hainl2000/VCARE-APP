@@ -1,70 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".present.login.signin.SignInFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:orientation="vertical"
+        tools:context=".present.login.signin.SignInFragment">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sign_in_user_name_input"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/phone_number_user_name" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_margin="12dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/sign_in_user_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number_user_name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sign_in_password_input"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/sign_in_password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/sign_in_check_data"
+            android:layout_marginEnd="12dp"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_account" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:layout_margin="12dp"
+            android:background="@drawable/app_button_background_clicked"
+            android:text="@string/log_in"
+            android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:gravity="right"
+            android:text="@string/forgot_password"
+            android:textColor="@color/link_text" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/error_text_sign_in"
+            android:textSize="20sp"
+            android:textColor="@color/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/sign_in_check_data"
-        android:layout_marginEnd="12dp"
-       android:layout_gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_account"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sign_in_confirm_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:background="@drawable/app_button_background_clicked"
-        android:text="@string/log_in"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/forgot_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:gravity="right"
-        android:text="@string/forgot_password"
-        android:textColor="@color/link_text" />
-
-    <TextView
-        android:id="@+id/error_text_sign_in"
-        android:textSize="20sp"
-        android:textColor="@color/error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+    </LinearLayout>
+</layout>
