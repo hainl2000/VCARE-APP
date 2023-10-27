@@ -20,4 +20,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password_and_confirm_password_not_same">Lỗi: 2 mật khẩu không trùng nhau.</string>
     <string name="error_unknown">Lỗi: Không xác định</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="nam">Nam</string>
+    <string name="nu">Nu</string>
 </resources>

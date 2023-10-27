@@ -15,7 +15,11 @@ object RequestInterceptor : Interceptor {
         println("Outgoing request to ${request.url()}")
         if (checkRequiredToken(request)) {
             val accessToken = SharePrefManager.getAccessToken()
-            request.newBuilder().header("Authorization", "Bearer ${accessToken}")
+            // Update the request and reassign it
+            val updatedRequest = request.newBuilder()
+                .header("Authorization", "Bearer $accessToken")
+                .build()
+            return chain.proceed(updatedRequest)
         }
         return chain.proceed(request)
     }
@@ -33,8 +37,7 @@ object RequestInterceptor : Interceptor {
 object ApiClient {
     private const val baseUrl = "http://35.240.154.21/api/"
 
-    private val okHttpClient: OkHttpClient = OkHttpClient()
-        .newBuilder()
+    private val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(RequestInterceptor)
         .build()
 

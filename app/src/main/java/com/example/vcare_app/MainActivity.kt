@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.vcare_app.base.BaseActivity
 import com.example.vcare_app.present.booking.BookingFragment
 import com.example.vcare_app.data.sharepref.SharePrefManager
+import com.example.vcare_app.present.booking.hospitalbooking.HospitalBookingFragment
 import com.example.vcare_app.present.home.HomeFragment
 import com.example.vcare_app.present.notification.NotificationFragment
 import com.example.vcare_app.present.personal.PersonalFragment
@@ -33,7 +35,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 }
 
                 R.id.booking -> {
-                    fragmentNavigation(BookingFragment(), "booking")
+                    fragmentNavigation(HospitalBookingFragment(), "booking")
                     true
                 }
 
@@ -54,9 +56,9 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
     private fun fragmentNavigation(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction().apply {
-            addToBackStack(tag)
             replace(R.id.fragment_container_view, fragment)
             commit()
         }
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 }

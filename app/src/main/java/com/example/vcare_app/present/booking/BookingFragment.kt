@@ -1,6 +1,7 @@
 package com.example.vcare_app.present.booking
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,13 +51,17 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         val doctorRecyclerView = view.findViewById<RecyclerView>(R.id.department_recyclerView)
         val adapter = DepartmentAdapter(emptyList(), this)
         doctorRecyclerView.adapter = adapter
-        viewModel.getDepartmentList()
+
+        val hospitalId = arguments?.getInt("hospital_id") ?: 0
+        Log.d("HospitalId","$hospitalId")
+        viewModel.getDepartmentList(hospitalId)
+
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireActivity())
             } else if (it == LoadingStatus.Success) {
                 LoadingDialogManager.dismissLoadingDialog()
-            } else if (it == LoadingStatus.Error) {
+            } else if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
                 LoadingDialogManager.dismissLoadingDialog()
                 Toast.makeText(
                     requireContext(),

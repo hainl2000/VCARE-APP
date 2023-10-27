@@ -73,11 +73,11 @@ class SignUpFragment : Fragment() {
                 LoadingDialogManager.dismissLoadingDialog()
 
                 SuccessDialog.showDialog(requireContext())
-                val handler = Handler(Looper.getMainLooper())
-                handler.postDelayed(Runnable {
-                    SuccessDialog.dissmissSuccessDialog()
+//                val handler = Handler(Looper.getMainLooper())
+//                handler.postDelayed(Runnable {
+//                    SuccessDialog.dissmissSuccessDialog()
                     activityViewModel.setCurrentIndex(0)
-                }, 2000)
+//                }, 2000)
 
 
             }

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.SettingsAdapter
@@ -16,7 +18,10 @@ import com.example.vcare_app.data.repository.CurrentUser
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.databinding.FragmentPersonalBinding
 import com.example.vcare_app.present.login.LoginActivity
+import com.example.vcare_app.present.personal.editpersonal.EditPersonalFragment
 import com.example.vcare_app.utilities.ItemSettings
+import com.example.vcare_app.utilities.LoadingDialogManager
+import com.example.vcare_app.utilities.LoadingStatus
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,6 +55,7 @@ class PersonalFragment : Fragment(), OnSettingClick {
     )
 
     lateinit var binding: FragmentPersonalBinding
+    lateinit var viewModel: PersonalViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +63,26 @@ class PersonalFragment : Fragment(), OnSettingClick {
     ): View? {
         binding = FragmentPersonalBinding.inflate(inflater)
 
-        binding.userProfile = CurrentUser.data
+        viewModel = ViewModelProvider(this)[PersonalViewModel::class.java]
+
+        viewModel.getUserProfile()
+
         binding.settingsRecyclerView.adapter = SettingsAdapter(listSetting, this)
+        viewModel.userProfile.observe(viewLifecycleOwner) {
+            binding.userProfile = it
+        }
+
+        viewModel.status.observe(viewLifecycleOwner) {
+            if (it == LoadingStatus.Loading) {
+                LoadingDialogManager.showDialog(requireContext())
+            } else {
+                LoadingDialogManager.dismissLoadingDialog()
+                if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
+                    Toast.makeText(requireContext(), "${viewModel.errorMsg}", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -85,7 +109,19 @@ class PersonalFragment : Fragment(), OnSettingClick {
 
     override fun onSettingClick(settings: SettingsItem) {
         when (settings.title) {
-            ItemSettings.Edit.name -> {}
+            ItemSettings.Edit.name -> {
+                parentFragmentManager.beginTransaction().apply {
+                    val editFragment = EditPersonalFragment()
+                    val bundle = Bundle().apply {
+                        putSerializable("data", viewModel.userProfile.value)
+                    }
+                    editFragment.arguments = bundle
+                    replace(R.id.fragment_container_view, editFragment)
+                    addToBackStack("edit_personal")
+                    commit()
+                }
+            }
+
             ItemSettings.History.name -> {}
             ItemSettings.ChangePassword.name -> {}
             ItemSettings.DeleteAccount.name -> {}

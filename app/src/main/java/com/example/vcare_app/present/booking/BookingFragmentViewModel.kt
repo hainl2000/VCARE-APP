@@ -15,9 +15,9 @@ class BookingFragmentViewModel : BaseViewModel() {
     private val repository = AppRepository(apiService = ApiClient.apiService)
     private val _listDepartment = MutableLiveData<List<Department>>(emptyList())
     val listDepartment: LiveData<List<Department>> get() = _listDepartment
-    fun getDepartmentList() {
+    fun getDepartmentList(hospitalId: Int) {
         compositeDisposable.add(
-            repository.getDepartmentList().subscribeOn(
+            repository.getDepartmentList(hospitalId).subscribeOn(
                 Schedulers.io()
             ).observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {

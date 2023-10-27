@@ -2,13 +2,24 @@ package com.example.vcare_app.api
 
 import com.example.vcare_app.api.api_model.request.LoginRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
+import com.example.vcare_app.api.api_model.request.UpdateUserRequest
 import com.example.vcare_app.api.api_model.response.DepartmentResponse
+import com.example.vcare_app.api.api_model.response.Hospital
+import com.example.vcare_app.api.api_model.response.HospitalListResponse
 import com.example.vcare_app.api.api_model.response.LoginResponse
+import com.example.vcare_app.api.api_model.response.Profile
+import com.example.vcare_app.api.api_model.response.UploadFileResponse
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Query
+import java.io.File
 
 interface ApiService {
     @POST("auth/login")
@@ -18,5 +29,21 @@ interface ApiService {
     fun registerUser(@Body signUpRequest: SignUpRequest): Single<LoginResponse>
 
     @GET("department")
-    fun getDepartmentList(): Single<DepartmentResponse>
+    fun getDepartmentList(@Query("hospital_id") hospitalId: Int): Single<DepartmentResponse>
+
+    @GET("user/profile")
+    fun getUserProfile(): Single<Profile>
+
+    @PUT("user")
+    fun updateUserProfile(@Body profile: UpdateUserRequest): Single<Profile>
+
+    @GET("hospital")
+    fun getHospitalList(
+        @Query("pageSize") pageSize: Int,
+        @Query("pageIndex") pageIndex: Int
+    ): Observable<HospitalListResponse>
+
+    @Multipart
+    @POST("upload")
+    fun uploadImage(@Part file: MultipartBody.Part): Single<UploadFileResponse>
 }
