@@ -1,23 +1,19 @@
 package com.example.vcare_app.present.personal.editpersonal
 
+
 import android.Manifest
-import android.R
 import android.app.DatePickerDialog
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,9 +25,8 @@ import com.example.vcare_app.api.api_model.response.Profile
 import com.example.vcare_app.databinding.FragmentEditPersonalBinding
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import com.example.vcare_app.utilities.SuccessDialog
+import com.example.vcare_app.utilities.Utilities
 import java.io.File
 import java.util.Calendar
 
@@ -69,14 +64,16 @@ class EditPersonalFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditPersonalBinding.inflate(inflater)
         viewModel = ViewModelProvider(this)[EditPersonalFragmentViewModel::class.java]
 
         currentProfile = arguments?.getSerializable("data") as Profile
         binding.profile = currentProfile
+        Log.d("TAGG", currentProfile.avatar ?: "")
 
-        viewModel.initImage(currentProfile.avatar ?: "")
+        Glide.with(this).load(currentProfile.avatar)
+            .error(com.example.vcare_app.R.drawable.error_icon).into(binding.editPersonalAvatar)
 
         binding.editAvatarBtn.setOnClickListener {
             openGallery()
@@ -87,7 +84,8 @@ class EditPersonalFragment : Fragment() {
             viewModel.updateUser(
                 UpdateUserRequest(
                     binding.editFullName.text.toString(),
-                    viewModel.imgUrl.value ?: currentProfile.avatar,
+                    viewModel.imgUrl.value
+                        ?: Utilities.extractFileNameFromUrl(currentProfile.avatar!!),
                     gender,
                     binding.editDob.text.toString(),
                     binding.editIdentityNumber.text.toString(),
@@ -101,16 +99,17 @@ class EditPersonalFragment : Fragment() {
             showDatePickerDialog()
         }
 
-        viewModel.imgUrl.observe(viewLifecycleOwner) {
-            Glide.with(this).load(it).into(binding.editPersonalAvatar)
-        }
-
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 if (it == LoadingStatus.Success) {
                     LoadingDialogManager.dismissLoadingDialog()
+                    if (viewModel.updateSuccess.value == true) {
+                        SuccessDialog.showDialog(requireContext()) {
+                            parentFragmentManager.popBackStack()
+                        }
+                    }
                 }
                 if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
                     LoadingDialogManager.dismissLoadingDialog()
@@ -162,14 +161,13 @@ class EditPersonalFragment : Fragment() {
                 val contentUri = it
                 val filePath = getFileFromContentUri(requireContext(), contentUri)
                 file = File(filePath)
-//
-//                if (file.exists()) {
-//                    val myBitmap = BitmapFactory.decodeFile(file.absolutePath)
-//                    binding.editPersonalAvatar.setImageBitmap(myBitmap)
-//                }
+
                 Log.e("Error", file.path)
-//                openFile(it)
                 viewModel.uploadImage(file)
+            } else {
+                Glide.with(this).load(currentProfile.avatar)
+                    .error(com.example.vcare_app.R.drawable.error_icon)
+                    .into(binding.editPersonalAvatar)
             }
         }
 

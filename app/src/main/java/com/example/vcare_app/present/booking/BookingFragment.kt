@@ -2,17 +2,19 @@ package com.example.vcare_app.present.booking
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.DepartmentAdapter
 import com.example.vcare_app.api.api_model.response.Department
+import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.onclickinterface.OnDepartmentItemClick
+import com.example.vcare_app.present.booking.appointment.AppointmentFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -45,7 +47,6 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_booking, container, false)
         viewModel = ViewModelProvider(this)[BookingFragmentViewModel::class.java]
         val doctorRecyclerView = view.findViewById<RecyclerView>(R.id.department_recyclerView)
@@ -53,7 +54,7 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         doctorRecyclerView.adapter = adapter
 
         val hospitalId = arguments?.getInt("hospital_id") ?: 0
-        Log.d("HospitalId","$hospitalId")
+        Log.d("HospitalId", "$hospitalId")
         viewModel.getDepartmentList(hospitalId)
 
         viewModel.status.observe(viewLifecycleOwner) {
@@ -97,7 +98,14 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
     }
 
     override fun onDepartmentClick(department: Department) {
-
+        AppointmentFlow.apartment_id = department.id
+        AppointmentFlow.hospital_id = department.hospitalID
+        AppointmentFlow.apartment_name = department.name
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container_view, AppointmentFragment())
+//            addToBackStack("booking_department")
+            commit()
+        }
     }
 
 

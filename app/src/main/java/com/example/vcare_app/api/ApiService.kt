@@ -1,10 +1,11 @@
 package com.example.vcare_app.api
 
+import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
+import com.example.vcare_app.api.api_model.response.AppointmentResponse
 import com.example.vcare_app.api.api_model.response.DepartmentResponse
-import com.example.vcare_app.api.api_model.response.Hospital
 import com.example.vcare_app.api.api_model.response.HospitalListResponse
 import com.example.vcare_app.api.api_model.response.LoginResponse
 import com.example.vcare_app.api.api_model.response.Profile
@@ -19,7 +20,6 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Query
-import java.io.File
 
 interface ApiService {
     @POST("auth/login")
@@ -46,4 +46,7 @@ interface ApiService {
     @Multipart
     @POST("upload")
     fun uploadImage(@Part file: MultipartBody.Part): Single<UploadFileResponse>
+
+    @POST("appointment")
+    fun createAppointment(@Body appointmentRequest: AppointmentRequest): Single<AppointmentResponse>
 }

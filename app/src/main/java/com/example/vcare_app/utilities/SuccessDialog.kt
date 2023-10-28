@@ -11,7 +11,7 @@ object SuccessDialog {
     private var loadingDialog: Dialog? = null
 
     @UiThread
-    fun showDialog(context: Context) {
+    fun showDialog(context: Context,callback:()->Unit ) {
         if (loadingDialog == null) {
             loadingDialog = Dialog(context)
             loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -20,9 +20,8 @@ object SuccessDialog {
             val handler = Handler(Looper.getMainLooper())
             handler.postDelayed(
                 Runnable {
-
                     dissmissSuccessDialog()
-
+                    callback.invoke()
                 }, 2000
             )
         }

@@ -1,6 +1,7 @@
 package com.example.vcare_app.data.repository
 
 import com.example.vcare_app.api.ApiService
+import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
@@ -8,7 +9,6 @@ import com.example.vcare_app.api.api_model.response.LoginResponse
 import com.example.vcare_app.model.Doctor
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
-import java.io.File
 
 class AppRepository(private val apiService: ApiService) {
     fun loginUser(userName: String, password: String): Single<LoginResponse> {
@@ -36,6 +36,8 @@ class AppRepository(private val apiService: ApiService) {
         apiService.getHospitalList(pageSize, pageIndex)
 
     fun uploadImage(file: MultipartBody.Part) = apiService.uploadImage(file)
+
+    fun createAppointment(appointmentRequest: AppointmentRequest) = apiService.createAppointment(appointmentRequest)
 
     fun getDoctor() = listOf(
         Doctor(

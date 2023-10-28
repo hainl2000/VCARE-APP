@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt ("com.github.bumptech.glide:compiler:4.12.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

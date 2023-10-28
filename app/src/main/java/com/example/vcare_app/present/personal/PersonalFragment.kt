@@ -2,21 +2,19 @@ package com.example.vcare_app.present.personal
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.SettingsAdapter
-import com.example.vcare_app.model.SettingsItem
-import com.example.vcare_app.onclickinterface.OnSettingClick
-import com.example.vcare_app.data.repository.CurrentUser
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.databinding.FragmentPersonalBinding
+import com.example.vcare_app.model.SettingsItem
+import com.example.vcare_app.onclickinterface.OnSettingClick
 import com.example.vcare_app.present.login.LoginActivity
 import com.example.vcare_app.present.personal.editpersonal.EditPersonalFragment
 import com.example.vcare_app.utilities.ItemSettings
@@ -70,6 +68,9 @@ class PersonalFragment : Fragment(), OnSettingClick {
         binding.settingsRecyclerView.adapter = SettingsAdapter(listSetting, this)
         viewModel.userProfile.observe(viewLifecycleOwner) {
             binding.userProfile = it
+            Glide.with(this).load(it.avatar)
+                .error(R.drawable.error_icon)
+                .into(binding.circleImageView)
         }
 
         viewModel.status.observe(viewLifecycleOwner) {

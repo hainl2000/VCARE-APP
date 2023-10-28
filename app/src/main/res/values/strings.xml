@@ -24,4 +24,8 @@
     <string name="cancel">Cancel</string>
     <string name="nam">Nam</string>
     <string name="nu">Nu</string>
+    <string name="dat_kham">Đặt khám</string>
+    <string name="thoigiandatlichkham">Thời gian khám</string>
+    <string name="chonlichkham">Chọn ngày khám</string>
+    <string name="gioihan_thoigian_datlich">Đặt thời gian từ: 7h to 12h, 13h to 17h</string>
 </resources>

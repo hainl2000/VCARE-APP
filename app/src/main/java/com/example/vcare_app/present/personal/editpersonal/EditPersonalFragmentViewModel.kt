@@ -18,12 +18,11 @@ import java.io.File
 class EditPersonalFragmentViewModel : BaseViewModel() {
     private val repository = AppRepository(ApiClient.apiService)
 
-    private val _imgUrl = MutableLiveData("")
+    private val _imgUrl = MutableLiveData<String>()
     val imgUrl: LiveData<String> get() = _imgUrl
 
-    fun initImage(url: String) {
-        _imgUrl.postValue(url)
-    }
+    private val _updateSuccess = MutableLiveData(false)
+    val updateSuccess:LiveData<Boolean> get() = _updateSuccess
 
     fun uploadImage(file: File) {
         val requestFile = RequestBody.create(MultipartBody.FORM, file)
@@ -38,7 +37,7 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
             }.subscribe(
                 {
                     status.postValue(LoadingStatus.Success)
-                    _imgUrl.postValue(it.url)
+                    _imgUrl.postValue(it.fileName)
                 }, {
                     errorMsg.postValue(it.toString())
                     Log.e("Error", "${it.message}")
@@ -53,13 +52,16 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
                 status.postValue(LoadingStatus.Loading)
             }.doOnError {
+                _updateSuccess.postValue(false)
                 status.postValue(LoadingStatus.Error)
                 Log.e("Error: ", it.toString())
             }
             .subscribe(
                 {
+                    _updateSuccess.postValue(true)
                     status.postValue(LoadingStatus.Success)
                 }, {
+                    _updateSuccess.postValue(false)
                     status.postValue(LoadingStatus.Error)
                     Log.e("Error: ", it.toString())
                 }

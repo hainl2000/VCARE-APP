@@ -72,11 +72,13 @@ class SignUpFragment : Fragment() {
             } else if (it == LoadingStatus.Success) {
                 LoadingDialogManager.dismissLoadingDialog()
 
-                SuccessDialog.showDialog(requireContext())
+                SuccessDialog.showDialog(requireContext()) {
+                    activityViewModel.setCurrentIndex(0)
+                }
 //                val handler = Handler(Looper.getMainLooper())
 //                handler.postDelayed(Runnable {
 //                    SuccessDialog.dissmissSuccessDialog()
-                    activityViewModel.setCurrentIndex(0)
+//                    activityViewModel.setCurrentIndex(0)
 //                }, 2000)
 
 

@@ -1,12 +1,8 @@
 package com.example.vcare_app.present.login.signin
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
 import com.example.vcare_app.base.BaseViewModel
 import com.example.vcare_app.data.repository.AppRepository
-import com.example.vcare_app.data.repository.CurrentUser
-import com.example.vcare_app.data.sharepref.SharePrefItem
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.utilities.LoadingStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -23,7 +19,6 @@ class SignInFragmentViewModel : BaseViewModel() {
             .subscribe(
                 { response ->
                     errorMsg.postValue("")
-                    CurrentUser.setUserInformation(response.profile)
                     SharePrefManager.saveEmail(userName)
                     SharePrefManager.savePassword(password)
                     SharePrefManager.saveAccessToken(response.token)
