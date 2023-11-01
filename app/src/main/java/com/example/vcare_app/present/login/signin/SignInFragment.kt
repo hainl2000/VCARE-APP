@@ -2,25 +2,16 @@ package com.example.vcare_app.present.login.signin
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.vcare_app.MainActivity
-import com.example.vcare_app.R
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.databinding.FragmentSignInBinding
-import com.example.vcare_app.present.login.LoginActivityViewModel
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
-import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,6 +79,8 @@ class SignInFragment : Fragment() {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
 
+            }else if (it == LoadingStatus.Error){
+                LoadingDialogManager.dismissLoadingDialog()
             }
         }
         return binding.root

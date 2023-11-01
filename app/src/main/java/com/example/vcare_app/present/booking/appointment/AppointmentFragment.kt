@@ -11,9 +11,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.MainActivityViewModel
+import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.databinding.FragmentAppointmentBinding
+import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
@@ -138,8 +140,16 @@ class AppointmentFragment : Fragment() {
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Success && viewModel.createSuccess.value == true) {
-                    SuccessDialog.showDialog(requireContext()){
-                        activityViewModel.changeTab(0)
+                    SuccessDialog.showDialog(requireContext()) {
+                        parentFragmentManager.beginTransaction().apply {
+                            val fragment = AppointmentDetailFragment()
+                            val bundle = Bundle().apply {
+                                putInt("appointment_id", viewModel.appointmentDetail.id)
+                            }
+                            fragment.arguments = bundle
+                            replace(R.id.fragment_container_view, fragment)
+                            commit()
+                        }
                     }
 
                 }

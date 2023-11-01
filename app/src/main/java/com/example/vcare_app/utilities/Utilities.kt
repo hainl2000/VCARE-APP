@@ -1,9 +1,13 @@
 package com.example.vcare_app.utilities
 
+import android.os.Build
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.vcare_app.R
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class Utilities {
     companion object {
@@ -14,3 +18,16 @@ class Utilities {
         }
     }
 }
+
+@BindingAdapter("getImage")
+fun getImage(imageView: ImageView, url: String?) {
+    Glide.with(imageView.context).load(url).error(R.drawable.error_icon).into(imageView)
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun String.convertTime(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val parsedDate = LocalDateTime.parse(this, DateTimeFormatter.ISO_DATE_TIME)
+    return parsedDate.toLocalDate().format(formatter)
+}
+

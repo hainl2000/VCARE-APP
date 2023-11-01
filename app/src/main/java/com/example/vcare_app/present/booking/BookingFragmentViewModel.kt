@@ -10,6 +10,7 @@ import com.example.vcare_app.data.repository.AppRepository
 import com.example.vcare_app.utilities.LoadingStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.Locale
 
 class BookingFragmentViewModel : BaseViewModel() {
     private val repository = AppRepository(apiService = ApiClient.apiService)
@@ -35,5 +36,12 @@ class BookingFragmentViewModel : BaseViewModel() {
                 )
 
         )
+    }
+
+    fun searchBooking(searchText: String): List<Department> {
+        val newList = _listDepartment.value?.filter {
+            it.name.toLowerCase(Locale.ROOT).contains(searchText)
+        }
+        return newList ?: emptyList()
     }
 }

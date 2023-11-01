@@ -4,8 +4,10 @@ import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
+import com.example.vcare_app.api.api_model.response.AppointmentDetailResponse
 import com.example.vcare_app.api.api_model.response.AppointmentResponse
 import com.example.vcare_app.api.api_model.response.DepartmentResponse
+import com.example.vcare_app.api.api_model.response.HistoryResponse
 import com.example.vcare_app.api.api_model.response.HospitalListResponse
 import com.example.vcare_app.api.api_model.response.LoginResponse
 import com.example.vcare_app.api.api_model.response.Profile
@@ -19,6 +21,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -49,4 +52,10 @@ interface ApiService {
 
     @POST("appointment")
     fun createAppointment(@Body appointmentRequest: AppointmentRequest): Single<AppointmentResponse>
+
+    @GET("appointment/detail/{id}")
+    fun getAppointment(@Path("id") id: Int): Single<AppointmentDetailResponse>
+
+    @GET("appointment")
+    fun getAppointmentHistory(): Single<HistoryResponse>
 }

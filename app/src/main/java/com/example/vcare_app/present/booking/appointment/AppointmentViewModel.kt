@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
+import com.example.vcare_app.api.api_model.response.AppointmentResponse
 import com.example.vcare_app.api.api_model.response.Profile
 import com.example.vcare_app.base.BaseViewModel
 import com.example.vcare_app.data.repository.AppRepository
@@ -20,6 +21,7 @@ class AppointmentViewModel : BaseViewModel() {
     val createSuccess: LiveData<Boolean> get() = _createSuccess
 
     private val repository = AppRepository(ApiClient.apiService)
+    lateinit var appointmentDetail: AppointmentResponse
     fun getCurrentProfile() {
         compositeDisposable.add(repository.getUserProfile().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
@@ -45,8 +47,10 @@ class AppointmentViewModel : BaseViewModel() {
                 status.postValue(LoadingStatus.Loading)
             }.subscribe(
                 {
+                    appointmentDetail = it
                     _createSuccess.postValue(true)
                     status.postValue(LoadingStatus.Success)
+
                 }, {
                     _createSuccess.postValue(false)
                     status.postValue(LoadingStatus.Error)

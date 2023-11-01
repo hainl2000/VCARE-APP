@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="6dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".present.booking.hospitalbooking.HospitalBookingFragment">
+    android:orientation="vertical"
+    tools:context=".present.personal.history.HistoryFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
 
         <EditText
             android:background="@drawable/button_item_bg"
-            android:id="@+id/search_hospital_text"
+            android:id="@+id/search_appointment_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -24,17 +24,12 @@
 
 
     </LinearLayout>
-
-
-
-
-
-
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/hospital_recycler_view"/>
+        android:id="@+id/appointment_history_recycler_view"/>
+
 
 </LinearLayout>

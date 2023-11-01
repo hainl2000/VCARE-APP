@@ -4,17 +4,17 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/home_icon"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/booking"
         android:icon="@drawable/add_icon"
-        android:title="Booking" />
+        android:title="@string/booking" />
     <item
         android:id="@+id/notification"
         android:icon="@drawable/notification_icon"
-        android:title="Notification" />
+        android:title="@string/notification" />
     <item
         android:id="@+id/personal"
         android:icon="@drawable/person_icon"
-        android:title="Personal" />
+        android:title="@string/personal" />
 </menu>

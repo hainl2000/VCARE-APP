@@ -9,6 +9,7 @@ import com.example.vcare_app.data.repository.AppRepository
 import com.example.vcare_app.utilities.LoadingStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.Locale
 
 class HospitalBookingViewModel : BaseViewModel() {
     private val repository = AppRepository(ApiClient.apiService)
@@ -17,14 +18,22 @@ class HospitalBookingViewModel : BaseViewModel() {
     fun getHospitalList(pageSize: Int = 10, pageIndex: Int = 1) {
         compositeDisposable.add(repository.getHospitalList(pageSize, pageIndex)
             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).doOnSubscribe {
-            status.postValue(LoadingStatus.Loading)
-        }.subscribe({
-            status.postValue(LoadingStatus.Success)
-            _listHospital.postValue(it.hospitals)
-        }, {
-            status.postValue(LoadingStatus.Success)
-            errorMsg.postValue(it.message)
-        })
+                status.postValue(LoadingStatus.Loading)
+            }.subscribe({
+                status.postValue(LoadingStatus.Success)
+                _listHospital.postValue(it.hospitals)
+            }, {
+                status.postValue(LoadingStatus.Success)
+                errorMsg.postValue(it.message)
+            })
         )
     }
+
+    fun searchHospital(name: String): List<Hospital> {
+        val newList = _listHospital.value?.filter {
+            it.name.toLowerCase(Locale.ROOT).contains(name)
+        }
+        return newList ?: emptyList()
+    }
+
 }

@@ -39,6 +39,9 @@ class AppRepository(private val apiService: ApiService) {
 
     fun createAppointment(appointmentRequest: AppointmentRequest) = apiService.createAppointment(appointmentRequest)
 
+    fun getHistoryAppointment() = apiService.getAppointmentHistory()
+
+    fun getAppointmentDetail(id:Int) = apiService.getAppointment(id)
     fun getDoctor() = listOf(
         Doctor(
             "Tran cong huu",

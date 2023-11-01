@@ -17,7 +17,7 @@ import com.example.vcare_app.model.SettingsItem
 import com.example.vcare_app.onclickinterface.OnSettingClick
 import com.example.vcare_app.present.login.LoginActivity
 import com.example.vcare_app.present.personal.editpersonal.EditPersonalFragment
-import com.example.vcare_app.utilities.ItemSettings
+import com.example.vcare_app.present.personal.history.HistoryFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -44,27 +44,28 @@ class PersonalFragment : Fragment(), OnSettingClick {
         }
     }
 
-    private val listSetting = listOf(
-        SettingsItem(R.drawable.edit_icon, ItemSettings.Edit.name),
-        SettingsItem(R.drawable.history_icon, ItemSettings.History.name),
-        SettingsItem(R.drawable.password_change_icon, ItemSettings.ChangePassword.name),
-        SettingsItem(R.drawable.delete_icon, ItemSettings.DeleteAccount.name),
-        SettingsItem(R.drawable.logout_icon, ItemSettings.Logout.name)
-    )
 
     lateinit var binding: FragmentPersonalBinding
-    lateinit var viewModel: PersonalViewModel
+    private lateinit var viewModel: PersonalViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPersonalBinding.inflate(inflater)
 
         viewModel = ViewModelProvider(this)[PersonalViewModel::class.java]
 
         viewModel.getUserProfile()
-
+        val listSetting = listOf(
+            SettingsItem(R.drawable.edit_icon, resources.getString(R.string.edit)),
+            SettingsItem(R.drawable.history_icon, resources.getString(R.string.history)),
+            SettingsItem(
+                R.drawable.password_change_icon,
+                resources.getString(R.string.change_password)
+            ),
+            SettingsItem(R.drawable.logout_icon, resources.getString(R.string.logout))
+        )
         binding.settingsRecyclerView.adapter = SettingsAdapter(listSetting, this)
         viewModel.userProfile.observe(viewLifecycleOwner) {
             binding.userProfile = it
@@ -110,7 +111,7 @@ class PersonalFragment : Fragment(), OnSettingClick {
 
     override fun onSettingClick(settings: SettingsItem) {
         when (settings.title) {
-            ItemSettings.Edit.name -> {
+            resources.getString(R.string.edit) -> {
                 parentFragmentManager.beginTransaction().apply {
                     val editFragment = EditPersonalFragment()
                     val bundle = Bundle().apply {
@@ -123,10 +124,15 @@ class PersonalFragment : Fragment(), OnSettingClick {
                 }
             }
 
-            ItemSettings.History.name -> {}
-            ItemSettings.ChangePassword.name -> {}
-            ItemSettings.DeleteAccount.name -> {}
-            ItemSettings.Logout.name -> {
+            resources.getString(R.string.history) -> {
+                parentFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragment_container_view,HistoryFragment())
+                    addToBackStack("history")
+                    commit()
+                }
+            }
+            resources.getString(R.string.change_password) -> {}
+            resources.getString(R.string.logout) -> {
                 val intent = Intent(requireActivity(), LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

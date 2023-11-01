@@ -1,9 +1,8 @@
-package com.example.vcare_app.present.booking.hospitalbooking
+package com.example.vcare_app.present.personal.history
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
-import com.example.vcare_app.adapter.HospitalAdapter
-import com.example.vcare_app.api.api_model.response.Hospital
-import com.example.vcare_app.onclickinterface.OnHospitalClick
-import com.example.vcare_app.present.booking.BookingFragment
+import com.example.vcare_app.api.api_model.response.HistoryAppointment
+import com.example.vcare_app.onclickinterface.OnAppointmentClick
+import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -27,10 +25,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HospitalBookingFragment.newInstance] factory method to
+ * Use the [HistoryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HospitalBookingFragment : Fragment(), OnHospitalClick {
+class HistoryFragment : Fragment(), OnAppointmentClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -43,25 +41,19 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
         }
     }
 
-    lateinit var viewModel: HospitalBookingViewModel
+    private lateinit var viewModel: HistoryViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_hospital_booking, container, false)
-        viewModel = ViewModelProvider(this)[HospitalBookingViewModel::class.java]
-        val recyclerView = view.findViewById<RecyclerView>(R.id.hospital_recycler_view)
-        val searchText = view.findViewById<EditText>(R.id.search_hospital_text)
-        val adapter = HospitalAdapter(emptyList(), this)
-        recyclerView.adapter = adapter
-
-        viewModel.getHospitalList()
-
-
-        viewModel.listHospital.observe(viewLifecycleOwner) {
-            adapter.setData(it)
-        }
-        searchText.addTextChangedListener(object : TextWatcher {
+        val view = inflater.inflate(R.layout.fragment_history, container, false)
+        viewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
+        val recyclerView = view.findViewById<RecyclerView>(R.id.appointment_history_recycler_view)
+        val searchAppointment = view.findViewById<EditText>(R.id.search_appointment_text)
+        val adapter = HistoryAppointmentAdapter(emptyList(), this)
+        viewModel.getHistory()
+        searchAppointment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -71,16 +63,22 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val newList = viewModel.searchHospital(s.toString())
-                adapter.setData(newList)
+                val newList = viewModel.searchAppointment(s.toString())
+                adapter.updateData(newList)
             }
+
         })
+
+        recyclerView.adapter = adapter
+        viewModel.listAppointment.observe(viewLifecycleOwner) {
+            adapter.updateData(it.data)
+        }
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
-                if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
+                if (it == LoadingStatus.Error) {
                     Toast.makeText(
                         requireContext(),
                         "${viewModel.errorMsg.value}",
@@ -89,7 +87,7 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
                 }
             }
         }
-        return view.rootView
+        return view
     }
 
     companion object {
@@ -99,12 +97,12 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment HospitalBookingFragment.
+         * @return A new instance of fragment HistoryFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            HospitalBookingFragment().apply {
+            HistoryFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -112,15 +110,15 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
             }
     }
 
-    override fun onHospitalItemClick(hospital: Hospital) {
+    override fun onAppointmentClick(historyAppointment: HistoryAppointment) {
         parentFragmentManager.beginTransaction().apply {
-            val bookingFragment = BookingFragment()
-            val bundle = Bundle()
-            bundle.putInt("hospital_id", hospital.id)
-            Log.d("HospitalId: ", "${hospital.id}")
-            bookingFragment.arguments = bundle
-            replace(R.id.fragment_container_view, bookingFragment)
-            addToBackStack("hospital_booking")
+            val fragment = AppointmentDetailFragment()
+            val bundle = Bundle().apply {
+                putInt("appointment_id", historyAppointment.id)
+            }
+            fragment.arguments = bundle
+            replace(R.id.fragment_container_view, fragment)
+            addToBackStack("appointment_detail")
             commit()
         }
     }

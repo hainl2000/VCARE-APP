@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -61,6 +62,7 @@ class EditPersonalFragment : Fragment() {
     lateinit var imgUrl: Uri
     lateinit var currentProfile: Profile
     lateinit var file: File
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,6 +99,10 @@ class EditPersonalFragment : Fragment() {
 
         binding.editDob.setOnClickListener {
             showDatePickerDialog()
+        }
+
+        binding.cancelBtn.setOnClickListener {
+            parentFragmentManager.popBackStack()
         }
 
         viewModel.status.observe(viewLifecycleOwner) {

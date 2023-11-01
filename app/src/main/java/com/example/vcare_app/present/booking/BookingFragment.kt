@@ -1,10 +1,12 @@
 package com.example.vcare_app.present.booking
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -48,14 +50,38 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_booking, container, false)
+        val searchingText = view.findViewById<EditText>(R.id.search_booking_text)
+
         viewModel = ViewModelProvider(this)[BookingFragmentViewModel::class.java]
         val doctorRecyclerView = view.findViewById<RecyclerView>(R.id.department_recyclerView)
         val adapter = DepartmentAdapter(emptyList(), this)
         doctorRecyclerView.adapter = adapter
 
         val hospitalId = arguments?.getInt("hospital_id") ?: 0
-        Log.d("HospitalId", "$hospitalId")
         viewModel.getDepartmentList(hospitalId)
+
+        searchingText.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val newList = viewModel.searchBooking(s.toString())
+                    adapter.setData(newList)
+                }
+
+            }
+        )
 
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
