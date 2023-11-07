@@ -47,6 +47,8 @@
     <string name="information">Thông tin: </string>
     <string name="department">Khoa: </string>
     <string name="doctor">Bác sĩ: </string>
-    <string name="detail_appointment_title">Thông tin cuộc hẹn</string>
+    <string name="detail_appointment_title">Thông tin</string>
     <string name="ok">OK</string>
+    <string name="symptom">Triệu chứng: </string>
+    <string name="symptom_input">Nhập triệu chứng: </string>
 </resources>

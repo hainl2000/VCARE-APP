@@ -54,9 +54,6 @@ class AppointmentDetailFragment : Fragment() {
             binding.appointment = it
         }
 
-        binding.backBtn.setOnClickListener {
-            activityViewModel.changeTab(0)
-        }
 
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {

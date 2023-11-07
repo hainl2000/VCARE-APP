@@ -81,6 +81,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_booking_btn"
                         android:layout_width="80dp"
                         android:layout_height="110dp"
                         android:layout_margin="8dp"
@@ -92,18 +93,19 @@
                             android:layout_gravity="center"
                             android:background="@drawable/button_item_bg"
                             android:padding="8dp"
-                            android:src="@drawable/calendar_icon" />
+                            android:src="@drawable/booking_icon" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:maxLines="2"
-                            android:text="Hellofrfe"
+                            android:text="@string/booking"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_notification_btn"
                         android:layout_width="80dp"
                         android:layout_height="110dp"
                         android:layout_margin="8dp"
@@ -115,7 +117,7 @@
                             android:layout_gravity="center"
                             android:background="@drawable/button_item_bg"
                             android:padding="8dp"
-                            android:src="@drawable/hospital_icon" />
+                            android:src="@drawable/notification_green_icon" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -123,11 +125,12 @@
                             android:gravity="center"
                             android:maxLines="2"
 
-                            android:text="QR"
+                            android:text="@string/notification"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/home_personal_btn"
                         android:layout_width="80dp"
                         android:layout_height="110dp"
                         android:layout_margin="8dp"
@@ -139,7 +142,7 @@
                             android:layout_gravity="center"
                             android:background="@drawable/button_item_bg"
                             android:padding="8dp"
-                            android:src="@drawable/hospital_icon" />
+                            android:src="@drawable/person_green_icon" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -147,89 +150,89 @@
                             android:gravity="center"
                             android:maxLines="2"
 
-                            android:text="QR"
+                            android:text="@string/personal"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="110dp"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="110dp"-->
+<!--                        android:layout_margin="8dp"-->
+<!--                        android:orientation="vertical">-->
 
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/button_item_bg"
-                            android:padding="8dp"
-                            android:src="@drawable/qr_code_icon" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/button_item_bg"-->
+<!--                            android:padding="8dp"-->
+<!--                            android:src="@drawable/qr_code_icon" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:maxLines="2"
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:maxLines="2"-->
 
-                            android:text="QR"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+<!--                            android:text="QR"-->
+<!--                            android:textSize="15sp" />-->
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="110dp"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="110dp"-->
+<!--                        android:layout_margin="8dp"-->
+<!--                        android:orientation="vertical">-->
 
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/button_item_bg"
-                            android:padding="8dp"
-                            android:src="@drawable/calendar_icon" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/button_item_bg"-->
+<!--                            android:padding="8dp"-->
+<!--                            android:src="@drawable/calendar_icon" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="Hellofrfe"
-                            android:textSize="15sp" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:maxLines="2"-->
+<!--                            android:text="Hellofrfe"-->
+<!--                            android:textSize="15sp" />-->
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="80dp"
-                        android:layout_height="110dp"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="110dp"-->
+<!--                        android:layout_margin="8dp"-->
+<!--                        android:orientation="vertical">-->
 
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/button_item_bg"
-                            android:padding="8dp"
-                            android:src="@drawable/hospital_icon" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/button_item_bg"-->
+<!--                            android:padding="8dp"-->
+<!--                            android:src="@drawable/hospital_icon" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:maxLines="2"
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:maxLines="2"-->
 
-                            android:text="QR"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-                </LinearLayout>
+<!--                            android:text="QR"-->
+<!--                            android:textSize="15sp" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
             </GridLayout>
 
             <LinearLayout

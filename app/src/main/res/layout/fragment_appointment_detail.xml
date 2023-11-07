@@ -24,8 +24,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/app_background_screen"
-                app:title="@string/detail_appointment_title"
-                app:titleTextColor="@color/white">
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_appointment_title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_big_title_size" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="12dp"
+                        android:text="@{appointment.timeInString}"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -36,124 +58,97 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="6dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/email"-->
+                <!--                        android:textColor="@color/strong_green"-->
+                <!--                        android:textSize="@dimen/text_small_title_size"-->
+                <!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="@{appointment.patientInformation.email}"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="12dp"-->
+                <!--                        android:text="@{appointment.patientInformation.email}"-->
+                <!--                        android:textSize="@dimen/text_small_title_size" />-->
+                <!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/phone"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="6dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.patientInformation.phone}"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/full_name"-->
+                <!--                        android:textColor="@color/strong_green"-->
+                <!--                        android:textSize="@dimen/text_small_title_size"-->
+                <!--                        android:textStyle="bold" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="12dp"-->
+                <!--                        android:text="@{appointment.patientInformation.fullName}"-->
+                <!--                        android:textSize="@dimen/text_small_title_size" />-->
+                <!--                </LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/full_name"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.patientInformation.fullName}"
-                        android:textSize="18sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/identity_number"-->
+<!--                        android:textColor="@color/strong_green"-->
+<!--                        android:textSize="@dimen/text_small_title_size"-->
+<!--                        android:textStyle="bold" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="12dp"-->
+<!--                        android:text="@{appointment.patientInformation.identityNumber}"-->
+<!--                        android:textSize="@dimen/text_small_title_size" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/identity_number"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+<!--                </LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.patientInformation.identityNumber}"
-                        android:textSize="18sp" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp">-->
 
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/social_insurance_number"-->
+<!--                        android:textColor="@color/strong_green"-->
+<!--                        android:textSize="@dimen/text_small_title_size"-->
+<!--                        android:textStyle="bold" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="12dp"-->
+<!--                        android:text="@{appointment.patientInformation.socialInsuranceNumber}"-->
+<!--                        android:textSize="@dimen/text_small_title_size" />-->
+<!--                </LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/social_insurance_number"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.patientInformation.socialInsuranceNumber}"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="@color/weak_green" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@{appointment.timeInString}"
-                    android:textColor="@color/grey"
-                    android:textSize="20sp" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginVertical="12dp"-->
+<!--                    android:background="@color/weak_green" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -165,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/status"
                         android:textColor="@color/strong_green"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_small_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -173,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:text="@{appointment.finished?`Đã xong`:`Chưa hoàn thành`}"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -187,15 +182,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/paid_type"
                         android:textColor="@color/strong_green"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_small_title_size"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:text="@{appointment.feePaid?`Miễn phí`:`Có phí`}"
-                        android:textSize="18sp" />
+                        android:text="@{appointment.feePaid?`Có phí`:`Miễn phí`}"
+                        android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -208,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/paid_fee"
                         android:textColor="@color/strong_green"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_small_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -216,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:text="@{String.valueOf(appointment.fee)}"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -229,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/hospital"
                         android:textColor="@color/strong_green"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_small_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -237,78 +232,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:text="@{appointment.hospital.name}"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/information"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.hospital.information}"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/phone"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.hospital.phone}"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address"
-                        android:textColor="@color/strong_green"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.hospital.address}"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="@color/weak_green" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -319,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/department"
                         android:textColor="@color/strong_green"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_small_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -327,7 +252,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:text="@{appointment.department.name}"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -340,7 +265,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/doctor"
                         android:textColor="@color/strong_green"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_small_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -348,20 +273,112 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:text="@{appointment.doctor}"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/text_small_title_size" />
+                </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/information"-->
+<!--                        android:textColor="@color/strong_green"-->
+<!--                        android:textSize="@dimen/text_small_title_size"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="12dp"-->
+<!--                        android:text="@{appointment.hospital.information}"-->
+<!--                        android:textSize="@dimen/text_small_title_size" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/phone"-->
+<!--                        android:textColor="@color/strong_green"-->
+<!--                        android:textSize="@dimen/text_small_title_size"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="12dp"-->
+<!--                        android:text="@{appointment.hospital.phone}"-->
+<!--                        android:textSize="@dimen/text_small_title_size" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/address"-->
+<!--                        android:textColor="@color/strong_green"-->
+<!--                        android:textSize="@dimen/text_small_title_size"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginLeft="12dp"-->
+<!--                        android:text="@{appointment.hospital.address}"-->
+<!--                        android:textSize="@dimen/text_small_title_size" />-->
+<!--                </LinearLayout>-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/weak_green" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/symptom"
+                        android:textColor="@color/strong_green"
+                        android:textSize="@dimen/text_small_title_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:text="@{appointment.medicalCondition}"
+                        android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/app_button_background_clicked"
-                android:paddingHorizontal="56dp"
-                android:text="@string/ok"
-                android:textColor="@color/white" />
+            <!--            <androidx.appcompat.widget.AppCompatButton-->
+            <!--                android:id="@+id/back_btn"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:layout_marginTop="24dp"-->
+            <!--                android:layout_marginBottom="24dp"-->
+            <!--                android:background="@drawable/app_button_background_clicked"-->
+            <!--                android:paddingHorizontal="56dp"-->
+            <!--                android:text="@string/ok"-->
+            <!--                android:textColor="@color/white" />-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

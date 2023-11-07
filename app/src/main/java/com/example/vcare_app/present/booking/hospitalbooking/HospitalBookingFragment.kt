@@ -121,6 +121,7 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
             bookingFragment.arguments = bundle
             replace(R.id.fragment_container_view, bookingFragment)
             addToBackStack("hospital_booking")
+            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
             commit()
         }
     }

@@ -128,7 +128,9 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         AppointmentFlow.hospital_id = department.hospitalID
         AppointmentFlow.apartment_name = department.name
         parentFragmentManager.beginTransaction().apply {
+            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
             replace(R.id.fragment_container_view, AppointmentFragment())
+
 //            addToBackStack("booking_department")
             commit()
         }

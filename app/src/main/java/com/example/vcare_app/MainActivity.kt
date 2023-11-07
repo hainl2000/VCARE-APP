@@ -2,7 +2,6 @@ package com.example.vcare_app
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.base.BaseActivity
 import com.example.vcare_app.present.booking.hospitalbooking.HospitalBookingFragment
@@ -17,7 +16,9 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             add(R.id.fragment_container_view, HomeFragment())
+
             commit()
         }
         viewModel.currentTab.observe(this) {
@@ -70,9 +71,9 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
     private fun fragmentNavigation(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             replace(R.id.fragment_container_view, fragment)
             commit()
         }
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 }

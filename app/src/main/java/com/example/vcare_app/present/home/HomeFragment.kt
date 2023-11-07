@@ -2,16 +2,16 @@ package com.example.vcare_app.present.home
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.vcare_app.MainActivityViewModel
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.NewsAdapter
 import com.example.vcare_app.adapter.ViewPagerAdapter
+import com.example.vcare_app.databinding.FragmentHomeBinding
 import com.example.vcare_app.model.News
 import com.example.vcare_app.onclickinterface.OnCardItemClick
 import java.util.Timer
@@ -41,39 +41,56 @@ class HomeFragment : Fragment(), OnCardItemClick {
         }
     }
 
-    private lateinit var viewPager2: ViewPager2
     private lateinit var handler: Handler
     private lateinit var timer: Timer
 
+    lateinit var binding: FragmentHomeBinding
+    lateinit var activityViewModel: MainActivityViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        Log.i("Songlai", "Songlai")
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        viewPager2 = view.findViewById<ViewPager2>(R.id.viewpager2)
-        viewPager2.adapter = ViewPagerAdapter(
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater)
+
+        activityViewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
+
+        binding.viewpager2.adapter = ViewPagerAdapter(
             listOf(
                 R.drawable.banner1, R.drawable.banner2, R.drawable.banner3
             )
         )
         startAutoScroll()
 
-        val newsRecyclerView = view.findViewById<RecyclerView>(R.id.news_recycler_view)
+
         val newsRecyclerViewAdapter = NewsAdapter(
             listOf(
                 News("R.drawable.banner1", "Banner1", "whofre are you"),
                 News("R.drawable.banner1", "Banner1", "whoe are you\nfreiushfres"),
-                News("R.drawable.banner1", "Banner1", "who grare you\nfrhuifheirsuhfresf\nfreuygfhuers"),
+                News(
+                    "R.drawable.banner1",
+                    "Banner1",
+                    "who grare you\nfrhuifheirsuhfresf\nfreuygfhuers"
+                ),
                 News("R.drawable.banner1", "Banner1", "who are you"),
                 News("R.drawable.banner1", "Banner1", "who are you")
             ), this
         )
-        newsRecyclerView.apply {
+        binding.newsRecyclerView.apply {
             adapter = newsRecyclerViewAdapter
         }
-        Log.i("Viewpager", "${viewPager2.currentItem}")
-        return view
+
+        binding.homeBookingBtn.setOnClickListener {
+            activityViewModel.changeTab(1)
+        }
+
+        binding.homeNotificationBtn.setOnClickListener {
+            activityViewModel.changeTab(2)
+        }
+        binding.homePersonalBtn.setOnClickListener {
+            activityViewModel.changeTab(3)
+        }
+
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -86,10 +103,10 @@ class HomeFragment : Fragment(), OnCardItemClick {
         timer = Timer()
 
         val scrollRunnable = Runnable {
-            val currentItem = viewPager2.currentItem
-            val totalCount = viewPager2.adapter?.itemCount ?: 0
+            val currentItem = binding.viewpager2.currentItem
+            val totalCount = binding.viewpager2.adapter?.itemCount ?: 0
             val nextItem = (currentItem + 1) % totalCount
-            viewPager2.setCurrentItem(nextItem, true)
+            binding.viewpager2.setCurrentItem(nextItem, true)
         }
 
         timer.scheduleAtFixedRate(object : TimerTask() {

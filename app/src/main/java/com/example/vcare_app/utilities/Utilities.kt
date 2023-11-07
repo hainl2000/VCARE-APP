@@ -21,7 +21,7 @@ class Utilities {
 
 @BindingAdapter("getImage")
 fun getImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context).load(url).error(R.drawable.error_icon).into(imageView)
+    Glide.with(imageView.context).load(url).error(R.drawable.logo_vcare).into(imageView)
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

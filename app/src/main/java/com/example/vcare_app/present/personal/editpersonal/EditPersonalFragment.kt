@@ -75,7 +75,7 @@ class EditPersonalFragment : Fragment() {
         Log.d("TAGG", currentProfile.avatar ?: "")
 
         Glide.with(this).load(currentProfile.avatar)
-            .error(com.example.vcare_app.R.drawable.error_icon).into(binding.editPersonalAvatar)
+            .error(com.example.vcare_app.R.drawable.logo_vcare).into(binding.editPersonalAvatar)
 
         binding.editAvatarBtn.setOnClickListener {
             openGallery()
@@ -172,7 +172,7 @@ class EditPersonalFragment : Fragment() {
                 viewModel.uploadImage(file)
             } else {
                 Glide.with(this).load(currentProfile.avatar)
-                    .error(com.example.vcare_app.R.drawable.error_icon)
+                    .error(com.example.vcare_app.R.drawable.logo_vcare)
                     .into(binding.editPersonalAvatar)
             }
         }

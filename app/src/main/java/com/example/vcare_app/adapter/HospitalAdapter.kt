@@ -1,7 +1,6 @@
 package com.example.vcare_app.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -21,7 +20,7 @@ class HospitalAdapter(private var list: List<Hospital>, val onHospitalClick: OnH
             binding.hospital = hospital
             binding.onClick = onHospitalClick
             Glide.with(binding.hospitalAvatar.context).load(hospital.image)
-                .error(R.drawable.error_icon)
+                .error(R.drawable.logo_vcare)
                 .into(binding.hospitalAvatar)
         }
     }

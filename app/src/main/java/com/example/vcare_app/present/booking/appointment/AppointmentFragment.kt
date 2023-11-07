@@ -105,7 +105,7 @@ class AppointmentFragment : Fragment() {
         }
 
         viewModel.errorMsg.observe(viewLifecycleOwner) {
-            if (it.isNullOrEmpty()) {
+            if (it.isNullOrEmpty() && binding.datePickerBtn.text.isNotEmpty() && binding.timePickerBtn.text.isNotEmpty()) {
                 binding.errorTv.text = ""
                 binding.btnDatKham.visibility = View.VISIBLE
             } else {
@@ -122,7 +122,7 @@ class AppointmentFragment : Fragment() {
                     AppointmentRequest(
                         AppointmentFlow.apartment_id,
                         AppointmentFlow.hospital_id,
-                        AppointmentFlow.medicalCondition,
+                        binding.symptomInput.text.toString(),
                         "$datepick $timepick",
                         viewModel.profile.value?.identityNumber ?: "",
                         viewModel.profile.value?.socialInsuranceNumber ?: "",
@@ -142,18 +142,21 @@ class AppointmentFragment : Fragment() {
                 if (it == LoadingStatus.Success && viewModel.createSuccess.value == true) {
                     SuccessDialog.showDialog(requireContext()) {
                         parentFragmentManager.beginTransaction().apply {
+                            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
                             val fragment = AppointmentDetailFragment()
                             val bundle = Bundle().apply {
                                 putInt("appointment_id", viewModel.appointmentDetail.id)
                             }
                             fragment.arguments = bundle
                             replace(R.id.fragment_container_view, fragment)
+
                             commit()
                         }
                     }
 
                 }
                 if (it == LoadingStatus.Error) {
+                    Toast.makeText(requireContext(),"${viewModel.errorMsg.value}",Toast.LENGTH_LONG).show()
                 }
             }
         }

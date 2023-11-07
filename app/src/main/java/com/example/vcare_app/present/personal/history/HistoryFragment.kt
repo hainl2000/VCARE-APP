@@ -112,6 +112,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
 
     override fun onAppointmentClick(historyAppointment: HistoryAppointment) {
         parentFragmentManager.beginTransaction().apply {
+            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
             val fragment = AppointmentDetailFragment()
             val bundle = Bundle().apply {
                 putInt("appointment_id", historyAppointment.id)

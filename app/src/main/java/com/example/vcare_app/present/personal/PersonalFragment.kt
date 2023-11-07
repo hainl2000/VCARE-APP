@@ -70,7 +70,7 @@ class PersonalFragment : Fragment(), OnSettingClick {
         viewModel.userProfile.observe(viewLifecycleOwner) {
             binding.userProfile = it
             Glide.with(this).load(it.avatar)
-                .error(R.drawable.error_icon)
+                .error(R.drawable.logo_vcare)
                 .into(binding.circleImageView)
         }
 
@@ -113,6 +113,7 @@ class PersonalFragment : Fragment(), OnSettingClick {
         when (settings.title) {
             resources.getString(R.string.edit) -> {
                 parentFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                     val editFragment = EditPersonalFragment()
                     val bundle = Bundle().apply {
                         putSerializable("data", viewModel.userProfile.value)
@@ -120,17 +121,20 @@ class PersonalFragment : Fragment(), OnSettingClick {
                     editFragment.arguments = bundle
                     replace(R.id.fragment_container_view, editFragment)
                     addToBackStack("edit_personal")
+
                     commit()
                 }
             }
 
             resources.getString(R.string.history) -> {
                 parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container_view,HistoryFragment())
+                    setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+                    replace(R.id.fragment_container_view, HistoryFragment())
                     addToBackStack("history")
                     commit()
                 }
             }
+
             resources.getString(R.string.change_password) -> {}
             resources.getString(R.string.logout) -> {
                 val intent = Intent(requireActivity(), LoginActivity::class.java)
