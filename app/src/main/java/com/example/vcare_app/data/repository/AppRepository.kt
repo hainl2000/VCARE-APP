@@ -37,11 +37,13 @@ class AppRepository(private val apiService: ApiService) {
 
     fun uploadImage(file: MultipartBody.Part) = apiService.uploadImage(file)
 
-    fun createAppointment(appointmentRequest: AppointmentRequest) = apiService.createAppointment(appointmentRequest)
+    fun createAppointment(appointmentRequest: AppointmentRequest) =
+        apiService.createAppointment(appointmentRequest)
 
-    fun getHistoryAppointment() = apiService.getAppointmentHistory()
+    fun getHistoryAppointment(pageSize: Int, pageIndex: Int) =
+        apiService.getAppointmentHistory(pageSize, pageIndex)
 
-    fun getAppointmentDetail(id:Int) = apiService.getAppointment(id)
+    fun getAppointmentDetail(id: Int) = apiService.getAppointment(id)
     fun getDoctor() = listOf(
         Doctor(
             "Tran cong huu",

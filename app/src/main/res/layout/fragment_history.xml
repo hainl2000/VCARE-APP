@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".present.personal.history.HistoryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <EditText
-            android:background="@drawable/button_item_bg"
             android:id="@+id/search_appointment_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/button_item_bg"
+            android:drawableStart="@drawable/search_icon"
             android:hint="@string/search"
-            android:inputType="text"
-            android:drawableStart="@drawable/search_icon" />
+            android:inputType="text" />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appointment_history_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginTop="12dp"
+
+    <ProgressBar
+        android:id="@+id/progress_load_more"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/appointment_history_recycler_view"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp" />
 
-
-</LinearLayout>
+</RelativeLayout>

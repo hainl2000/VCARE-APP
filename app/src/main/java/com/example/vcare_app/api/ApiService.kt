@@ -57,5 +57,5 @@ interface ApiService {
     fun getAppointment(@Path("id") id: Int): Single<AppointmentDetailResponse>
 
     @GET("appointment")
-    fun getAppointmentHistory(): Single<HistoryResponse>
+    fun getAppointmentHistory(@Query("pageSize") pageSize: Int,@Query("pageIndex") pageIndex: Int): Single<HistoryResponse>
 }

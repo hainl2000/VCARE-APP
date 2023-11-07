@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.response.HistoryAppointment
@@ -17,6 +19,7 @@ import com.example.vcare_app.onclickinterface.OnAppointmentClick
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
+import com.example.vcare_app.utilities.PaginationScrollListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,8 +54,9 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
         viewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
         val recyclerView = view.findViewById<RecyclerView>(R.id.appointment_history_recycler_view)
         val searchAppointment = view.findViewById<EditText>(R.id.search_appointment_text)
+        val loadMoreStatus = view.findViewById<ProgressBar>(R.id.progress_load_more)
         val adapter = HistoryAppointmentAdapter(emptyList(), this)
-        viewModel.getHistory()
+        viewModel.getHistory( )
         searchAppointment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -71,7 +75,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
 
         recyclerView.adapter = adapter
         viewModel.listAppointment.observe(viewLifecycleOwner) {
-            adapter.updateData(it.data)
+            adapter.updateData(it)
         }
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
@@ -87,6 +91,28 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
                 }
             }
         }
+        viewModel.loadMoreStatus.observe(viewLifecycleOwner){
+            if (it){
+                loadMoreStatus.visibility = View.VISIBLE
+            }else{
+                loadMoreStatus.visibility = View.GONE
+            }
+        }
+        recyclerView.addOnScrollListener(object :
+            PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            override fun loadMoreItems() {
+                viewModel.loadMoreHistory()
+            }
+
+            override fun isLastPage(): Boolean {
+                return viewModel.isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return viewModel.loadMoreStatus.value ?: false
+            }
+
+        })
         return view
     }
 
@@ -112,7 +138,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
 
     override fun onAppointmentClick(historyAppointment: HistoryAppointment) {
         parentFragmentManager.beginTransaction().apply {
-            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             val fragment = AppointmentDetailFragment()
             val bundle = Bundle().apply {
                 putInt("appointment_id", historyAppointment.id)
