@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="6dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".present.booking.hospitalbooking.HospitalBookingFragment">
+
     <LinearLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
-            android:background="@drawable/button_item_bg"
             android:id="@+id/search_hospital_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/button_item_bg"
+            android:drawableStart="@drawable/search_icon"
             android:hint="@string/search"
-            android:inputType="text"
-            android:drawableStart="@drawable/search_icon" />
+            android:inputType="text" />
 
 
     </LinearLayout>
 
 
-
-
-
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hospital_recycler_view"
         android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_height="match_parent"
-        android:id="@+id/hospital_recycler_view"/>
+        android:layout_below="@+id/search_layout"
+        android:layout_marginTop="12dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/load_more_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="24dp" />
+</RelativeLayout>

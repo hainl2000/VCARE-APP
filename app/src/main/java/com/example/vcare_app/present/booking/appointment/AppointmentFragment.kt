@@ -64,7 +64,7 @@ class AppointmentFragment : Fragment() {
         binding.timePickerBtn.setOnClickListener {
             TimePickerDialog(
                 requireContext(), // Your context, typically an Activity or Fragment
-                { view, hourOfDay, minute ->
+                { _, hourOfDay, minute ->
                     if ((hourOfDay >= AppointmentFlow.startAtAm && hourOfDay < AppointmentFlow.endAtAm) || (hourOfDay >= AppointmentFlow.startAtPm && hourOfDay < AppointmentFlow.endAtPm)) {
                         val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
                         binding.timePickerBtn.text = selectedTime
@@ -84,7 +84,7 @@ class AppointmentFragment : Fragment() {
         binding.datePickerBtn.setOnClickListener {
             DatePickerDialog(
                 requireActivity(), // Context
-                { view, year, month, dayOfMonth ->
+                { _, year, month, dayOfMonth ->
                     if (currentYear < year || (currentYear == year && month > currentMonth) || (currentYear == year && month == currentMonth && currentDay < dayOfMonth)) {
                         val selectedDate =
                             String.format("%02d-%02d-%02d", year, month + 1, dayOfMonth)
@@ -149,14 +149,11 @@ class AppointmentFragment : Fragment() {
                             }
                             fragment.arguments = bundle
                             replace(R.id.fragment_container_view, fragment)
-
+                            addToBackStack("detail_appointment")
                             commit()
                         }
                     }
 
-                }
-                if (it == LoadingStatus.Error) {
-                    Toast.makeText(requireContext(),"${viewModel.errorMsg.value}",Toast.LENGTH_LONG).show()
                 }
             }
         }

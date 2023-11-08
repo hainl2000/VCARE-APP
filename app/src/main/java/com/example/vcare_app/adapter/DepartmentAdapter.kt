@@ -27,7 +27,7 @@ class DepartmentAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.department_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_department, parent, false)
         return DoctorViewHolder(view)
     }
 

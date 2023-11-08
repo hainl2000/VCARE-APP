@@ -51,4 +51,7 @@
     <string name="ok">OK</string>
     <string name="symptom">Triệu chứng: </string>
     <string name="symptom_input">Nhập triệu chứng: </string>
+    <string name="conclusion">Kết luận: </string>
+    <string name="sos">SOS</string>
+    <string name="qr">QR</string>
 </resources>

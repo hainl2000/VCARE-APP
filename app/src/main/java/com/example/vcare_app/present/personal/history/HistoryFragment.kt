@@ -56,7 +56,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
         val searchAppointment = view.findViewById<EditText>(R.id.search_appointment_text)
         val loadMoreStatus = view.findViewById<ProgressBar>(R.id.progress_load_more)
         val adapter = HistoryAppointmentAdapter(emptyList(), this)
-        viewModel.getHistory( )
+        viewModel.getHistory()
         searchAppointment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -91,10 +91,10 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
                 }
             }
         }
-        viewModel.loadMoreStatus.observe(viewLifecycleOwner){
-            if (it){
+        viewModel.loadMoreStatus.observe(viewLifecycleOwner) {
+            if (it) {
                 loadMoreStatus.visibility = View.VISIBLE
-            }else{
+            } else {
                 loadMoreStatus.visibility = View.GONE
             }
         }
@@ -105,7 +105,8 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
             }
 
             override fun isLastPage(): Boolean {
-                return viewModel.isLastPage
+                return if (recyclerView.adapter?.itemCount == null) false
+                else recyclerView.adapter?.itemCount!! >= viewModel.totalCount
             }
 
             override fun isLoading(): Boolean {
@@ -138,7 +139,12 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
 
     override fun onAppointmentClick(historyAppointment: HistoryAppointment) {
         parentFragmentManager.beginTransaction().apply {
-            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+            setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.slide_out,
+                R.anim.slide_in,
+                R.anim.slide_out
+            )
             val fragment = AppointmentDetailFragment()
             val bundle = Bundle().apply {
                 putInt("appointment_id", historyAppointment.id)

@@ -8,9 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.HospitalAdapter
@@ -19,6 +21,7 @@ import com.example.vcare_app.onclickinterface.OnHospitalClick
 import com.example.vcare_app.present.booking.BookingFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
+import com.example.vcare_app.utilities.PaginationScrollListener
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,14 +55,38 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
         viewModel = ViewModelProvider(this)[HospitalBookingViewModel::class.java]
         val recyclerView = view.findViewById<RecyclerView>(R.id.hospital_recycler_view)
         val searchText = view.findViewById<EditText>(R.id.search_hospital_text)
+        val loadMoreProgressBar = view.findViewById<ProgressBar>(R.id.load_more_progress)
         val adapter = HospitalAdapter(emptyList(), this)
         recyclerView.adapter = adapter
 
-        viewModel.getHospitalList()
 
+
+        recyclerView.addOnScrollListener(object :
+            PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            override fun loadMoreItems() {
+                viewModel.loadMoreHospital()
+            }
+
+            override fun isLastPage(): Boolean {
+                return recyclerView.adapter?.itemCount!! >= viewModel.totalcount
+            }
+
+            override fun isLoading(): Boolean {
+                return viewModel.loadMoreStatus.value ?: false
+            }
+
+        })
 
         viewModel.listHospital.observe(viewLifecycleOwner) {
             adapter.setData(it)
+            Log.d("TAG", it.joinToString())
+        }
+        viewModel.loadMoreStatus.observe(viewLifecycleOwner) {
+            if (it) {
+                loadMoreProgressBar.visibility = View.VISIBLE
+            } else {
+                loadMoreProgressBar.visibility = View.GONE
+            }
         }
         searchText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -92,6 +119,11 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
         return view.rootView
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getHospitalList()
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -121,7 +153,7 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
             bookingFragment.arguments = bundle
             replace(R.id.fragment_container_view, bookingFragment)
             addToBackStack("hospital_booking")
-            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             commit()
         }
     }

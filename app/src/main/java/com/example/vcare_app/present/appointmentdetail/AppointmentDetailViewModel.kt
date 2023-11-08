@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
 import com.example.vcare_app.api.api_model.response.AppointmentDetailResponse
+import com.example.vcare_app.api.api_model.response.ConclusionResponse
 import com.example.vcare_app.base.BaseViewModel
 import com.example.vcare_app.data.repository.AppRepository
 import com.example.vcare_app.utilities.LoadingStatus
@@ -15,18 +16,24 @@ class AppointmentDetailViewModel : BaseViewModel() {
     private val _appointmentDetailResponse = MutableLiveData<AppointmentDetailResponse>()
     val appointmentDetailResponse: LiveData<AppointmentDetailResponse> get() = _appointmentDetailResponse
 
+    private val _listConclusion = MutableLiveData<List<ConclusionResponse>>(emptyList())
+    val listConclusion: LiveData<List<ConclusionResponse>> get() = _listConclusion
+
+    fun getListConclusion(){
+        _listConclusion.postValue(repository.getConclusion())
+    }
     fun getAppointmentDetail(id: Int) {
         compositeDisposable.add(repository.getAppointmentDetail(id)
             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).doOnSubscribe {
-            status.postValue(LoadingStatus.Loading)
-        }.subscribe(
-            {
-                status.postValue(LoadingStatus.Success)
-                _appointmentDetailResponse.postValue(it)
-            }, {
-                errorMsg.postValue(handleError(it))
-                status.postValue(LoadingStatus.Error)
-            }
-        ))
+                status.postValue(LoadingStatus.Loading)
+            }.subscribe(
+                {
+                    status.postValue(LoadingStatus.Success)
+                    _appointmentDetailResponse.postValue(it)
+                }, {
+                    errorMsg.postValue(handleError(it))
+                    status.postValue(LoadingStatus.Error)
+                }
+            ))
     }
 }

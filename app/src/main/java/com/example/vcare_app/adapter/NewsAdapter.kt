@@ -22,7 +22,7 @@ class NewsAdapter(private val listNews: List<News>, val onCardItemClick: OnCardI
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.news_card_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_news_card, parent, false)
         return NewsViewHolder(view)
     }
 

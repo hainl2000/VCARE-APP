@@ -130,8 +130,7 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         parentFragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
             replace(R.id.fragment_container_view, AppointmentFragment())
-
-//            addToBackStack("booking_department")
+            addToBackStack("booking_department")
             commit()
         }
     }

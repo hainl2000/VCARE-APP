@@ -40,7 +40,7 @@ class BookingFragmentViewModel : BaseViewModel() {
 
     fun searchBooking(searchText: String): List<Department> {
         val newList = _listDepartment.value?.filter {
-            it.name.toLowerCase(Locale.ROOT).contains(searchText)
+            it.name.lowercase(Locale.ROOT).contains(searchText)
         }
         return newList ?: emptyList()
     }

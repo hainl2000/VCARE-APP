@@ -62,6 +62,7 @@ class EditPersonalFragment : Fragment() {
     lateinit var imgUrl: Uri
     lateinit var currentProfile: Profile
     lateinit var file: File
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -166,7 +167,7 @@ class EditPersonalFragment : Fragment() {
                 binding.editPersonalAvatar.setImageURI(imgUrl)
                 val contentUri = it
                 val filePath = getFileFromContentUri(requireContext(), contentUri)
-                file = File(filePath)
+                file = File(filePath ?: "")
 
                 Log.e("Error", file.path)
                 viewModel.uploadImage(file)
@@ -206,11 +207,11 @@ class EditPersonalFragment : Fragment() {
         val day = cal.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(
             requireContext(),
-            { view, year, month, dayOfMonth ->
+            { _, mYear, mMonth, dayOfMonth ->
                 val formattedDate = String.format(
                     "%04d-%02d-%02d",
-                    year,
-                    month,
+                    mYear,
+                    mMonth,
                     dayOfMonth
                 )// Format the date as needed
                 binding.editDob.text = formattedDate

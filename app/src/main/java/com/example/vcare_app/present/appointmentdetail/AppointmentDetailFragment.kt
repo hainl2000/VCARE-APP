@@ -8,7 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.MainActivityViewModel
+import com.example.vcare_app.adapter.ConclusionAdapter
+import com.example.vcare_app.api.api_model.response.ConclusionResponse
 import com.example.vcare_app.databinding.FragmentAppointmentDetailBinding
+import com.example.vcare_app.onclickinterface.OnConclusionClick
+import com.example.vcare_app.utilities.FullScreenImageFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -22,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AppointmentDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AppointmentDetailFragment : Fragment() {
+class AppointmentDetailFragment : Fragment(), OnConclusionClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -49,6 +53,7 @@ class AppointmentDetailFragment : Fragment() {
         activityViewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
         val data = arguments?.getInt("appointment_id") ?: 0
         viewModel.getAppointmentDetail(data)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.appointmentDetailResponse.observe(viewLifecycleOwner) {
             binding.appointment = it
@@ -70,7 +75,18 @@ class AppointmentDetailFragment : Fragment() {
             }
         }
 
+        val conclusionAdapter = ConclusionAdapter(emptyList(),this)
+        binding.conclusionImageRecyclerView.adapter = conclusionAdapter
+        viewModel.listConclusion.observe(viewLifecycleOwner){
+            conclusionAdapter.updateData(it)
+        }
+
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getListConclusion()
     }
 
     companion object {
@@ -91,5 +107,10 @@ class AppointmentDetailFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onConclusionClick(conclusionResponse: ConclusionResponse) {
+        val fullScreenImageFragment = FullScreenImageFragment.newInstance(conclusionResponse.img)
+        fullScreenImageFragment.show(parentFragmentManager,"fullscreenImg")
     }
 }

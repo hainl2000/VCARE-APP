@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.api.api_model.response.HistoryAppointment
-import com.example.vcare_app.databinding.HistoryAppointmentItemBinding
+import com.example.vcare_app.databinding.ItemHistoryAppointmentBinding
 import com.example.vcare_app.onclickinterface.OnAppointmentClick
 
 class HistoryAppointmentAdapter(
@@ -12,7 +12,7 @@ class HistoryAppointmentAdapter(
     val onAppointmentClick: OnAppointmentClick
 ) :
     RecyclerView.Adapter<HistoryAppointmentAdapter.HistoryAppointmentViewHolder>() {
-    inner class HistoryAppointmentViewHolder(val binding: HistoryAppointmentItemBinding) :
+    inner class HistoryAppointmentViewHolder(val binding: ItemHistoryAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(historyAppointment: HistoryAppointment) {
             binding.history = historyAppointment
@@ -29,7 +29,7 @@ class HistoryAppointmentAdapter(
         parent: ViewGroup,
         viewType: Int
     ): HistoryAppointmentViewHolder {
-        val binding = HistoryAppointmentItemBinding.inflate(
+        val binding = ItemHistoryAppointmentBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

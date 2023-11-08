@@ -18,11 +18,10 @@ class HistoryViewModel : BaseViewModel() {
     private val _loadMoreStatus = MutableLiveData(false)
     val loadMoreStatus: LiveData<Boolean> get() = _loadMoreStatus
 
-    var isLastPage = false
 
     private val pageSize = 10
     private var pageIndex = 1
-
+    var totalCount = 0
     fun getHistory(listPageSize: Int = pageSize, listPageIndex: Int = pageIndex) {
         compositeDisposable.add(repository.getHistoryAppointment(
             pageSize = listPageSize,
@@ -32,6 +31,7 @@ class HistoryViewModel : BaseViewModel() {
                 status.postValue(LoadingStatus.Loading)
             }.subscribe(
                 {
+                    totalCount = it.total
                     status.postValue(LoadingStatus.Success)
                     _listAppointment.postValue(it.data)
                 }, {
@@ -51,9 +51,6 @@ class HistoryViewModel : BaseViewModel() {
                     _loadMoreStatus.postValue(false)
                     val currentList = _listAppointment.value?.toMutableList() ?: mutableListOf()
                     currentList.addAll(it.data)
-                    if (currentList.size >= it.total) {
-                        isLastPage = true
-                    }
                     _listAppointment.postValue(currentList)
                 }, {
                     _loadMoreStatus.postValue(false)
@@ -64,7 +61,7 @@ class HistoryViewModel : BaseViewModel() {
 
     fun searchAppointment(name: String): List<HistoryAppointment> {
         val newList = listAppointment.value?.filter {
-            it.hospital.name.toLowerCase().contains(name) || it.department.name.toLowerCase()
+            it.hospital.name.lowercase().contains(name) || it.department.name.lowercase()
                 .contains(name)
         }
         return newList ?: emptyList()

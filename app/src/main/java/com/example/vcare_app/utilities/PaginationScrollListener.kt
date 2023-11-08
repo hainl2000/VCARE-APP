@@ -1,5 +1,6 @@
 package com.example.vcare_app.utilities
 
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -14,6 +15,7 @@ abstract class PaginationScrollListener(private val layoutManager: LinearLayoutM
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                 && firstVisibleItemPosition >= 0
             ) {
+                Log.d("last","${isLastPage()}")
                 loadMoreItems()
             }
         }

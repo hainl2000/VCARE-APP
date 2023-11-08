@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.response.Hospital
-import com.example.vcare_app.databinding.HospitalItemBinding
+import com.example.vcare_app.databinding.ItemHospitalBinding
 import com.example.vcare_app.onclickinterface.OnHospitalClick
 
 class HospitalAdapter(private var list: List<Hospital>, val onHospitalClick: OnHospitalClick) :
     RecyclerView.Adapter<HospitalAdapter.HospitalViewHolder>() {
 
-    lateinit var binding: HospitalItemBinding
+    lateinit var binding: ItemHospitalBinding
 
-    inner class HospitalViewHolder(binding: HospitalItemBinding) :
+    inner class HospitalViewHolder(binding: ItemHospitalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hospital: Hospital, onHospitalClick: OnHospitalClick) {
             binding.hospital = hospital
@@ -31,7 +31,7 @@ class HospitalAdapter(private var list: List<Hospital>, val onHospitalClick: OnH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalViewHolder {
-        binding = HospitalItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemHospitalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HospitalViewHolder(binding)
     }
 

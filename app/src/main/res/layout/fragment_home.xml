@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:maxLines="2"
-                            android:text="QR"
+                            android:text="@string/qr"
                             android:textSize="15sp" />
                     </LinearLayout>
 
@@ -151,6 +151,35 @@
                             android:maxLines="2"
 
                             android:text="@string/personal"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                    <LinearLayout
+                        android:id="@+id/sos_btn"
+                        android:layout_width="80dp"
+                        android:layout_height="110dp"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/button_item_bg"
+                            android:padding="8dp"
+                            android:src="@drawable/sos_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:text="@string/sos"
                             android:textSize="15sp" />
                     </LinearLayout>
 
