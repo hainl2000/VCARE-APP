@@ -2,11 +2,11 @@ package com.example.vcare_app.present.personal.editpersonal
 
 
 import android.Manifest
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -61,11 +62,10 @@ class EditPersonalFragment : Fragment() {
 
     lateinit var binding: FragmentEditPersonalBinding
     private lateinit var viewModel: EditPersonalFragmentViewModel
-    var gender = false
-    var dateOfBirth = ""
-    lateinit var imgUrl: Uri
-    lateinit var currentProfile: Profile
-    lateinit var file: File
+    private var gender = false
+    private lateinit var imgUrl: Uri
+    private lateinit var currentProfile: Profile
+    private lateinit var file: File
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -80,7 +80,7 @@ class EditPersonalFragment : Fragment() {
         Log.d("TAGG", currentProfile.avatar ?: "")
 
         Glide.with(this).load(currentProfile.avatar)
-            .error(com.example.vcare_app.R.drawable.logo_vcare).into(binding.editPersonalAvatar)
+            .error(R.drawable.logo_vcare).into(binding.editPersonalAvatar)
 
         binding.editAvatarBtn.setOnClickListener {
             openGallery()
@@ -132,12 +132,35 @@ class EditPersonalFragment : Fragment() {
     }
 
     private fun openGallery() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
             getLaunch.launch(Manifest.permission.READ_MEDIA_IMAGES)
         } else {
-            getLaunch.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+//            getLaunch.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            getContent.launch(intent)
         }
     }
+
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                if (result.data?.data != null) {
+                    imgUrl = result.data?.data!!
+                    binding.editPersonalAvatar.setImageURI(imgUrl)
+                    Log.e("TAG", "${result.data?.data}")
+                    val contentUri = result.data?.data!!
+                    val filePath = getFileFromContentUri(requireContext(), contentUri)
+                    file = File(filePath ?: "")
+
+                    Log.e("TAG", file.path)
+                    viewModel.uploadImage(file)
+                } else {
+                    Glide.with(this).load(currentProfile.avatar)
+                        .error(R.drawable.logo_vcare)
+                        .into(binding.editPersonalAvatar)
+                }
+            }
+        }
 
     private val getLaunch = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
         if (it) {
@@ -178,6 +201,7 @@ class EditPersonalFragment : Fragment() {
             if (it != null) {
                 imgUrl = it
                 binding.editPersonalAvatar.setImageURI(imgUrl)
+                Log.e("kokoko", "$it")
                 val contentUri = it
                 val filePath = getFileFromContentUri(requireContext(), contentUri)
                 file = File(filePath ?: "")
@@ -186,41 +210,10 @@ class EditPersonalFragment : Fragment() {
                 viewModel.uploadImage(file)
             } else {
                 Glide.with(this).load(currentProfile.avatar)
-                    .error(com.example.vcare_app.R.drawable.logo_vcare)
+                    .error(R.drawable.logo_vcare)
                     .into(binding.editPersonalAvatar)
             }
         }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-
-        when (requestCode) {
-            1 -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        getLaunch.launch(Manifest.permission.READ_MEDIA_IMAGES)
-                    } else {
-                        getLaunch.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    }
-                } else {
-                    CustomInformationDialog.showCustomInformationDialog(
-                        requireContext(),
-                        requireContext().resources.getString(R.string.gallery_permission_denied)
-                    ) {
-                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        val uri = Uri.fromParts("package", requireContext().packageName, null)
-                        intent.data = uri
-                        activity?.startActivity(intent)
-                    }
-                }
-                return super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            }
-        }
-    }
 
     private fun showDatePickerDialog() {
         val cal = Calendar.getInstance()

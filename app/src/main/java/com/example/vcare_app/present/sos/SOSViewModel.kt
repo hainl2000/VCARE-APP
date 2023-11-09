@@ -2,13 +2,13 @@ package com.example.vcare_app.present.sos
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.vcare_app.api.ApiClient
+import com.example.vcare_app.base.BaseViewModel
 import com.example.vcare_app.data.repository.AppRepository
 import com.example.vcare_app.model.NearestHospital
 import com.example.vcare_app.utilities.Utilities
 
-class SOSViewModel : ViewModel() {
+class SOSViewModel : BaseViewModel() {
     val appRepository = AppRepository(apiService = ApiClient.apiService)
     private val _nearestHospital = MutableLiveData<NearestHospital>()
     val nearestHospital: LiveData<NearestHospital> get() = _nearestHospital

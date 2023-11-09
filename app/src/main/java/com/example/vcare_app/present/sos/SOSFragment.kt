@@ -2,8 +2,13 @@ package com.example.vcare_app.present.sos
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -15,10 +20,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.R
 import com.example.vcare_app.databinding.FragmentSOSBinding
 import com.example.vcare_app.utilities.CustomInformationDialog
+import com.example.vcare_app.utilities.LoadingDialogManager
+import com.example.vcare_app.utilities.LoadingStatus
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class SOSFragment : Fragment() {
+class SOSFragment : Fragment(), LocationListener {
 
     companion object {
         fun newInstance() = SOSFragment()
@@ -27,6 +34,7 @@ class SOSFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
     }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -38,14 +46,26 @@ class SOSFragment : Fragment() {
     ) { permissions ->
         when {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                fusedLocationClient.lastLocation.addOnSuccessListener {
-                    viewModel.getNearestHospital(it.latitude, it.longitude)
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+                    val locationManager =
+                        activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null)
+                } else {
+                    fusedLocationClient.lastLocation.addOnSuccessListener {
+                        viewModel.getNearestHospital(it.latitude, it.longitude)
+                    }
                 }
             }
 
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                fusedLocationClient.lastLocation.addOnSuccessListener {
-                    viewModel.getNearestHospital(it.latitude, it.longitude)
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+                    val locationManager =
+                        activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null)
+                } else {
+                    fusedLocationClient.lastLocation.addOnSuccessListener {
+                        viewModel.getNearestHospital(it.latitude, it.longitude)
+                    }
                 }
             }
 
@@ -67,8 +87,9 @@ class SOSFragment : Fragment() {
     private lateinit var viewModel: SOSViewModel
     private lateinit var binding: FragmentSOSBinding
 
-    private var phoneCallNumber = "0"
+    private var phoneCallNumber = "119"
 
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,12 +103,23 @@ class SOSFragment : Fragment() {
         binding.callBtn.setOnClickListener {
             requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
         }
+
+        viewModel.status.observe(viewLifecycleOwner){
+            if(it == LoadingStatus.Loading){
+                LoadingDialogManager.showDialog(requireContext())
+            }else{
+                LoadingDialogManager.dismissLoadingDialog()
+            }
+        }
+
         locationPermissionRequest.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
+
+
 
         viewModel.nearestHospital.observe(viewLifecycleOwner) {
             binding.nearestHospital = it
@@ -122,6 +154,10 @@ class SOSFragment : Fragment() {
         val callIntent = Intent(Intent.ACTION_CALL, Uri.parse(phoneNumber))
         startActivity(callIntent)
 
+    }
+
+    override fun onLocationChanged(location: Location) {
+        viewModel.getNearestHospital(location.latitude, location.longitude)
     }
 
 }
