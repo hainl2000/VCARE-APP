@@ -8,15 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.response.HistoryAppointment
 import com.example.vcare_app.onclickinterface.OnAppointmentClick
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.PaginationScrollListener
@@ -55,7 +56,13 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
         val recyclerView = view.findViewById<RecyclerView>(R.id.appointment_history_recycler_view)
         val searchAppointment = view.findViewById<EditText>(R.id.search_appointment_text)
         val loadMoreStatus = view.findViewById<ProgressBar>(R.id.progress_load_more)
+        val pullToRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.refresh_layout)
         val adapter = HistoryAppointmentAdapter(emptyList(), this)
+
+        pullToRefreshLayout.setOnRefreshListener {
+            viewModel.getHistory()
+            pullToRefreshLayout.isRefreshing = false
+        }
         viewModel.getHistory()
         searchAppointment.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -83,11 +90,8 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Error) {
-                    Toast.makeText(
-                        requireContext(),
-                        "${viewModel.errorMsg.value}",
-                        Toast.LENGTH_LONG
-                    ).show()
+
+                    CustomSnackBar.showCustomSnackbar(view,"${viewModel.errorMsg.value}")
                 }
             }
         }
@@ -150,7 +154,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
                 putInt("appointment_id", historyAppointment.id)
             }
             fragment.arguments = bundle
-            replace(R.id.fragment_container_view, fragment)
+            add(R.id.fragment_container_view, fragment)
             addToBackStack("appointment_detail")
             commit()
         }

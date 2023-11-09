@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +16,7 @@ import com.example.vcare_app.api.api_model.response.Department
 import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.onclickinterface.OnDepartmentItemClick
 import com.example.vcare_app.present.booking.appointment.AppointmentFragment
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -90,11 +90,7 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
                 LoadingDialogManager.dismissLoadingDialog()
             } else if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
                 LoadingDialogManager.dismissLoadingDialog()
-                Toast.makeText(
-                    requireContext(),
-                    "Error: ${viewModel.errorMsg.value}",
-                    Toast.LENGTH_LONG
-                ).show()
+                CustomSnackBar.showCustomSnackbar(view,"${viewModel.errorMsg.value}")
             }
         }
         viewModel.listDepartment.observe(viewLifecycleOwner) {
@@ -130,7 +126,7 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         parentFragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
             replace(R.id.fragment_container_view, AppointmentFragment())
-            addToBackStack("booking_department")
+            addToBackStack("appointment_fragment")
             commit()
         }
     }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -18,6 +17,7 @@ import com.example.vcare_app.onclickinterface.OnSettingClick
 import com.example.vcare_app.present.login.LoginActivity
 import com.example.vcare_app.present.personal.editpersonal.EditPersonalFragment
 import com.example.vcare_app.present.personal.history.HistoryFragment
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -55,7 +55,10 @@ class PersonalFragment : Fragment(), OnSettingClick {
         binding = FragmentPersonalBinding.inflate(inflater)
 
         viewModel = ViewModelProvider(this)[PersonalViewModel::class.java]
-
+        binding.refreshLayoutPersonal.setOnRefreshListener {
+            viewModel.getUserProfile()
+            binding.refreshLayoutPersonal.isRefreshing = false
+        }
         viewModel.getUserProfile()
         val listSetting = listOf(
             SettingsItem(R.drawable.edit_icon, resources.getString(R.string.edit)),
@@ -80,8 +83,7 @@ class PersonalFragment : Fragment(), OnSettingClick {
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
-                    Toast.makeText(requireContext(), "${viewModel.errorMsg}", Toast.LENGTH_LONG)
-                        .show()
+                    CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg}")
                 }
             }
         }
@@ -121,15 +123,13 @@ class PersonalFragment : Fragment(), OnSettingClick {
                     editFragment.arguments = bundle
                     replace(R.id.fragment_container_view, editFragment)
                     addToBackStack("edit_personal")
-
                     commit()
                 }
             }
 
             resources.getString(R.string.history) -> {
                 parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
-                    replace(R.id.fragment_container_view, HistoryFragment())
+                    add(R.id.fragment_container_view, HistoryFragment())
                     addToBackStack("history")
                     commit()
                 }

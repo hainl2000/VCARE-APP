@@ -12,5 +12,6 @@
     <color name="blue_grey">#8CBCE3</color>
     <color name="primary_background">#f9fafc</color>
     <color name="error">#FF0000</color>
+    <color name="snack_bar_background">#FF4A4A</color>
     <color name="transparent">#000000</color>
 </resources>

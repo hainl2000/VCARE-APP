@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +18,7 @@ import com.example.vcare_app.adapter.HospitalAdapter
 import com.example.vcare_app.api.api_model.response.Hospital
 import com.example.vcare_app.onclickinterface.OnHospitalClick
 import com.example.vcare_app.present.booking.BookingFragment
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.PaginationScrollListener
@@ -108,11 +108,7 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
-                    Toast.makeText(
-                        requireContext(),
-                        "${viewModel.errorMsg.value}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    CustomSnackBar.showCustomSnackbar(view,"${viewModel.errorMsg.value}")
                 }
             }
         }

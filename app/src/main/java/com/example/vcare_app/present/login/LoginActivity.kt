@@ -1,22 +1,12 @@
 package com.example.vcare_app.present.login
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.ViewModelProvider
-import com.example.vcare_app.MainActivity
 import com.example.vcare_app.R
 import com.example.vcare_app.base.BaseActivity
-import com.example.vcare_app.base.BaseViewModelFactory
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.present.login.signin.SignInFragment
 import com.example.vcare_app.present.login.signup.SignUpFragment
-import com.example.vcare_app.utilities.LoadingDialogManager
-import com.example.vcare_app.utilities.LoadingStatus
 import com.google.android.material.tabs.TabLayout
 
 class LoginActivity : BaseActivity(R.layout.activity_login) {
@@ -37,6 +27,7 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
                 when (tab?.position) {
                     0 -> {
                         supportFragmentManager.beginTransaction().apply {
+                            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
                             replace(R.id.login_fragment_container, SignInFragment())
                             commit()
                         }
@@ -44,6 +35,7 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
 
                     1 -> {
                         supportFragmentManager.beginTransaction().apply {
+                            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
                             replace(R.id.login_fragment_container, SignUpFragment())
                             commit()
                         }

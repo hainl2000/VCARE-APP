@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.MainActivityViewModel
@@ -16,6 +15,7 @@ import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.databinding.FragmentAppointmentBinding
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
@@ -115,8 +115,7 @@ class AppointmentFragment : Fragment() {
         }
         binding.btnDatKham.setOnClickListener {
             if (viewModel.errorMsg.value?.isNotEmpty() == true) {
-                Toast.makeText(requireContext(), "Hoàn thành yêu cầu trước", Toast.LENGTH_LONG)
-                    .show()
+                CustomSnackBar.showCustomSnackbar(binding.root,"Hoàn thành yêu cầu trước")
             } else {
                 viewModel.createAppointment(
                     AppointmentRequest(
@@ -149,7 +148,6 @@ class AppointmentFragment : Fragment() {
                             }
                             fragment.arguments = bundle
                             replace(R.id.fragment_container_view, fragment)
-                            addToBackStack("detail_appointment")
                             commit()
                         }
                     }

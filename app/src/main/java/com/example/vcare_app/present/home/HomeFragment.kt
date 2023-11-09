@@ -14,6 +14,7 @@ import com.example.vcare_app.adapter.ViewPagerAdapter
 import com.example.vcare_app.databinding.FragmentHomeBinding
 import com.example.vcare_app.model.News
 import com.example.vcare_app.onclickinterface.OnCardItemClick
+import com.example.vcare_app.present.sos.SOSFragment
 import java.util.Timer
 import java.util.TimerTask
 
@@ -87,6 +88,14 @@ class HomeFragment : Fragment(), OnCardItemClick {
         }
         binding.homePersonalBtn.setOnClickListener {
             activityViewModel.changeTab(3)
+        }
+
+        binding.sosBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.fragment_container_view, SOSFragment())
+                addToBackStack("sos")
+                commit()
+            }
         }
 
         return binding.root

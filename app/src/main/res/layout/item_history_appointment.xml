@@ -41,8 +41,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     getImage="@{history.hospital.image}"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/hospital_icon" />
+                    android:layout_height="80dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

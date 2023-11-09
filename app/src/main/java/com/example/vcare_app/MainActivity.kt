@@ -1,6 +1,10 @@
 package com.example.vcare_app
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.base.BaseActivity
@@ -16,6 +20,25 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                OnBackInvokedDispatcher.PRIORITY_DEFAULT
+            ) {
+                Log.d("what","back")
+                supportFragmentManager.popBackStack()
+            }
+        } else {
+            onBackPressedDispatcher.addCallback(
+                this,
+                object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        Log.d("what","back2")
+                        supportFragmentManager.popBackStack()
+                    }
+                })
+        }
+
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             add(R.id.fragment_container_view, HomeFragment())
@@ -46,22 +69,30 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-                    viewModel.changeTab(0)
+                    if (viewModel.currentTab.value != 0) {
+                        viewModel.changeTab(0)
+                    }
                     true
                 }
 
                 R.id.booking -> {
-                    viewModel.changeTab(1)
+                    if (viewModel.currentTab.value != 1) {
+                        viewModel.changeTab(1)
+                    }
                     true
                 }
 
                 R.id.notification -> {
-                    viewModel.changeTab(2)
+                    if (viewModel.currentTab.value != 2) {
+                        viewModel.changeTab(2)
+                    }
                     true
                 }
 
                 R.id.personal -> {
-                    viewModel.changeTab(3)
+                    if (viewModel.currentTab.value != 3) {
+                        viewModel.changeTab(3)
+                    }
                     true
                 }
 
@@ -69,6 +100,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             }
         }
     }
+
+    val allow = false
 
     private fun fragmentNavigation(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {

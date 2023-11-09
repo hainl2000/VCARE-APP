@@ -1,13 +1,13 @@
 package com.example.vcare_app.present.networkerror
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.vcare_app.R
 import com.example.vcare_app.present.login.LoginActivity
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.NetworkCheckUtilities
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -21,7 +21,7 @@ class NetworkErrorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_network_error)
         val btnReconnect = findViewById<TextView>(R.id.reconnect_btn)
-        btnReconnect.setOnClickListener {
+        btnReconnect.setOnClickListener {view->
             NetworkCheckUtilities(this).isInternetAvailable()
                 .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
                 .doOnSubscribe {
@@ -38,7 +38,7 @@ class NetworkErrorActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                     }, {
-                        Toast.makeText(this, "Can not connect", Toast.LENGTH_LONG).show()
+                        CustomSnackBar.showCustomSnackbar(view,"Không thể kết nối",false)
                     }
 
                 )

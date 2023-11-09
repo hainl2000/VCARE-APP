@@ -5,25 +5,29 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
 import com.example.vcare_app.api.api_model.response.Profile
 import com.example.vcare_app.databinding.FragmentEditPersonalBinding
+import com.example.vcare_app.utilities.CustomInformationDialog
+import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
@@ -120,7 +124,7 @@ class EditPersonalFragment : Fragment() {
                 }
                 if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
                     LoadingDialogManager.dismissLoadingDialog()
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_LONG).show()
+                    CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg.value}")
                 }
             }
         }
@@ -139,7 +143,16 @@ class EditPersonalFragment : Fragment() {
         if (it) {
             pickImageLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         } else {
-            Toast.makeText(requireContext(), "Please accept permission", Toast.LENGTH_LONG).show()
+            CustomInformationDialog.showCustomInformationDialog(
+                requireContext(),
+                requireContext().resources.getString(R.string.gallery_permission_denied)
+            ) {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                val uri = Uri.fromParts("package", requireContext().packageName, null)
+                intent.data = uri
+                activity?.startActivity(intent)
+            }
         }
     }
 
@@ -193,7 +206,16 @@ class EditPersonalFragment : Fragment() {
                         getLaunch.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Deo duoc", Toast.LENGTH_LONG).show()
+                    CustomInformationDialog.showCustomInformationDialog(
+                        requireContext(),
+                        requireContext().resources.getString(R.string.gallery_permission_denied)
+                    ) {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        val uri = Uri.fromParts("package", requireContext().packageName, null)
+                        intent.data = uri
+                        activity?.startActivity(intent)
+                    }
                 }
                 return super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             }

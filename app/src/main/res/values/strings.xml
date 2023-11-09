@@ -53,5 +53,9 @@
     <string name="symptom_input">Nhập triệu chứng: </string>
     <string name="conclusion">Kết luận: </string>
     <string name="sos">SOS</string>
+    <string name="call">Gọi điện</string>
     <string name="qr">QR</string>
+    <string name="phone_call_permission_denied">Hãy cho phép quyền được gọi để chúng tôi có thể tạo ra cuộc gọi lúc khẩn cấp.</string>
+    <string name="location_permission_denied">Hãy cho phép quyền được gọi để chúng tôi có thể tìm được bệnh viện gần nhất với bạn.</string>
+    <string name="gallery_permission_denied">Hãy cho phép quyền được truy cập vào thư viện để chúng tôi có thể cập nhật ảnh của bạn</string>
 </resources>
