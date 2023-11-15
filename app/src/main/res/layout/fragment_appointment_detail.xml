@@ -5,15 +5,21 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="argument"
+            type="com.example.vcare_app.model.AppointmentArgument" />
+
         <variable
             name="appointment"
             type="com.example.vcare_app.api.api_model.response.AppointmentDetailResponse" />
     </data>
 
     <androidx.core.widget.NestedScrollView
-        android:background="@color/primary_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/primary_background">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,6 +54,16 @@
                         android:textAlignment="textEnd"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/back_to_home_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/back_to_home"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_information_size"
+                        app:drawableLeftCompat="@drawable/back_icon" />
                 </LinearLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -58,98 +74,27 @@
                 android:layout_margin="8dp"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
 
-                <!--                <LinearLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="6dp">-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/external_code"
+                        android:textColor="@color/strong_green"
+                        android:textSize="@dimen/text_big_title_size"
+                        android:textStyle="bold" />
 
-                <!--                    <TextView-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:text="@string/email"-->
-                <!--                        android:textColor="@color/strong_green"-->
-                <!--                        android:textSize="@dimen/text_small_title_size"-->
-                <!--                        android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@{appointment.externalCode}"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-                <!--                    <TextView-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_marginStart="12dp"-->
-                <!--                        android:text="@{appointment.patientInformation.email}"-->
-                <!--                        android:textSize="@dimen/text_small_title_size" />-->
-                <!--                </LinearLayout>-->
-
-
-                <!--                <LinearLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="6dp">-->
-
-                <!--                    <TextView-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:text="@string/full_name"-->
-                <!--                        android:textColor="@color/strong_green"-->
-                <!--                        android:textSize="@dimen/text_small_title_size"-->
-                <!--                        android:textStyle="bold" />-->
-
-                <!--                    <TextView-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_marginLeft="12dp"-->
-                <!--                        android:text="@{appointment.patientInformation.fullName}"-->
-                <!--                        android:textSize="@dimen/text_small_title_size" />-->
-                <!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="6dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/identity_number"-->
-<!--                        android:textColor="@color/strong_green"-->
-<!--                        android:textSize="@dimen/text_small_title_size"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="12dp"-->
-<!--                        android:text="@{appointment.patientInformation.identityNumber}"-->
-<!--                        android:textSize="@dimen/text_small_title_size" />-->
-
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="6dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/social_insurance_number"-->
-<!--                        android:textColor="@color/strong_green"-->
-<!--                        android:textSize="@dimen/text_small_title_size"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="12dp"-->
-<!--                        android:text="@{appointment.patientInformation.socialInsuranceNumber}"-->
-<!--                        android:textSize="@dimen/text_small_title_size" />-->
-<!--                </LinearLayout>-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginVertical="12dp"-->
-<!--                    android:background="@color/weak_green" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -167,32 +112,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
                         android:text="@{appointment.finished?`Đã xong`:`Chưa hoàn thành`}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/paid_type"
-                        android:textColor="@color/strong_green"
-                        android:textSize="@dimen/text_small_title_size"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.feePaid?`Có phí`:`Miễn phí`}"
-                        android:textSize="@dimen/text_small_title_size" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -210,7 +134,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
                         android:text="@{String.valueOf(appointment.fee)}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
@@ -231,10 +155,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.hospital.name}"
+                        android:layout_marginStart="12dp"
+                        android:text="@{argument.hospitalName}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -251,8 +176,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.department.name}"
+                        android:layout_marginStart="12dp"
+                        android:text="@{argument.departmentName}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -272,73 +197,73 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:text="@{appointment.doctor}"
+                        android:layout_marginStart="12dp"
+                        android:text="@{appointment.doctor.fullName}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="6dp">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="6dp">-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/information"-->
-<!--                        android:textColor="@color/strong_green"-->
-<!--                        android:textSize="@dimen/text_small_title_size"-->
-<!--                        android:textStyle="bold" />-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/information"-->
+                <!--                        android:textColor="@color/strong_green"-->
+                <!--                        android:textSize="@dimen/text_small_title_size"-->
+                <!--                        android:textStyle="bold" />-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="12dp"-->
-<!--                        android:text="@{appointment.hospital.information}"-->
-<!--                        android:textSize="@dimen/text_small_title_size" />-->
-<!--                </LinearLayout>-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="12dp"-->
+                <!--                        android:text="@{appointment.hospital.information}"-->
+                <!--                        android:textSize="@dimen/text_small_title_size" />-->
+                <!--                </LinearLayout>-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="6dp">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="6dp">-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/phone"-->
-<!--                        android:textColor="@color/strong_green"-->
-<!--                        android:textSize="@dimen/text_small_title_size"-->
-<!--                        android:textStyle="bold" />-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/phone"-->
+                <!--                        android:textColor="@color/strong_green"-->
+                <!--                        android:textSize="@dimen/text_small_title_size"-->
+                <!--                        android:textStyle="bold" />-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="12dp"-->
-<!--                        android:text="@{appointment.hospital.phone}"-->
-<!--                        android:textSize="@dimen/text_small_title_size" />-->
-<!--                </LinearLayout>-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="12dp"-->
+                <!--                        android:text="@{appointment.hospital.phone}"-->
+                <!--                        android:textSize="@dimen/text_small_title_size" />-->
+                <!--                </LinearLayout>-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="6dp">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="6dp">-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/address"-->
-<!--                        android:textColor="@color/strong_green"-->
-<!--                        android:textSize="@dimen/text_small_title_size"-->
-<!--                        android:textStyle="bold" />-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="@string/address"-->
+                <!--                        android:textColor="@color/strong_green"-->
+                <!--                        android:textSize="@dimen/text_small_title_size"-->
+                <!--                        android:textStyle="bold" />-->
 
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginLeft="12dp"-->
-<!--                        android:text="@{appointment.hospital.address}"-->
-<!--                        android:textSize="@dimen/text_small_title_size" />-->
-<!--                </LinearLayout>-->
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginLeft="12dp"-->
+                <!--                        android:text="@{appointment.hospital.address}"-->
+                <!--                        android:textSize="@dimen/text_small_title_size" />-->
+                <!--                </LinearLayout>-->
 
                 <View
                     android:layout_width="match_parent"
@@ -363,39 +288,106 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
                         android:text="@{appointment.medicalCondition}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
-                <TextView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/conclusion"
+                        android:textColor="@color/strong_green"
+                        android:textSize="@dimen/text_small_title_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@{appointment.conclude}"
+                        android:textSize="@dimen/text_small_title_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/note"
+                        android:textColor="@color/strong_green"
+                        android:textSize="@dimen/text_small_title_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@{appointment.note}"
+                        android:textSize="@dimen/text_small_title_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medicine"
+                        android:textColor="@color/strong_green"
+                        android:textSize="@dimen/text_small_title_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="@{appointment.note}"
+                        android:textSize="@dimen/text_small_title_size" />
+                </LinearLayout>
+
+                <com.github.chrisbanes.photoview.PhotoView
+                    android:id="@+id/medicine_img"
+                    getImage="@{appointment.medicine}"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
                     android:layout_marginTop="6dp"
-                    android:textSize="@dimen/text_small_title_size"
+                    android:scaleType="fitXY"
+                    android:visibility="@{appointment.medicine!=null?View.VISIBLE:View.GONE}" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/weak_green" />
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/list_used_service"
                     android:textColor="@color/strong_green"
-                    android:textStyle="bold"
-                    android:text="@string/conclusion"/>
+                    android:textSize="@dimen/text_small_title_size"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/conclusion_image_recycler_view"
-                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"/>
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
-
-            <!--            <androidx.appcompat.widget.AppCompatButton-->
-            <!--                android:id="@+id/back_btn"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:layout_marginTop="24dp"-->
-            <!--                android:layout_marginBottom="24dp"-->
-            <!--                android:background="@drawable/app_button_background_clicked"-->
-            <!--                android:paddingHorizontal="56dp"-->
-            <!--                android:text="@string/ok"-->
-            <!--                android:textColor="@color/white" />-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

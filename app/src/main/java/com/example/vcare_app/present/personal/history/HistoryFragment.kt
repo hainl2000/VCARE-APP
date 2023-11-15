@@ -3,6 +3,7 @@ package com.example.vcare_app.present.personal.history
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.response.HistoryAppointment
+import com.example.vcare_app.model.AppointmentArgument
 import com.example.vcare_app.onclickinterface.OnAppointmentClick
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.CustomSnackBar
@@ -60,7 +62,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
         val adapter = HistoryAppointmentAdapter(emptyList(), this)
 
         pullToRefreshLayout.setOnRefreshListener {
-            viewModel.getHistory()
+            viewModel.getHistory(10,1)
             pullToRefreshLayout.isRefreshing = false
         }
         viewModel.getHistory()
@@ -81,8 +83,11 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
         })
 
         recyclerView.adapter = adapter
-        viewModel.listAppointment.observe(viewLifecycleOwner) {
-            adapter.updateData(it)
+        viewModel.listAppointment.observe(viewLifecycleOwner) { list ->
+            list.map {
+               Log.d("TAG", "onCreateView: ${it.hospital.name}")
+           }
+            adapter.updateData(list)
         }
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
@@ -91,7 +96,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Error) {
 
-                    CustomSnackBar.showCustomSnackbar(view,"${viewModel.errorMsg.value}")
+                    CustomSnackBar.showCustomSnackbar(view, "${viewModel.errorMsg.value}")
                 }
             }
         }
@@ -142,6 +147,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
     }
 
     override fun onAppointmentClick(historyAppointment: HistoryAppointment) {
+        val argument = AppointmentArgument(historyAppointment.hospital.name,historyAppointment.department.name,historyAppointment.id)
         parentFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.slide_in,
@@ -151,7 +157,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
             )
             val fragment = AppointmentDetailFragment()
             val bundle = Bundle().apply {
-                putInt("appointment_id", historyAppointment.id)
+                putSerializable("appointment_id", argument)
             }
             fragment.arguments = bundle
             add(R.id.fragment_container_view, fragment)

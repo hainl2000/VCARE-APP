@@ -14,6 +14,7 @@ import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.databinding.FragmentAppointmentBinding
+import com.example.vcare_app.model.AppointmentArgument
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
@@ -115,7 +116,7 @@ class AppointmentFragment : Fragment() {
         }
         binding.btnDatKham.setOnClickListener {
             if (viewModel.errorMsg.value?.isNotEmpty() == true) {
-                CustomSnackBar.showCustomSnackbar(binding.root,"Hoàn thành yêu cầu trước")
+                CustomSnackBar.showCustomSnackbar(binding.root, "Hoàn thành yêu cầu trước")
             } else {
                 viewModel.createAppointment(
                     AppointmentRequest(
@@ -141,10 +142,15 @@ class AppointmentFragment : Fragment() {
                 if (it == LoadingStatus.Success && viewModel.createSuccess.value == true) {
                     SuccessDialog.showDialog(requireContext()) {
                         parentFragmentManager.beginTransaction().apply {
-                            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+                            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                             val fragment = AppointmentDetailFragment()
+                            val argument = AppointmentArgument(
+                                AppointmentFlow.hospital_name,
+                                AppointmentFlow.apartment_name,
+                                viewModel.appointmentDetail.id
+                            )
                             val bundle = Bundle().apply {
-                                putInt("appointment_id", viewModel.appointmentDetail.id)
+                                putSerializable("appointment_id", argument)
                             }
                             fragment.arguments = bundle
                             replace(R.id.fragment_container_view, fragment)

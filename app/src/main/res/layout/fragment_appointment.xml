@@ -71,6 +71,7 @@
                 android:text="@string/gioihan_thoigian_datlich" />
 
             <LinearLayout
+                android:layout_marginTop="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 

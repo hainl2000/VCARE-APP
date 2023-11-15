@@ -12,9 +12,8 @@ import com.example.vcare_app.onclickinterface.OnHospitalClick
 class HospitalAdapter(private var list: List<Hospital>, val onHospitalClick: OnHospitalClick) :
     RecyclerView.Adapter<HospitalAdapter.HospitalViewHolder>() {
 
-    lateinit var binding: ItemHospitalBinding
 
-    inner class HospitalViewHolder(binding: ItemHospitalBinding) :
+    inner class HospitalViewHolder(val binding: ItemHospitalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(hospital: Hospital, onHospitalClick: OnHospitalClick) {
             binding.hospital = hospital
@@ -31,7 +30,7 @@ class HospitalAdapter(private var list: List<Hospital>, val onHospitalClick: OnH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalViewHolder {
-        binding = ItemHospitalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+       val binding = ItemHospitalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HospitalViewHolder(binding)
     }
 

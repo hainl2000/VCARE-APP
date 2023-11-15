@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.HospitalAdapter
 import com.example.vcare_app.api.api_model.response.Hospital
+import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.onclickinterface.OnHospitalClick
 import com.example.vcare_app.present.booking.BookingFragment
 import com.example.vcare_app.utilities.CustomSnackBar
@@ -63,6 +64,10 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
 
         recyclerView.addOnScrollListener(object :
             PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
+            override fun isSearchingMode(): Boolean {
+               return searchText.text.isNotEmpty()
+            }
+
             override fun loadMoreItems() {
                 viewModel.loadMoreHospital()
             }
@@ -99,9 +104,11 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
 
             override fun afterTextChanged(s: Editable?) {
                 val newList = viewModel.searchHospital(s.toString())
+                Log.d("TAG", "afterTextChanged: ${newList.joinToString()}")
                 adapter.setData(newList)
             }
         })
+
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireContext())
@@ -142,6 +149,7 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
 
     override fun onHospitalItemClick(hospital: Hospital) {
         parentFragmentManager.beginTransaction().apply {
+            AppointmentFlow.hospital_name = hospital.name
             val bookingFragment = BookingFragment()
             val bundle = Bundle()
             bundle.putInt("hospital_id", hospital.id)

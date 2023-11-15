@@ -47,10 +47,13 @@
     <string name="information">Thông tin: </string>
     <string name="department">Khoa: </string>
     <string name="doctor">Bác sĩ: </string>
+    <string name="external_code">Code: </string>
     <string name="detail_appointment_title">Thông tin</string>
     <string name="ok">OK</string>
     <string name="symptom">Triệu chứng: </string>
     <string name="symptom_input">Nhập triệu chứng: </string>
+    <string name="note">Chú thích</string>
+    <string name="medicine">Thuốc: </string>
     <string name="conclusion">Kết luận: </string>
     <string name="sos">SOS</string>
     <string name="call">Gọi điện</string>
@@ -58,4 +61,6 @@
     <string name="phone_call_permission_denied">Hãy cho phép quyền được gọi để chúng tôi có thể tạo ra cuộc gọi lúc khẩn cấp.</string>
     <string name="location_permission_denied">Hãy cho phép quyền được gọi để chúng tôi có thể tìm được bệnh viện gần nhất với bạn.</string>
     <string name="gallery_permission_denied">Hãy cho phép quyền được truy cập vào thư viện để chúng tôi có thể cập nhật ảnh của bạn</string>
+    <string name="list_used_service">Các loại khám</string>
+    <string name="back_to_home">Về màn hình chính</string>
 </resources>

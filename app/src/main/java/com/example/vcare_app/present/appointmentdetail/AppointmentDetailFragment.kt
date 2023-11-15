@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.MainActivityViewModel
 import com.example.vcare_app.adapter.ConclusionAdapter
-import com.example.vcare_app.api.api_model.response.ConclusionResponse
 import com.example.vcare_app.databinding.FragmentAppointmentDetailBinding
-import com.example.vcare_app.onclickinterface.OnConclusionClick
+import com.example.vcare_app.model.AppointmentArgument
+import com.example.vcare_app.onclickinterface.OnImageOnlyClick
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.FullScreenImageFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
@@ -26,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AppointmentDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AppointmentDetailFragment : Fragment(), OnConclusionClick {
+class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -51,12 +51,19 @@ class AppointmentDetailFragment : Fragment(), OnConclusionClick {
         binding = FragmentAppointmentDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(this)[AppointmentDetailViewModel::class.java]
         activityViewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
-        val data = arguments?.getInt("appointment_id") ?: 0
-        viewModel.getAppointmentDetail(data)
+        val conclusionAdapter = ConclusionAdapter(emptyList(), this)
+        binding.conclusionImageRecyclerView.adapter = conclusionAdapter
+        val data = arguments?.getSerializable("appointment_id") as AppointmentArgument
+        viewModel.getAppointmentDetail(data.appointmentId)
         binding.lifecycleOwner = viewLifecycleOwner
-
+        binding.argument = data
         viewModel.appointmentDetailResponse.observe(viewLifecycleOwner) {
             binding.appointment = it
+            conclusionAdapter.updateData(it.services)
+        }
+
+        binding.backToHomeBtn.setOnClickListener {
+            activityViewModel.changeTab(0)
         }
 
 
@@ -67,15 +74,13 @@ class AppointmentDetailFragment : Fragment(), OnConclusionClick {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Error) {
 
-                    CustomSnackBar.showCustomSnackbar(binding.root,"${viewModel.errorMsg.value}")
+                    CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg.value}")
                 }
             }
         }
 
-        val conclusionAdapter = ConclusionAdapter(emptyList(),this)
-        binding.conclusionImageRecyclerView.adapter = conclusionAdapter
-        viewModel.listConclusion.observe(viewLifecycleOwner){
-            conclusionAdapter.updateData(it)
+        binding.medicineImg.setOnClickListener {
+            onShowImage(viewModel.appointmentDetailResponse.value?.medicine ?: "")
         }
 
         return binding.root
@@ -83,7 +88,6 @@ class AppointmentDetailFragment : Fragment(), OnConclusionClick {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getListConclusion()
     }
 
     companion object {
@@ -106,8 +110,12 @@ class AppointmentDetailFragment : Fragment(), OnConclusionClick {
             }
     }
 
-    override fun onConclusionClick(conclusionResponse: ConclusionResponse) {
-        val fullScreenImageFragment = FullScreenImageFragment.newInstance(conclusionResponse.img)
-        fullScreenImageFragment.show(parentFragmentManager,"fullscreenImg")
+    private fun onShowImage(img: String) {
+        val fullScreenImageFragment = FullScreenImageFragment.newInstance(img)
+        fullScreenImageFragment.show(parentFragmentManager, "fullscreenImg")
+    }
+
+    override fun onImageOnlyClick(imgUrl: String) {
+        onShowImage(imgUrl)
     }
 }

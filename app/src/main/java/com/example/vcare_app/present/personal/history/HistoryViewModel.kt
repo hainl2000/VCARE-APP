@@ -23,6 +23,7 @@ class HistoryViewModel : BaseViewModel() {
     private var pageIndex = 1
     var totalCount = 0
     fun getHistory(listPageSize: Int = pageSize, listPageIndex: Int = pageIndex) {
+        pageIndex = 1
         compositeDisposable.add(repository.getHistoryAppointment(
             pageSize = listPageSize,
             pageIndex = listPageIndex
@@ -61,7 +62,7 @@ class HistoryViewModel : BaseViewModel() {
 
     fun searchAppointment(name: String): List<HistoryAppointment> {
         val newList = listAppointment.value?.filter {
-            it.hospital.name.lowercase().contains(name) || it.department.name.lowercase()
+            it.hospital.name.lowercase().contains(name.lowercase()) || it.department.name.lowercase()
                 .contains(name)
         }
         return newList ?: emptyList()

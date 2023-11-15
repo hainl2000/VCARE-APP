@@ -12,6 +12,7 @@ import com.example.vcare_app.present.booking.hospitalbooking.HospitalBookingFrag
 import com.example.vcare_app.present.home.HomeFragment
 import com.example.vcare_app.present.notification.NotificationFragment
 import com.example.vcare_app.present.personal.PersonalFragment
+import com.example.vcare_app.utilities.TabItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -25,7 +26,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(
                 OnBackInvokedDispatcher.PRIORITY_DEFAULT
             ) {
-                Log.d("what","back")
+                Log.d("what", "back")
                 supportFragmentManager.popBackStack()
             }
         } else {
@@ -33,7 +34,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 this,
                 object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
-                        Log.d("what","back2")
+                        Log.d("what", "back2")
                         supportFragmentManager.popBackStack()
                     }
                 })
@@ -48,20 +49,19 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         viewModel.currentTab.observe(this) {
             bottomNavigationView.menu.getItem(it).isChecked = true
 
-            if (it == 0) {
+            if (it == TabItem.Home.ordinal) {
                 fragmentNavigation(HomeFragment())
 
             }
-            if (it == 1) {
+            if (it == TabItem.Booking.ordinal) {
                 fragmentNavigation(HospitalBookingFragment())
-//                bottomNavigationView.selectedItemId = R.id.booking
 
             }
-            if (it == 2) {
+            if (it == TabItem.Notification.ordinal) {
                 fragmentNavigation(NotificationFragment())
 
             }
-            if (it == 3) {
+            if (it == TabItem.Personal.ordinal) {
                 fragmentNavigation(PersonalFragment())
             }
         }
@@ -69,29 +69,29 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-                    if (viewModel.currentTab.value != 0) {
-                        viewModel.changeTab(0)
+                    if (viewModel.currentTab.value != TabItem.Home.ordinal) {
+                        viewModel.changeTab(TabItem.Home.ordinal)
                     }
                     true
                 }
 
                 R.id.booking -> {
-                    if (viewModel.currentTab.value != 1) {
-                        viewModel.changeTab(1)
+                    if (viewModel.currentTab.value != TabItem.Booking.ordinal) {
+                        viewModel.changeTab(TabItem.Booking.ordinal)
                     }
                     true
                 }
 
                 R.id.notification -> {
-                    if (viewModel.currentTab.value != 2) {
-                        viewModel.changeTab(2)
+                    if (viewModel.currentTab.value != TabItem.Notification.ordinal) {
+                        viewModel.changeTab(TabItem.Notification.ordinal)
                     }
                     true
                 }
 
                 R.id.personal -> {
-                    if (viewModel.currentTab.value != 3) {
-                        viewModel.changeTab(3)
+                    if (viewModel.currentTab.value != TabItem.Personal.ordinal) {
+                        viewModel.changeTab(TabItem.Personal.ordinal)
                     }
                     true
                 }

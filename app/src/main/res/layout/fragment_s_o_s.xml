@@ -21,13 +21,14 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="48dp"
-            android:src="@drawable/sos_img" />
+            android:src="@drawable/sos_call_icon" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@{`Nearest Hospital : `+ nearestHospital==null?``:nearestHospital.hospitalName}"
+            android:text="@{`Bệnh viện gần nhất : `+ (nearestHospital==null?``:nearestHospital.hospitalName)}"
+            android:textAlignment="center"
             android:textColor="@color/strong_green"
             android:textSize="@dimen/text_small_title_size" />
 
@@ -35,7 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@{`Hospital address: ` + nearestHospital==null?``:nearestHospital.hospitalAddress}"
+            android:text="@{`Địa chỉ bệnh viện: ` + (nearestHospital==null?``:nearestHospital.hospitalAddress)}"
+            android:textAlignment="center"
             android:textColor="@color/strong_green"
             android:textSize="@dimen/text_small_title_size" />
 
@@ -43,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@{`Hospital phone: `+ nearestHospital==null?``:nearestHospital.hospitalNumber}"
+            android:text="@{`Số điện thoại bệnh viện: `+ (nearestHospital==null?``:nearestHospital.hospitalNumber)}"
+            android:textAlignment="center"
             android:textColor="@color/strong_green"
             android:textSize="@dimen/text_small_title_size" />
 

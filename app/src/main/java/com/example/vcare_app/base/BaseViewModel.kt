@@ -1,7 +1,6 @@
 package com.example.vcare_app.base
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vcare_app.api.api_model.ErrorResponse
@@ -9,7 +8,6 @@ import com.example.vcare_app.utilities.LoadingStatus
 import com.google.gson.Gson
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import retrofit2.HttpException
-import kotlin.Exception
 
 open class BaseViewModel(argument: Any? = null) : ViewModel() {
     val compositeDisposable = CompositeDisposable()
@@ -26,7 +24,7 @@ open class BaseViewModel(argument: Any? = null) : ViewModel() {
                 errorResponse.message.joinToString()
 
             } catch (e: Exception) {
-                "Lỗi: Không xác định"
+                "Lỗi: ${e.message}"
             }
         }
         return "Lỗi: Không xác định"

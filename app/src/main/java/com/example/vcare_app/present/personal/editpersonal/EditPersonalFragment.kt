@@ -135,9 +135,8 @@ class EditPersonalFragment : Fragment() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
             getLaunch.launch(Manifest.permission.READ_MEDIA_IMAGES)
         } else {
-//            getLaunch.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            getContent.launch(intent)
+            getLaunch.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+
         }
     }
 
@@ -164,7 +163,12 @@ class EditPersonalFragment : Fragment() {
 
     private val getLaunch = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
         if (it) {
-            pickImageLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                getContent.launch(intent)
+            }else {
+                pickImageLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
         } else {
             CustomInformationDialog.showCustomInformationDialog(
                 requireContext(),

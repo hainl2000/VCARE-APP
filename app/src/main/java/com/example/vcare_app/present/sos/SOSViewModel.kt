@@ -1,5 +1,6 @@
 package com.example.vcare_app.present.sos
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
@@ -24,11 +25,13 @@ class SOSViewModel : BaseViewModel() {
                 location.latitude,
                 location.longitude
             )
+            Log.d("TAG", "getNearestHospital: ${location.hospitalName} $distance")
             if (minDistance >= distance) {
                 minDistance = distance
                 nearestHospital = location
             }
         }
+
         _nearestHospital.postValue(nearestHospital)
     }
 }

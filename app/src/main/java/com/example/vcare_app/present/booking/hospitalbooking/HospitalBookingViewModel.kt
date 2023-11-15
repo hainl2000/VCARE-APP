@@ -59,7 +59,7 @@ class HospitalBookingViewModel : BaseViewModel() {
 
     fun searchHospital(name: String): List<Hospital> {
         val newList = _listHospital.value?.filter {
-            it.name.lowercase(Locale.ROOT).contains(name)
+            it.name.lowercase(Locale.ROOT).contains(name.lowercase())
         }
         return newList ?: emptyList()
     }
