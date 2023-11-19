@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
+import com.example.vcare_app.api.api_model.response.Profile
 import com.example.vcare_app.base.BaseViewModel
 import com.example.vcare_app.data.repository.AppRepository
 import com.example.vcare_app.utilities.LoadingStatus
@@ -18,7 +19,11 @@ import java.io.File
 class EditPersonalFragmentViewModel : BaseViewModel() {
     private val repository = AppRepository(ApiClient.apiService)
 
-    private val _imgUrl = MutableLiveData<String>()
+    private val _userProfile = MutableLiveData<Profile>()
+
+    val userProfile: LiveData<Profile> get() = _userProfile
+
+    private val _imgUrl = MutableLiveData("")
     val imgUrl: LiveData<String> get() = _imgUrl
 
     private val _updateSuccess = MutableLiveData(false)
@@ -26,7 +31,6 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
 
     fun uploadImage(file: File) {
         val requestFile = RequestBody.create(MultipartBody.FORM, file)
-        Log.e("Error", "${file.name}")
 
         val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
@@ -40,15 +44,13 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
                     _imgUrl.postValue(it.fileName)
                 }, {
                     errorMsg.postValue(it.toString())
-                    Log.e("Error", "${it.message}")
                     status.postValue(LoadingStatus.Error)
                 }
             ))
     }
 
     fun updateUser(updateUserRequest: UpdateUserRequest) {
-        Log.e("Error:","${updateUserRequest.avatar} ,${updateUserRequest.gender}, ${updateUserRequest.dob}")
-        compositeDisposable.add(repository.updateUserProfile(updateUserRequest)
+          compositeDisposable.add(repository.updateUserProfile(updateUserRequest)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
                 status.postValue(LoadingStatus.Loading)
             }.doOnError {
@@ -66,6 +68,25 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
                     Log.e("Error: ", it.toString())
                 }
             )
+        )
+    }
+    fun getUserProfile() {
+        compositeDisposable.add(
+            repository.getUserProfile().observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    status.postValue(LoadingStatus.Loading)
+                }
+                .subscribeOn(Schedulers.io()).subscribe(
+                    {
+                        Log.i("TAGG",it.toString())
+                        _userProfile.postValue(it)
+                        _imgUrl.postValue(it.avatar)
+                        status.postValue(LoadingStatus.Success)
+                    }, {
+                        Log.e("TAGG",it.toString())
+                        status.postValue(LoadingStatus.Error)
+                    }
+                )
         )
     }
 }

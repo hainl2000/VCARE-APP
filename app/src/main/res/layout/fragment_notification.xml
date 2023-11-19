@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".present.notification.NotificationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Notification" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/notification_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click"/>
 
 </FrameLayout>

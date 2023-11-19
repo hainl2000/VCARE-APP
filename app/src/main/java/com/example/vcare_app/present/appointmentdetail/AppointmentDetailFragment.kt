@@ -1,15 +1,17 @@
 package com.example.vcare_app.present.appointmentdetail
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.MainActivityViewModel
 import com.example.vcare_app.adapter.ConclusionAdapter
 import com.example.vcare_app.databinding.FragmentAppointmentDetailBinding
-import com.example.vcare_app.model.AppointmentArgument
+import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.onclickinterface.OnImageOnlyClick
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.FullScreenImageFragment
@@ -28,15 +30,14 @@ private const val ARG_PARAM2 = "param2"
  */
 class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            appointmentArgument = it.getParcelable("appointment_id",AppointmentDetailArgument::class.java)!!
         }
+
     }
 
     private lateinit var binding: FragmentAppointmentDetailBinding
@@ -44,19 +45,24 @@ class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
     private lateinit var viewModel: AppointmentDetailViewModel
 
     private lateinit var activityViewModel: MainActivityViewModel
+
+    private lateinit var appointmentArgument: AppointmentDetailArgument
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAppointmentDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(this)[AppointmentDetailViewModel::class.java]
         activityViewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
+
         val conclusionAdapter = ConclusionAdapter(emptyList(), this)
         binding.conclusionImageRecyclerView.adapter = conclusionAdapter
-        val data = arguments?.getSerializable("appointment_id") as AppointmentArgument
-        viewModel.getAppointmentDetail(data.appointmentId)
+
+        viewModel.getAppointmentDetail(appointmentArgument.appointmentId)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.argument = data
+
         viewModel.appointmentDetailResponse.observe(viewLifecycleOwner) {
             binding.appointment = it
             conclusionAdapter.updateData(it.services)
@@ -66,14 +72,12 @@ class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
             activityViewModel.changeTab(0)
         }
 
-
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Error) {
-
                     CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg.value}")
                 }
             }
@@ -84,10 +88,6 @@ class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
         }
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     companion object {

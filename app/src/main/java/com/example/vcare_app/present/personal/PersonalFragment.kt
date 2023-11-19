@@ -117,10 +117,6 @@ class PersonalFragment : Fragment(), OnSettingClick {
                 parentFragmentManager.beginTransaction().apply {
                     setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                     val editFragment = EditPersonalFragment()
-                    val bundle = Bundle().apply {
-                        putSerializable("data", viewModel.userProfile.value)
-                    }
-                    editFragment.arguments = bundle
                     replace(R.id.fragment_container_view, editFragment)
                     addToBackStack("edit_personal")
                     commit()

@@ -6,11 +6,6 @@
     <data>
 
         <import type="android.view.View" />
-
-        <variable
-            name="argument"
-            type="com.example.vcare_app.model.AppointmentArgument" />
-
         <variable
             name="appointment"
             type="com.example.vcare_app.api.api_model.response.AppointmentDetailResponse" />
@@ -156,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="@{argument.hospitalName}"
+                        android:text="@{appointment.hospital.name}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -177,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="@{argument.departmentName}"
+                        android:text="@{appointment.department.name}"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 

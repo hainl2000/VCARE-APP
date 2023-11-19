@@ -20,6 +20,8 @@ class AppointmentViewModel : BaseViewModel() {
 
     val createSuccess: LiveData<Boolean> get() = _createSuccess
 
+    var scheduleTime = ""
+
     private val repository = AppRepository(ApiClient.apiService)
     lateinit var appointmentDetail: AppointmentResponse
     fun getCurrentProfile() {
@@ -49,6 +51,7 @@ class AppointmentViewModel : BaseViewModel() {
                 {
                     appointmentDetail = it
                     _createSuccess.postValue(true)
+                    scheduleTime = it.timeInString
                     status.postValue(LoadingStatus.Success)
 
                 }, {

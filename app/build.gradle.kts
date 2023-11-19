@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -40,6 +41,10 @@ android {
 }
 
 dependencies {
+    val work_version = "2.8.1"
+
+    // (Java only)
+    implementation("androidx.work:work-runtime:$work_version")
     implementation ("com.github.chrisbanes:PhotoView:2.1.4")
 
     /// RxJava3 and RxAndroid3

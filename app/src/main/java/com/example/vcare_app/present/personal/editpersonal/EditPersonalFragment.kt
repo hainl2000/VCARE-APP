@@ -25,14 +25,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
-import com.example.vcare_app.api.api_model.response.Profile
 import com.example.vcare_app.databinding.FragmentEditPersonalBinding
 import com.example.vcare_app.utilities.CustomInformationDialog
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
-import com.example.vcare_app.utilities.Utilities
 import java.io.File
 import java.util.Calendar
 
@@ -64,7 +62,6 @@ class EditPersonalFragment : Fragment() {
     private lateinit var viewModel: EditPersonalFragmentViewModel
     private var gender = false
     private lateinit var imgUrl: Uri
-    private lateinit var currentProfile: Profile
     private lateinit var file: File
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -74,13 +71,11 @@ class EditPersonalFragment : Fragment() {
     ): View {
         binding = FragmentEditPersonalBinding.inflate(inflater)
         viewModel = ViewModelProvider(this)[EditPersonalFragmentViewModel::class.java]
+        viewModel.getUserProfile()
 
-        currentProfile = arguments?.getSerializable("data") as Profile
-        binding.profile = currentProfile
-        Log.d("TAGG", currentProfile.avatar ?: "")
-
-        Glide.with(this).load(currentProfile.avatar)
-            .error(R.drawable.logo_vcare).into(binding.editPersonalAvatar)
+        viewModel.userProfile.observe(viewLifecycleOwner){
+            binding.profile = it
+        }
 
         binding.editAvatarBtn.setOnClickListener {
             openGallery()
@@ -92,7 +87,7 @@ class EditPersonalFragment : Fragment() {
                 UpdateUserRequest(
                     binding.editFullName.text.toString(),
                     viewModel.imgUrl.value
-                        ?: Utilities.extractFileNameFromUrl(currentProfile.avatar!!),
+                        ,
                     gender,
                     binding.editDob.text.toString(),
                     binding.editIdentityNumber.text.toString(),
@@ -154,7 +149,7 @@ class EditPersonalFragment : Fragment() {
                     Log.e("TAG", file.path)
                     viewModel.uploadImage(file)
                 } else {
-                    Glide.with(this).load(currentProfile.avatar)
+                    Glide.with(this).load(viewModel.userProfile.value?.avatar)
                         .error(R.drawable.logo_vcare)
                         .into(binding.editPersonalAvatar)
                 }
@@ -205,15 +200,13 @@ class EditPersonalFragment : Fragment() {
             if (it != null) {
                 imgUrl = it
                 binding.editPersonalAvatar.setImageURI(imgUrl)
-                Log.e("kokoko", "$it")
                 val contentUri = it
                 val filePath = getFileFromContentUri(requireContext(), contentUri)
                 file = File(filePath ?: "")
 
-                Log.e("Error", file.path)
                 viewModel.uploadImage(file)
             } else {
-                Glide.with(this).load(currentProfile.avatar)
+                Glide.with(this).load(viewModel.userProfile.value?.avatar)
                     .error(R.drawable.logo_vcare)
                     .into(binding.editPersonalAvatar)
             }

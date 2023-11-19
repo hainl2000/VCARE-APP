@@ -1,11 +1,16 @@
 package com.example.vcare_app.present.notification
 
+import android.Manifest
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.example.vcare_app.R
+import com.example.vcare_app.utilities.CustomSnackBar
+import com.example.vcare_app.utilities.NotificationHelper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +40,21 @@ class NotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false)
+        val view = inflater.inflate(R.layout.fragment_notification, container, false)
+        val btn = view.findViewById<Button>(R.id.notification_btn)
+        btn.setOnClickListener {
+            launcherNotifi.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        return view
+    }
+
+    private val launcherNotifi = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+        if (it) {
+            NotificationHelper.showNotification(requireContext(),"hehee","test",68)
+        } else {
+            CustomSnackBar.showCustomSnackbar(this.requireView(), "hehe")
+        }
     }
 
     companion object {

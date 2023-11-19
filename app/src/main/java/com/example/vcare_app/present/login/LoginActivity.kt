@@ -1,12 +1,17 @@
 package com.example.vcare_app.present.login
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.R
 import com.example.vcare_app.base.BaseActivity
 import com.example.vcare_app.data.sharepref.SharePrefManager
+import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.present.login.signin.SignInFragment
 import com.example.vcare_app.present.login.signup.SignUpFragment
+import com.example.vcare_app.utilities.AppDeepLink
 import com.google.android.material.tabs.TabLayout
 
 class LoginActivity : BaseActivity(R.layout.activity_login) {
@@ -17,17 +22,14 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
         initSharePref()
         viewModel =
             ViewModelProvider(this)[LoginActivityViewModel::class.java]
+
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
-        supportFragmentManager.beginTransaction().apply {
-            add(R.id.login_fragment_container, SignInFragment())
-            commit()
-        }
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
                         supportFragmentManager.beginTransaction().apply {
-                            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+                            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                             replace(R.id.login_fragment_container, SignInFragment())
                             commit()
                         }
@@ -35,7 +37,7 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
 
                     1 -> {
                         supportFragmentManager.beginTransaction().apply {
-                            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+                            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                             replace(R.id.login_fragment_container, SignUpFragment())
                             commit()
                         }
@@ -59,5 +61,22 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
 
     private fun initSharePref() {
         SharePrefManager.init(this)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun onStart() {
+        super.onStart()
+        val data =
+            intent.getParcelableExtra(AppDeepLink.appointmentDetailArgumentName,AppointmentDetailArgument::class.java)
+        Log.d("loginactivity", "onCreate: ${data?.appointmentId}")
+
+        supportFragmentManager.beginTransaction().apply {
+            val fragment = SignInFragment()
+            fragment.arguments = Bundle().apply {
+                this.putParcelable(AppDeepLink.appointmentDetailArgumentName, data)
+            }
+            add(R.id.login_fragment_container, fragment)
+            commit()
+        }
     }
 }

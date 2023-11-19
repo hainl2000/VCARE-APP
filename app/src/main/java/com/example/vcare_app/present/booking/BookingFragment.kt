@@ -122,7 +122,7 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
     override fun onDepartmentClick(department: Department) {
         AppointmentFlow.apartment_id = department.id
         AppointmentFlow.hospital_id = department.hospitalID
-        AppointmentFlow.apartment_name = department.name
+        AppointmentFlow.department_name = department.name
         parentFragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
             replace(R.id.fragment_container_view, AppointmentFragment())

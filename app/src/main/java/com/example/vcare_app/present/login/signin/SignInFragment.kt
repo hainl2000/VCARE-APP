@@ -1,15 +1,20 @@
 package com.example.vcare_app.present.login.signin
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.vcare_app.MainActivity
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.databinding.FragmentSignInBinding
+import com.example.vcare_app.model.AppointmentDetailArgument
+import com.example.vcare_app.utilities.AppDeepLink
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 
@@ -39,6 +44,7 @@ class SignInFragment : Fragment() {
     private val viewModel: SignInFragmentViewModel by viewModels()
     private lateinit var binding: FragmentSignInBinding
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +54,9 @@ class SignInFragment : Fragment() {
         if (SharePrefManager.getStatusSave()) {
             viewModel.login(SharePrefManager.getEmail(), SharePrefManager.getPassword())
         }
+        val data =
+            arguments?.getParcelable(AppDeepLink.appointmentDetailArgumentName,AppointmentDetailArgument::class.java)
+        Log.d("loginactivity", "onCreateView: ${data?.appointmentId}")
 
         binding.signInUserNameInput.setText(SharePrefManager.getEmail())
         binding.signInPasswordInput.setText(SharePrefManager.getPassword())
@@ -62,25 +71,34 @@ class SignInFragment : Fragment() {
             binding.errorTextSignIn.text = it
         }
         viewModel.status.observe(viewLifecycleOwner) {
-            if (it == LoadingStatus.Loading) {
-                LoadingDialogManager.showDialog(requireActivity())
-            } else if (it == LoadingStatus.Success) {
-                LoadingDialogManager.dismissLoadingDialog()
-
-                if (binding.signInCheckData.isChecked) {
-                    viewModel.saveUserData(
-                        email = binding.signInUserNameInput.text.toString(),
-                        password = binding.signInPasswordInput.text.toString()
-                    )
-                } else {
-                    viewModel.saveUserData("", "", false)
+            when (it) {
+                LoadingStatus.Loading -> {
+                    LoadingDialogManager.showDialog(requireActivity())
                 }
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
 
-            }else if (it == LoadingStatus.Error){
-                LoadingDialogManager.dismissLoadingDialog()
+                LoadingStatus.Success -> {
+                    LoadingDialogManager.dismissLoadingDialog()
+
+                    if (binding.signInCheckData.isChecked) {
+                        viewModel.saveUserData(
+                            email = binding.signInUserNameInput.text.toString(),
+                            password = binding.signInPasswordInput.text.toString()
+                        )
+                    } else {
+                        viewModel.saveUserData("", "", false)
+                    }
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.putExtra(AppDeepLink.appointmentDetailArgumentName, data)
+                    Log.d("login", "onCreateView: ${data?.appointmentId} ")
+                    startActivity(intent)
+                }
+
+                LoadingStatus.Error -> {
+                    LoadingDialogManager.dismissLoadingDialog()
+                }
+
+                else -> {}
             }
         }
         return binding.root

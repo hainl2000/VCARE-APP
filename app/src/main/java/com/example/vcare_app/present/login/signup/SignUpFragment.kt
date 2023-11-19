@@ -1,12 +1,10 @@
 package com.example.vcare_app.present.login.signup
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.databinding.FragmentSignUpBinding
@@ -69,11 +67,12 @@ class SignUpFragment : Fragment() {
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireActivity())
-            } else if (it == LoadingStatus.Success) {
+            } else {
                 LoadingDialogManager.dismissLoadingDialog()
-
-                SuccessDialog.showDialog(requireContext()) {
-                    activityViewModel.setCurrentIndex(0)
+                if (it == LoadingStatus.Success) {
+                    SuccessDialog.showDialog(requireContext()) {
+                        activityViewModel.setCurrentIndex(0)
+                    }
                 }
 //                val handler = Handler(Looper.getMainLooper())
 //                handler.postDelayed(Runnable {

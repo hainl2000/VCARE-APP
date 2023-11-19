@@ -21,8 +21,12 @@ data class AppointmentDetailResponse(
     @SerializedName("fee_paid") val feePaid: Boolean,
     val services: List<ServiceDetail>,
     val doctor: Doctor,
+    val hospital:HospitalOnlyNameInforResponse,
+    val department:DepartmentOnlyNameResponse,
     @SerializedName("services_result") val servicesResult: List<ServicesResult>
 )
+
+
 
 
 

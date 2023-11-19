@@ -1,25 +1,38 @@
 package com.example.vcare_app.present.booking.appointment
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.icu.util.Calendar
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.vcare_app.MainActivityViewModel
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.databinding.FragmentAppointmentBinding
-import com.example.vcare_app.model.AppointmentArgument
+import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
+import com.example.vcare_app.utilities.CustomInformationDialog
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
+import com.example.vcare_app.utilities.NoticeWorker
 import com.example.vcare_app.utilities.SuccessDialog
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +59,7 @@ class AppointmentFragment : Fragment() {
 
     lateinit var binding: FragmentAppointmentBinding
     lateinit var viewModel: AppointmentViewModel
-    lateinit var activityViewModel: MainActivityViewModel
+    private lateinit var activityViewModel: MainActivityViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -139,18 +152,17 @@ class AppointmentFragment : Fragment() {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
-                if (it == LoadingStatus.Success && viewModel.createSuccess.value == true) {
+                if (it == LoadingStatus.Success && viewModel.createSuccess.value == true && viewModel.scheduleTime.isNotEmpty()) {
+                    launchNotice.launch(Manifest.permission.POST_NOTIFICATIONS)
                     SuccessDialog.showDialog(requireContext()) {
                         parentFragmentManager.beginTransaction().apply {
                             setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                             val fragment = AppointmentDetailFragment()
-                            val argument = AppointmentArgument(
-                                AppointmentFlow.hospital_name,
-                                AppointmentFlow.apartment_name,
+                            val argument = AppointmentDetailArgument(
                                 viewModel.appointmentDetail.id
                             )
                             val bundle = Bundle().apply {
-                                putSerializable("appointment_id", argument)
+                                putParcelable("appointment_id", argument)
                             }
                             fragment.arguments = bundle
                             replace(R.id.fragment_container_view, fragment)
@@ -166,14 +178,77 @@ class AppointmentFragment : Fragment() {
         return binding.root
     }
 
-    val calendar = Calendar.getInstance()
-    val currentYear = calendar.get(Calendar.YEAR)
-    val currentMonth = calendar.get(Calendar.MONTH)
-    val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+    private val calendar = Calendar.getInstance()
+    private val currentYear = calendar.get(Calendar.YEAR)
+    private val currentMonth = calendar.get(Calendar.MONTH)
+    private val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
+
+    private val launchNotice =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) {
+                val inputData = Data.Builder()
+                    .putString(NoticeWorker.NOTIFICATION_TITLE, "Khám bệnh!")
+                    .putString(
+                        NoticeWorker.NOTIFICATION_MESSAGE,
+                        "Lịch khám ngày mai: ${viewModel.scheduleTime}"
+                    )
+                    .putInt(
+                        NoticeWorker.NOTIFICATION_APPOINTMENT_ID,
+                        viewModel.appointmentDetail.id
+                    )
+                    .build()
+                val duration = calculateTimeDifferenceInMinutes(
+                    viewModel.scheduleTime
+                )
+                if (duration.toInt() == -1) {
+                    CustomSnackBar.showCustomSnackbar(
+                        requireView(),
+                        "Lỗi không nhận diện được ngày tháng."
+                    )
+                } else {
+                    val worker = OneTimeWorkRequestBuilder<NoticeWorker>().setInputData(inputData)
+                        .setInitialDelay(duration, TimeUnit.MINUTES)
+                        .build()
+                    WorkManager.getInstance(requireContext()).enqueue(
+                        worker
+                    )
+                }
+
+            } else {
+                CustomInformationDialog.showCustomInformationDialog(
+                    requireContext(),
+                    requireContext().resources.getString(R.string.notification_permission_denied)
+                ) {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    val uri = Uri.fromParts("package", requireContext().packageName, null)
+                    intent.data = uri
+                    activity?.startActivity(intent)
+                }
+            }
+        }
 
     //
+    private fun calculateTimeDifferenceInMinutes(targetDateTimeString: String): Long {
+        try {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            val targetDate = dateFormat.parse(targetDateTimeString)
 
+            if (targetDate != null) {
+                val currentDate = java.util.Calendar.getInstance().time
+                val targetCalendar = java.util.Calendar.getInstance().apply { time = targetDate }
+
+                val timeDifferenceInMillis = targetCalendar.timeInMillis - currentDate.time
+                return timeDifferenceInMillis / (1000 * 60)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return -1
+        }
+
+        return -1 // Return -1 if there is an error in parsing or calculation
+    }
 
     companion object {
         /**

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.response.HistoryAppointment
-import com.example.vcare_app.model.AppointmentArgument
+import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.onclickinterface.OnAppointmentClick
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.CustomSnackBar
@@ -147,7 +147,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
     }
 
     override fun onAppointmentClick(historyAppointment: HistoryAppointment) {
-        val argument = AppointmentArgument(historyAppointment.hospital.name,historyAppointment.department.name,historyAppointment.id)
+        val argument = AppointmentDetailArgument(historyAppointment.id)
         parentFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.slide_in,
@@ -157,7 +157,7 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
             )
             val fragment = AppointmentDetailFragment()
             val bundle = Bundle().apply {
-                putSerializable("appointment_id", argument)
+                putParcelable("appointment_id", argument)
             }
             fragment.arguments = bundle
             add(R.id.fragment_container_view, fragment)

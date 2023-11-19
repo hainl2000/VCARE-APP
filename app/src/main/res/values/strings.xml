@@ -60,7 +60,8 @@
     <string name="qr">QR</string>
     <string name="phone_call_permission_denied">Hãy cho phép quyền được gọi để chúng tôi có thể tạo ra cuộc gọi lúc khẩn cấp.</string>
     <string name="location_permission_denied">Hãy cho phép quyền được gọi để chúng tôi có thể tìm được bệnh viện gần nhất với bạn.</string>
-    <string name="gallery_permission_denied">Hãy cho phép quyền được truy cập vào thư viện để chúng tôi có thể cập nhật ảnh của bạn</string>
+    <string name="gallery_permission_denied">Hãy cho phép quyền được truy cập vào thư viện để chúng tôi có thể cập nhật ảnh của bạn.</string>
+    <string name="notification_permission_denied">Hãy cho phép quyền được thông báo để chúng tôi có thể thông báo cho bạn những thông tin cần thiết.</string>
     <string name="list_used_service">Các loại khám</string>
     <string name="back_to_home">Về màn hình chính</string>
 </resources>
