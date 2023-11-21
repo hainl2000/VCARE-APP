@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.vcare_app.MainActivityViewModel
+import com.example.vcare_app.mainactivity.MainActivityViewModel
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.NewsAdapter
 import com.example.vcare_app.adapter.ViewPagerAdapter

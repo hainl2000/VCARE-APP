@@ -1,9 +1,10 @@
-package com.example.vcare_app
+package com.example.vcare_app.mainactivity
 
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.vcare_app.R
 import com.example.vcare_app.base.BaseActivity
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.model.AppointmentDetailArgument
@@ -55,7 +56,8 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
             }
             if (it == TabItem.Personal.ordinal) {
-                if (argument != null) {
+                if (argument != null && AppDeepLink.isFromNotification) {
+                    AppDeepLink.isFromNotification = false
                     fragmentNavigation(PersonalFragment())
                     supportFragmentManager.beginTransaction().apply {
                         val fragment = AppointmentDetailFragment()
@@ -66,6 +68,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                         add(R.id.fragment_container_view, fragment)
                         commit()
                     }
+
                 } else {
                     fragmentNavigation(PersonalFragment())
                 }

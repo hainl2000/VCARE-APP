@@ -1,5 +1,7 @@
 package com.example.vcare_app.present.appointmentdetail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,15 +10,16 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.vcare_app.MainActivityViewModel
 import com.example.vcare_app.adapter.ConclusionAdapter
 import com.example.vcare_app.databinding.FragmentAppointmentDetailBinding
+import com.example.vcare_app.mainactivity.MainActivityViewModel
 import com.example.vcare_app.model.AppointmentDetailArgument
-import com.example.vcare_app.onclickinterface.OnImageOnlyClick
+import com.example.vcare_app.onclickinterface.OnMedicineResultClick
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.FullScreenImageFragment
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
+import com.example.vcare_app.utilities.Utilities
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,14 +31,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AppointmentDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
+class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
     // TODO: Rename and change types of parameters
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            appointmentArgument = it.getParcelable("appointment_id",AppointmentDetailArgument::class.java)!!
+            appointmentArgument =
+                it.getParcelable("appointment_id", AppointmentDetailArgument::class.java)!!
         }
 
     }
@@ -115,7 +119,16 @@ class AppointmentDetailFragment : Fragment(), OnImageOnlyClick {
         fullScreenImageFragment.show(parentFragmentManager, "fullscreenImg")
     }
 
-    override fun onImageOnlyClick(imgUrl: String) {
-        onShowImage(imgUrl)
+    override fun onMedicineResultClick(url: String) {
+        if (Utilities.isExcelFile(url)) {
+            // Create an Intent with ACTION_VIEW and set the MIME type for Excel files
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+
+
+        } else {
+            onShowImage(url)
+        }
     }
 }

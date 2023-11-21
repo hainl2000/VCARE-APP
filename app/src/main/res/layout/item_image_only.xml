@@ -7,7 +7,7 @@
 
         <variable
             name="onImageClick"
-            type="com.example.vcare_app.onclickinterface.OnImageOnlyClick" />
+            type="com.example.vcare_app.onclickinterface.OnMedicineResultClick" />
 
         <variable
             name="imgUrl"
@@ -26,7 +26,7 @@
             getImage="@{imgUrl}"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:onClick="@{()->onImageClick.onImageOnlyClick(imgUrl)}"
+            android:onClick="@{()->onImageClick.onMedicineResultClick(imgUrl)}"
             android:scaleType="fitXY" />
     </LinearLayout>
 </layout>

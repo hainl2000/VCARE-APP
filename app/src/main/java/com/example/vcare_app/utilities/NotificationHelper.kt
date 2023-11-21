@@ -8,7 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.vcare_app.MainActivity
+import com.example.vcare_app.mainactivity.MainActivity
 import com.example.vcare_app.R
 import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.present.login.LoginActivity

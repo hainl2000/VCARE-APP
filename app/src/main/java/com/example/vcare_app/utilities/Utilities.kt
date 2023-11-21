@@ -2,6 +2,7 @@ package com.example.vcare_app.utilities
 
 import android.os.Build
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -20,11 +21,19 @@ class Utilities {
             val path = uri.path
             return path.substring(path.lastIndexOf('/') + 1)
         }
-        fun haversineDistance(latitude1: Double, longitude1: Double, latitude2: Double, longitude2: Double): Double {
+
+        fun haversineDistance(
+            latitude1: Double,
+            longitude1: Double,
+            latitude2: Double,
+            longitude2: Double
+        ): Double {
             val radius = 6371.01 // Earth's radius in kilometers
             val dLat = toRadians(latitude2 - latitude1)
             val dLon = toRadians(longitude2 - longitude1)
-            val a = (sin(dLat / 2) * sin(dLat / 2)) + (cos(toRadians(latitude1)) * cos(toRadians(latitude2)) * (sin(dLon / 2) * sin(dLon / 2)))
+            val a = (sin(dLat / 2) * sin(dLat / 2)) + (cos(toRadians(latitude1)) * cos(
+                toRadians(latitude2)
+            ) * (sin(dLon / 2) * sin(dLon / 2)))
             val c = 2 * atan2(sqrt(a), sqrt(1 - a))
             return radius * c
         }
@@ -32,12 +41,22 @@ class Utilities {
         private fun toRadians(degrees: Double): Double {
             return degrees * Math.PI / 180
         }
+
+        fun isExcelFile(url: String):Boolean {
+            return url.lowercase().endsWith(".xlsx") || url.lowercase().endsWith(".xls")
+        }
     }
 }
 
 @BindingAdapter("getImage")
 fun getImage(imageView: ImageView, url: String?) {
     Glide.with(imageView.context).load(url).error(R.drawable.logo_vcare).into(imageView)
+}
+
+@BindingAdapter("getUrlName")
+fun getUrlName(textView: TextView,url:String){
+    val name = url.split("/").last()
+    textView.text = name
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

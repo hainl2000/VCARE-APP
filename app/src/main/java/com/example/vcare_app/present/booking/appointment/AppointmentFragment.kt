@@ -17,11 +17,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.vcare_app.MainActivityViewModel
 import com.example.vcare_app.R
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.databinding.FragmentAppointmentBinding
+import com.example.vcare_app.mainactivity.MainActivityViewModel
 import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.utilities.CustomInformationDialog
@@ -208,7 +208,7 @@ class AppointmentFragment : Fragment() {
                     )
                 } else {
                     val worker = OneTimeWorkRequestBuilder<NoticeWorker>().setInputData(inputData)
-                        .setInitialDelay(duration, TimeUnit.MINUTES)
+                        .setInitialDelay(duration, TimeUnit.SECONDS)
                         .build()
                     WorkManager.getInstance(requireContext()).enqueue(
                         worker
@@ -239,7 +239,7 @@ class AppointmentFragment : Fragment() {
                 val currentDate = java.util.Calendar.getInstance().time
                 val targetCalendar = java.util.Calendar.getInstance().apply { time = targetDate }
 
-                val timeDifferenceInMillis = targetCalendar.timeInMillis - currentDate.time
+                val timeDifferenceInMillis = targetCalendar.timeInMillis - currentDate.time - 1440
                 return timeDifferenceInMillis / (1000 * 60)
             }
         } catch (e: Exception) {

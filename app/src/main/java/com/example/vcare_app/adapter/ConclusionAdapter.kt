@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.api.api_model.response.ServiceDetail
 import com.example.vcare_app.databinding.ItemConclusionImageBinding
-import com.example.vcare_app.onclickinterface.OnImageOnlyClick
+import com.example.vcare_app.onclickinterface.OnMedicineResultClick
 
-class ConclusionAdapter(private var listConclusion: List<ServiceDetail>,val onImageOnlyClick: OnImageOnlyClick) :
+class ConclusionAdapter
+    (private var listConclusion: List<ServiceDetail>,val onImageOnlyClick: OnMedicineResultClick) :
     RecyclerView.Adapter<ConclusionAdapter.ConclusionViewHolder>() {
     inner class ConclusionViewHolder(val binding: ItemConclusionImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(conclusionResponse: ServiceDetail) {
             binding.conclusion = conclusionResponse
-            binding.imageRecyclerview.adapter = ImageOnlyAdapter(conclusionResponse.resultImage,onImageOnlyClick)
+            binding.imageRecyclerview.adapter = MedicineAdapter(conclusionResponse.resultImage,onImageOnlyClick)
         }
     }
 

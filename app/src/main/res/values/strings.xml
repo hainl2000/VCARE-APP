@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VCARE_APP</string>
+    <string name="app_name">VCARE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="forgot_password">Quên mật khẩu?</string>
@@ -27,7 +27,7 @@
     <string name="dat_kham">Đặt khám</string>
     <string name="thoigiandatlichkham">Thời gian khám</string>
     <string name="chonlichkham">Chọn ngày khám</string>
-    <string name="gioihan_thoigian_datlich">Đặt thời gian từ: 7h to 12h, 13h to 17h</string>
+    <string name="gioihan_thoigian_datlich">Đặt thời gian từ: 7 giờ đến 12 giờ, 13 giờ đến 17 giờ</string>
     <string name="logout">Đăng xuất</string>
     <string name="edit">Chỉnh sửa</string>
     <string name="history">

@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.vcare_app.MainActivity
+import com.example.vcare_app.mainactivity.MainActivity
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.databinding.FragmentSignInBinding
 import com.example.vcare_app.model.AppointmentDetailArgument
