@@ -5,7 +5,5 @@
     <com.github.chrisbanes.photoview.PhotoView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:src="@drawable/default_avatar"
         android:id="@+id/photoview"/>
 </RelativeLayout>
