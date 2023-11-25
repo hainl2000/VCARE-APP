@@ -35,6 +35,7 @@ class HistoryViewModel : BaseViewModel() {
                     totalCount = it.total
                     status.postValue(LoadingStatus.Success)
                     _listAppointment.postValue(it.data)
+                    errorMsg.value = ""
                 }, {
                     status.postValue(LoadingStatus.Error)
                     errorMsg.postValue(handleError(it))
@@ -53,6 +54,7 @@ class HistoryViewModel : BaseViewModel() {
                     val currentList = _listAppointment.value?.toMutableList() ?: mutableListOf()
                     currentList.addAll(it.data)
                     _listAppointment.postValue(currentList)
+                    errorMsg.value = ""
                 }, {
                     _loadMoreStatus.postValue(false)
                     errorMsg.postValue(handleError(it))
@@ -62,7 +64,8 @@ class HistoryViewModel : BaseViewModel() {
 
     fun searchAppointment(name: String): List<HistoryAppointment> {
         val newList = listAppointment.value?.filter {
-            it.hospital.name.lowercase().contains(name.lowercase()) || it.department.name.lowercase()
+            it.hospital.name.lowercase()
+                .contains(name.lowercase()) || it.department.name.lowercase()
                 .contains(name)
         }
         return newList ?: emptyList()

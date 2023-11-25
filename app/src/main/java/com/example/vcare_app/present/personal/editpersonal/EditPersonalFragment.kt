@@ -73,7 +73,7 @@ class EditPersonalFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EditPersonalFragmentViewModel::class.java]
         viewModel.getUserProfile()
 
-        viewModel.userProfile.observe(viewLifecycleOwner){
+        viewModel.userProfile.observe(viewLifecycleOwner) {
             binding.profile = it
         }
 
@@ -86,8 +86,7 @@ class EditPersonalFragment : Fragment() {
             viewModel.updateUser(
                 UpdateUserRequest(
                     binding.editFullName.text.toString(),
-                    viewModel.imgUrl.value
-                        ,
+                    viewModel.imgUrl.value,
                     gender,
                     binding.editDob.text.toString(),
                     binding.editIdentityNumber.text.toString(),
@@ -117,10 +116,16 @@ class EditPersonalFragment : Fragment() {
                         }
                     }
                 }
-                if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
+                if (it == LoadingStatus.Error) {
                     LoadingDialogManager.dismissLoadingDialog()
-                    CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg.value}")
+
                 }
+            }
+        }
+
+        viewModel.errorMsg.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg.value}")
             }
         }
         return binding.root
@@ -158,10 +163,11 @@ class EditPersonalFragment : Fragment() {
 
     private val getLaunch = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
         if (it) {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R){
-                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+                val intent =
+                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 getContent.launch(intent)
-            }else {
+            } else {
                 pickImageLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             }
         } else {

@@ -27,7 +27,7 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
     val imgUrl: LiveData<String> get() = _imgUrl
 
     private val _updateSuccess = MutableLiveData(false)
-    val updateSuccess:LiveData<Boolean> get() = _updateSuccess
+    val updateSuccess: LiveData<Boolean> get() = _updateSuccess
 
     fun uploadImage(file: File) {
         val requestFile = RequestBody.create(MultipartBody.FORM, file)
@@ -42,6 +42,7 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
                 {
                     status.postValue(LoadingStatus.Success)
                     _imgUrl.postValue(it.fileName)
+                    errorMsg.value = ""
                 }, {
                     errorMsg.postValue(it.toString())
                     status.postValue(LoadingStatus.Error)
@@ -50,7 +51,7 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
     }
 
     fun updateUser(updateUserRequest: UpdateUserRequest) {
-          compositeDisposable.add(repository.updateUserProfile(updateUserRequest)
+        compositeDisposable.add(repository.updateUserProfile(updateUserRequest)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe {
                 status.postValue(LoadingStatus.Loading)
             }.doOnError {
@@ -62,14 +63,17 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
                 {
                     _updateSuccess.postValue(true)
                     status.postValue(LoadingStatus.Success)
+                    errorMsg.value = ""
                 }, {
                     _updateSuccess.postValue(false)
                     status.postValue(LoadingStatus.Error)
                     Log.e("Error: ", it.toString())
+                    errorMsg.postValue(it.message)
                 }
             )
         )
     }
+
     fun getUserProfile() {
         compositeDisposable.add(
             repository.getUserProfile().observeOn(AndroidSchedulers.mainThread())
@@ -78,13 +82,15 @@ class EditPersonalFragmentViewModel : BaseViewModel() {
                 }
                 .subscribeOn(Schedulers.io()).subscribe(
                     {
-                        Log.i("TAGG",it.toString())
+                        Log.i("TAGG", it.toString())
                         _userProfile.postValue(it)
                         _imgUrl.postValue(it.avatar)
                         status.postValue(LoadingStatus.Success)
+                        errorMsg.value = ""
                     }, {
-                        Log.e("TAGG",it.toString())
+                        Log.e("TAGG", it.toString())
                         status.postValue(LoadingStatus.Error)
+                        errorMsg.postValue(it.message)
                     }
                 )
         )

@@ -14,6 +14,10 @@ open class BaseViewModel(argument: Any? = null) : ViewModel() {
     val status = MutableLiveData(LoadingStatus.Initial)
     val errorMsg = MutableLiveData("")
 
+    fun clearErrorMsg() {
+        errorMsg.value = ""
+    }
+
     fun handleError(error: Throwable): String {
         if (error is HttpException) {
             return try {

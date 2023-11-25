@@ -1,5 +1,6 @@
 package com.example.vcare_app.present.booking.hospitalbooking
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vcare_app.api.ApiClient
@@ -21,18 +22,20 @@ class HospitalBookingViewModel : BaseViewModel() {
 
     private var pageIndex = 1
     private val pageSize = 10
-    var totalcount =0
+    var totalcount = 0
     fun getHospitalList(pageSize: Int = 10, pageIndex: Int = 1) {
         compositeDisposable.add(repository.getHospitalList(pageSize, pageIndex)
             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).doOnSubscribe {
                 status.postValue(LoadingStatus.Loading)
-            }.subscribe({
+            }
+            .subscribe({
                 status.postValue(LoadingStatus.Success)
                 _listHospital.postValue(it.hospitals)
                 totalcount = it.total
             }, {
-                status.postValue(LoadingStatus.Success)
                 errorMsg.postValue(it.message)
+                status.postValue(LoadingStatus.Error)
+                Log.d("TAG1", "getHospitalList: loiroi ${errorMsg.value}")
             })
         )
     }

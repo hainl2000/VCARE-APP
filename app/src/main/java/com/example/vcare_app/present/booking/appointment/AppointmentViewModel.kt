@@ -53,7 +53,7 @@ class AppointmentViewModel : BaseViewModel() {
                     _createSuccess.postValue(true)
                     scheduleTime = it.timeInString
                     status.postValue(LoadingStatus.Success)
-
+                    errorMsg.value = ""
                 }, {
                     _createSuccess.postValue(false)
                     status.postValue(LoadingStatus.Error)

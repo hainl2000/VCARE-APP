@@ -94,10 +94,11 @@ class HistoryFragment : Fragment(), OnAppointmentClick {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
-                if (it == LoadingStatus.Error) {
-
-                    CustomSnackBar.showCustomSnackbar(view, "${viewModel.errorMsg.value}")
-                }
+            }
+        }
+        viewModel.errorMsg.observe(viewLifecycleOwner){
+            if(it.isNotEmpty()){
+                CustomSnackBar.showCustomSnackbar(requireView(),it)
             }
         }
         viewModel.loadMoreStatus.observe(viewLifecycleOwner) {

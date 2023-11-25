@@ -87,6 +87,12 @@ class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
             }
         }
 
+        viewModel.errorMsg.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                CustomSnackBar.showCustomSnackbar(requireView(), it)
+            }
+        }
+
         binding.medicineImg.setOnClickListener {
             onShowImage(viewModel.appointmentDetailResponse.value?.medicine ?: "")
         }
@@ -125,8 +131,6 @@ class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)
-
-
         } else {
             onShowImage(url)
         }

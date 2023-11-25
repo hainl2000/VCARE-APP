@@ -57,10 +57,9 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
         val recyclerView = view.findViewById<RecyclerView>(R.id.hospital_recycler_view)
         val searchText = view.findViewById<EditText>(R.id.search_hospital_text)
         val loadMoreProgressBar = view.findViewById<ProgressBar>(R.id.load_more_progress)
+
         val adapter = HospitalAdapter(emptyList(), this)
         recyclerView.adapter = adapter
-
-
 
         recyclerView.addOnScrollListener(object :
             PaginationScrollListener(recyclerView.layoutManager as LinearLayoutManager) {
@@ -114,9 +113,12 @@ class HospitalBookingFragment : Fragment(), OnHospitalClick {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
-                if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
-                    CustomSnackBar.showCustomSnackbar(view,"${viewModel.errorMsg.value}")
-                }
+
+            }
+        }
+        viewModel.errorMsg.observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+                CustomSnackBar.showCustomSnackbar(view,it)
             }
         }
         return view.rootView

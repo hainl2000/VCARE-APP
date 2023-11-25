@@ -2,7 +2,6 @@ package com.example.vcare_app.present.login
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.R
@@ -17,8 +16,28 @@ import com.google.android.material.tabs.TabLayout
 class LoginActivity : BaseActivity(R.layout.activity_login) {
 
     private lateinit var viewModel: LoginActivityViewModel
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val data =
+            intent.getParcelableExtra(
+                AppDeepLink.appointmentDetailArgumentName,
+                AppointmentDetailArgument::class.java
+            )
+
+
+        supportFragmentManager.beginTransaction().apply {
+            val fragment = SignInFragment()
+            fragment.arguments = Bundle().apply {
+                this.putParcelable(AppDeepLink.appointmentDetailArgumentName, data)
+            }
+            replace(R.id.login_fragment_container, fragment)
+            commit()
+        }
+
+
         initSharePref()
         viewModel =
             ViewModelProvider(this)[LoginActivityViewModel::class.java]
@@ -66,17 +85,6 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onStart() {
         super.onStart()
-        val data =
-            intent.getParcelableExtra(AppDeepLink.appointmentDetailArgumentName,AppointmentDetailArgument::class.java)
-        Log.d("loginactivity", "onCreate: ${data?.appointmentId}")
 
-        supportFragmentManager.beginTransaction().apply {
-            val fragment = SignInFragment()
-            fragment.arguments = Bundle().apply {
-                this.putParcelable(AppDeepLink.appointmentDetailArgumentName, data)
-            }
-            add(R.id.login_fragment_container, fragment)
-            commit()
-        }
     }
 }

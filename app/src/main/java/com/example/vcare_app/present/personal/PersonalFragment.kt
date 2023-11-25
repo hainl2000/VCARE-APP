@@ -82,9 +82,11 @@ class PersonalFragment : Fragment(), OnSettingClick {
                 LoadingDialogManager.showDialog(requireContext())
             } else {
                 LoadingDialogManager.dismissLoadingDialog()
-                if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
-                    CustomSnackBar.showCustomSnackbar(binding.root, "${viewModel.errorMsg}")
-                }
+            }
+        }
+        viewModel.errorMsg.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                CustomSnackBar.showCustomSnackbar(binding.root, it)
             }
         }
         binding.lifecycleOwner = this

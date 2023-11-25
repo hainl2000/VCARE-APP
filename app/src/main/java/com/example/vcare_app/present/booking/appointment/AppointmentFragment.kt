@@ -175,6 +175,7 @@ class AppointmentFragment : Fragment() {
         }
 
 
+
         return binding.root
     }
 

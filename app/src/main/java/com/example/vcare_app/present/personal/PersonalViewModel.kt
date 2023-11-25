@@ -26,12 +26,14 @@ class PersonalViewModel : BaseViewModel() {
                 }
                 .subscribeOn(Schedulers.io()).subscribe(
                     {
-                        Log.i("TAGG",it.toString())
+                        Log.i("TAGG", it.toString())
                         _userProfile.postValue(it)
                         status.postValue(LoadingStatus.Success)
+                        errorMsg.value = ""
                     }, {
-                        Log.e("TAGG",it.toString())
+                        Log.e("TAGG", it.toString())
                         status.postValue(LoadingStatus.Error)
+                        errorMsg.postValue(it.message)
                     }
                 )
         )

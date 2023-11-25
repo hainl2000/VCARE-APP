@@ -28,6 +28,7 @@ class BookingFragmentViewModel : BaseViewModel() {
                     {
                         status.postValue(LoadingStatus.Success)
                         _listDepartment.postValue(it.data)
+                        errorMsg.value = ""
                     }, {
                         Log.e("ERROR", it.message.toString())
                         status.postValue(LoadingStatus.Error)

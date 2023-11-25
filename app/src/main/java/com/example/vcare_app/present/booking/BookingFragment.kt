@@ -86,11 +86,14 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireActivity())
-            } else if (it == LoadingStatus.Success) {
+            } else {
                 LoadingDialogManager.dismissLoadingDialog()
-            } else if (it == LoadingStatus.Error && !viewModel.errorMsg.value.isNullOrEmpty()) {
-                LoadingDialogManager.dismissLoadingDialog()
-                CustomSnackBar.showCustomSnackbar(view,"${viewModel.errorMsg.value}")
+                viewModel.clearErrorMsg()
+            }
+        }
+        viewModel.errorMsg.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty() && viewModel.status.value == LoadingStatus.Error) {
+                CustomSnackBar.showCustomSnackbar(view, it)
             }
         }
         viewModel.listDepartment.observe(viewLifecycleOwner) {
@@ -124,7 +127,7 @@ class BookingFragment : Fragment(), OnDepartmentItemClick {
         AppointmentFlow.hospital_id = department.hospitalID
         AppointmentFlow.department_name = department.name
         parentFragmentManager.beginTransaction().apply {
-            setCustomAnimations(R.anim.slide_in,R.anim.slide_out)
+            setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             replace(R.id.fragment_container_view, AppointmentFragment())
             addToBackStack("appointment_fragment")
             commit()

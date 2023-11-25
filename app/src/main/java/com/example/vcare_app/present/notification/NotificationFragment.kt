@@ -1,6 +1,5 @@
 package com.example.vcare_app.present.notification
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +42,7 @@ class NotificationFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notification, container, false)
         val btn = view.findViewById<Button>(R.id.notification_btn)
         btn.setOnClickListener {
-            launcherNotifi.launch(Manifest.permission.POST_NOTIFICATIONS)
+            CustomSnackBar.showCustomSnackbar(view,"deobiet")
         }
 
         return view

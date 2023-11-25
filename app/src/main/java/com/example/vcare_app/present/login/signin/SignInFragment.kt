@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.vcare_app.mainactivity.MainActivity
 import com.example.vcare_app.data.sharepref.SharePrefManager
 import com.example.vcare_app.databinding.FragmentSignInBinding
+import com.example.vcare_app.mainactivity.MainActivity
 import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.utilities.AppDeepLink
 import com.example.vcare_app.utilities.LoadingDialogManager
@@ -68,7 +68,10 @@ class SignInFragment : Fragment() {
             )
         }
         viewModel.errorMsg.observe(requireActivity()) {
-            binding.errorTextSignIn.text = it
+            if(it.isNotEmpty()) {
+                binding.errorTextSignIn.text = it
+            }
+//            CustomSnackBar.showCustomSnackbar(this.requireView(),"deohieu",false)
         }
         viewModel.status.observe(viewLifecycleOwner) {
             when (it) {
