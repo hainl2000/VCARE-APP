@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.vcare_app.mainactivity.MainActivityViewModel
 import com.example.vcare_app.R
 import com.example.vcare_app.adapter.NewsAdapter
 import com.example.vcare_app.adapter.ViewPagerAdapter
 import com.example.vcare_app.databinding.FragmentHomeBinding
+import com.example.vcare_app.mainactivity.MainActivityViewModel
 import com.example.vcare_app.model.News
 import com.example.vcare_app.onclickinterface.OnCardItemClick
 import com.example.vcare_app.present.sos.SOSFragment
+import com.example.vcare_app.utilities.TabItem
 import java.util.Timer
 import java.util.TimerTask
 
@@ -80,14 +81,10 @@ class HomeFragment : Fragment(), OnCardItemClick {
         }
 
         binding.homeBookingBtn.setOnClickListener {
-            activityViewModel.changeTab(1)
-        }
-
-        binding.homeNotificationBtn.setOnClickListener {
-            activityViewModel.changeTab(2)
+            activityViewModel.changeTab(TabItem.Booking.ordinal)
         }
         binding.homePersonalBtn.setOnClickListener {
-            activityViewModel.changeTab(3)
+            activityViewModel.changeTab(TabItem.Personal.ordinal)
         }
 
         binding.sosBtn.setOnClickListener {

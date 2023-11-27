@@ -55,7 +55,7 @@ class SignInFragment : Fragment() {
             viewModel.login(SharePrefManager.getEmail(), SharePrefManager.getPassword())
         }
         val data =
-            arguments?.getParcelable(AppDeepLink.appointmentDetailArgumentName,AppointmentDetailArgument::class.java)
+            arguments?.getParcelable(AppDeepLink.appointmentDetailArgumentName) as AppointmentDetailArgument?
         Log.d("loginactivity", "onCreateView: ${data?.appointmentId}")
 
         binding.signInUserNameInput.setText(SharePrefManager.getEmail())
@@ -68,7 +68,7 @@ class SignInFragment : Fragment() {
             )
         }
         viewModel.errorMsg.observe(requireActivity()) {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 binding.errorTextSignIn.text = it
             }
 //            CustomSnackBar.showCustomSnackbar(this.requireView(),"deohieu",false)

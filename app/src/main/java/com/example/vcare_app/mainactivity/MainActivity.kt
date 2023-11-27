@@ -3,6 +3,7 @@ package com.example.vcare_app.mainactivity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.R
 import com.example.vcare_app.base.BaseActivity
@@ -99,6 +100,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     }
 
     private fun fragmentNavigation(fragment: Fragment) {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
             replace(R.id.fragment_container_view, fragment)

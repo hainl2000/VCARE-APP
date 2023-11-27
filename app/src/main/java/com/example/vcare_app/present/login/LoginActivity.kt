@@ -17,15 +17,14 @@ class LoginActivity : BaseActivity(R.layout.activity_login) {
 
     private lateinit var viewModel: LoginActivityViewModel
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val data =
             intent.getParcelableExtra(
-                AppDeepLink.appointmentDetailArgumentName,
-                AppointmentDetailArgument::class.java
-            )
+                AppDeepLink.appointmentDetailArgumentName
+
+            ) as AppointmentDetailArgument?
 
 
         supportFragmentManager.beginTransaction().apply {

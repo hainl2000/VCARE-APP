@@ -2,12 +2,10 @@ package com.example.vcare_app.present.appointmentdetail
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.vcare_app.adapter.ConclusionAdapter
@@ -34,12 +32,11 @@ private const val ARG_PARAM2 = "param2"
 class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
     // TODO: Rename and change types of parameters
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             appointmentArgument =
-                it.getParcelable("appointment_id", AppointmentDetailArgument::class.java)!!
+                it.getParcelable<AppointmentDetailArgument>("appointment_id") as AppointmentDetailArgument
         }
 
     }

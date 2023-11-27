@@ -63,10 +63,6 @@ class PersonalFragment : Fragment(), OnSettingClick {
         val listSetting = listOf(
             SettingsItem(R.drawable.edit_icon, resources.getString(R.string.edit)),
             SettingsItem(R.drawable.history_icon, resources.getString(R.string.history)),
-            SettingsItem(
-                R.drawable.password_change_icon,
-                resources.getString(R.string.change_password)
-            ),
             SettingsItem(R.drawable.logout_icon, resources.getString(R.string.logout))
         )
         binding.settingsRecyclerView.adapter = SettingsAdapter(listSetting, this)
@@ -132,8 +128,6 @@ class PersonalFragment : Fragment(), OnSettingClick {
                     commit()
                 }
             }
-
-            resources.getString(R.string.change_password) -> {}
             resources.getString(R.string.logout) -> {
                 val intent = Intent(requireActivity(), LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
