@@ -11,7 +11,6 @@ import com.example.vcare_app.model.AppointmentDetailArgument
 import com.example.vcare_app.present.appointmentdetail.AppointmentDetailFragment
 import com.example.vcare_app.present.booking.hospitalbooking.HospitalBookingFragment
 import com.example.vcare_app.present.home.HomeFragment
-import com.example.vcare_app.present.notification.NotificationFragment
 import com.example.vcare_app.present.personal.PersonalFragment
 import com.example.vcare_app.utilities.AppDeepLink
 import com.example.vcare_app.utilities.CheckAppAlive
@@ -51,10 +50,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 fragmentNavigation(HospitalBookingFragment())
 
             }
-            if (it == TabItem.Notification.ordinal) {
-                fragmentNavigation(NotificationFragment())
-
-            }
             if (it == TabItem.Personal.ordinal) {
                 if (argument != null && AppDeepLink.isFromNotification) {
                     AppDeepLink.isFromNotification = false
@@ -87,13 +82,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 R.id.booking -> {
                     if (viewModel.currentTab.value != TabItem.Booking.ordinal) {
                         viewModel.changeTab(TabItem.Booking.ordinal)
-                    }
-                    true
-                }
-
-                R.id.notification -> {
-                    if (viewModel.currentTab.value != TabItem.Notification.ordinal) {
-                        viewModel.changeTab(TabItem.Notification.ordinal)
                     }
                     true
                 }
