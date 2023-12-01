@@ -18,5 +18,6 @@ data class AppointmentResponse(
     @SerializedName("note") val note: String?,
     @SerializedName("medicine") val medicine: String?,
     @SerializedName("fee") val fee: Double?,
-    @SerializedName("fee_paid") val feePaid: Boolean
+    @SerializedName("fee_paid") val feePaid: Boolean,
+    @SerializedName("suggest_time") val suggestTime:String,
 )
