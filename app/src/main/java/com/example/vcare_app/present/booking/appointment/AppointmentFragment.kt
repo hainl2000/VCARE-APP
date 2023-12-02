@@ -76,14 +76,17 @@ class AppointmentFragment : Fragment() {
 
                     } else {
                         val currentTime = LocalTime.now()
-
+                        viewModel.setErrorMsg("Hãy chọn ngày trong tương lai.")
                         // Định nghĩa giờ cố định (ví dụ: 8 giờ)
                         val specificTime = LocalTime.of(7, 0)
-                        if (currentTime.isAfter(specificTime)) {
+                        if (currentYear == year && month == currentMonth && currentDay == dayOfMonth && currentTime.isAfter(
+                                specificTime
+                            )
+                        ) {
                             viewModel.setErrorMsg("Đã quá giờ ưu tiên đặt lịch trong ngày hôm nay, xin chọn ngày khác")
-                        } else {
-                            viewModel.setErrorMsg("Hãy chọn ngày trong tương lai.")
                         }
+
+
                     }
                 },
                 currentYear, // Initial year
