@@ -7,4 +7,8 @@ object AppointmentFlow {
     var hospital_name =""
     var department_name = ""
     var isFromAppointment = false
+    val startAtAM = 7
+    val endAtAM = 12
+    val startAtPM = 13
+    val endAtPM = 17
 }

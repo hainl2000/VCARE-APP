@@ -69,6 +69,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/gioihan_thoigian_datlich" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/pick_appointment_note"
+                android:textColor="@color/error"/>
 
             <LinearLayout
                 android:layout_marginTop="6dp"
@@ -88,6 +94,37 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:background="@drawable/button_item_bg" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkbox_add_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_specific_time"
+                android:textColor="@color/error"
+                android:buttonTint="@color/error"
+                />
+
+            <LinearLayout
+                android:id="@+id/pick_period_layout"
+                android:visibility="gone"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chonthoigiankham" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn khoảng thời gian"
+                    android:id="@+id/pick_period_spinner"/>
 
             </LinearLayout>
 

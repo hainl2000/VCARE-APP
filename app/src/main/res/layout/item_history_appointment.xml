@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:text="@{history.finished? `Hoàn thành`: `Chưa hoàn thành`}"
+                    android:text="@{history.status}"
                     android:textColor="@color/strong_green"
                     android:textSize="@dimen/text_information_size"
                     android:textStyle="bold" />

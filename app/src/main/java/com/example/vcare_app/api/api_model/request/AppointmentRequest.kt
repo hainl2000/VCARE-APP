@@ -9,5 +9,6 @@ data class AppointmentRequest(
     @SerializedName("time_in_string") val timeInString: String,
     @SerializedName("identity_number") val identityNumber: String,
     @SerializedName("social_insurance_number") val socialInsuranceNumber: String,
+    val hour: Int?=null,
     val address: String
 )

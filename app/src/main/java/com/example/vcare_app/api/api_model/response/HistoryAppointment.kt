@@ -29,5 +29,6 @@ data class HistoryAppointment(
     @SerializedName("fee_paid")
     val feePaid: Boolean,
     val hospital: Hospital,
-    val department: DepartmentOnlyNameResponse
+    val department: DepartmentOnlyNameResponse,
+    val status:String,
 )

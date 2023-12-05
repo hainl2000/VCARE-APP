@@ -16,6 +16,7 @@ import kotlin.math.sqrt
 
 class Utilities {
     companion object {
+        const val INIT_PERIOD_TIME = 7
         fun extractFileNameFromUrl(url: String): String {
             val uri = java.net.URI(url)
             val path = uri.path
@@ -42,9 +43,21 @@ class Utilities {
             return degrees * Math.PI / 180
         }
 
-        fun isExcelFile(url: String):Boolean {
+        fun isExcelFile(url: String): Boolean {
             return url.lowercase().endsWith(".xlsx") || url.lowercase().endsWith(".xls")
         }
+
+        val listPeriod = mapOf(
+            "7h-8h" to 7,
+            "8h-9h" to 8,
+            "9h-10h" to 9,
+            "10h-11h" to 10,
+            "11h-12h" to 11,
+            "13h-14h" to 13,
+            "14h-15h" to 14,
+            "15h-16h" to 15,
+            "16h-17h" to 16,
+        )
     }
 }
 
@@ -54,7 +67,7 @@ fun getImage(imageView: ImageView, url: String?) {
 }
 
 @BindingAdapter("getUrlName")
-fun getUrlName(textView: TextView,url:String){
+fun getUrlName(textView: TextView, url: String) {
     val name = url.split("/").last()
     textView.text = name
 }

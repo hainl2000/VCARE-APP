@@ -9,6 +9,7 @@ data class AppointmentDetailResponse(
     @SerializedName("user_id") val userId: Int,
     @SerializedName("doctor_id") val doctorId: Int,
     @SerializedName("external_code") val externalCode: String,
+    val order:Int,
     @SerializedName("patient_information") val patientInformation: PatientInformation,
     @SerializedName("medical_condition") val medicalCondition: String,
     val time: String,

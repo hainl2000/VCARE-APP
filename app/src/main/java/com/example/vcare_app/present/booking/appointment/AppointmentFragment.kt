@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +23,7 @@ import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
+import com.example.vcare_app.utilities.Utilities
 import java.time.LocalTime
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +41,7 @@ class AppointmentFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -49,6 +53,10 @@ class AppointmentFragment : Fragment() {
     lateinit var binding: FragmentAppointmentBinding
     lateinit var viewModel: AppointmentViewModel
     private lateinit var activityViewModel: MainActivityViewModel
+    private val calendar = Calendar.getInstance()
+    private val currentYear = calendar.get(Calendar.YEAR)
+    private val currentMonth = calendar.get(Calendar.MONTH)
+    private val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -60,9 +68,16 @@ class AppointmentFragment : Fragment() {
         activityViewModel = ViewModelProvider(requireActivity())[MainActivityViewModel::class.java]
         binding.lifecycleOwner = this
         binding.appointmentFlow = AppointmentFlow
-
+        binding.checkboxAddTime.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.pickPeriodLayout.visibility = View.VISIBLE
+            } else {
+                binding.pickPeriodLayout.visibility = View.GONE
+            }
+        }
         viewModel.getCurrentProfile()
         var datepick = ""
+        var timePick = Utilities.INIT_PERIOD_TIME
         binding.datePickerBtn.setOnClickListener {
             DatePickerDialog(
                 requireActivity(), // Context
@@ -94,7 +109,25 @@ class AppointmentFragment : Fragment() {
                 currentDay, // Initial day
             ).show()
         }
+        val items = Utilities.listPeriod.keys.toList()
+        val adapter =
+            ArrayAdapter(requireContext(), R.layout.item_spinner_custom, items)
+        binding.pickPeriodSpinner.adapter = adapter
+        binding.pickPeriodSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    timePick = Utilities.listPeriod[items[position]] ?: Utilities.INIT_PERIOD_TIME
+                }
 
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    timePick = Utilities.INIT_PERIOD_TIME
+                }
+            }
         viewModel.errorMsg.observe(viewLifecycleOwner) {
             if (it.isNullOrEmpty() && binding.datePickerBtn.text.isNotEmpty()) {
                 binding.errorTv.text = ""
@@ -116,6 +149,7 @@ class AppointmentFragment : Fragment() {
                         datepick,
                         viewModel.profile.value?.identityNumber ?: "",
                         viewModel.profile.value?.socialInsuranceNumber ?: "",
+                        if (binding.checkboxAddTime.isChecked) timePick else null,
                         viewModel.profile.value?.address ?: ""
                     )
                 )
@@ -155,11 +189,6 @@ class AppointmentFragment : Fragment() {
 
         return binding.root
     }
-
-    private val calendar = Calendar.getInstance()
-    private val currentYear = calendar.get(Calendar.YEAR)
-    private val currentMonth = calendar.get(Calendar.MONTH)
-    private val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
 
     companion object {
         /**
