@@ -35,6 +35,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="18dp"
                 android:text="Searching..."
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 app:drawableLeftCompat="@drawable/search_icon"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,6 +78,7 @@
                             android:gravity="center"
                             android:maxLines="2"
                             android:text="@string/qr"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </LinearLayout>
 
@@ -101,6 +103,7 @@
                             android:gravity="center"
                             android:maxLines="2"
                             android:text="@string/booking"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </LinearLayout>
 
@@ -125,16 +128,18 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:maxLines="2"
-
                             android:text="@string/personal"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+                    android:gravity="center">
+
                     <LinearLayout
                         android:id="@+id/sos_btn"
                         android:layout_width="80dp"
@@ -156,88 +161,89 @@
                             android:gravity="center"
                             android:maxLines="2"
                             android:text="@string/sos"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center_horizontal"-->
-<!--                    android:orientation="horizontal">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center_horizontal"-->
+                <!--                    android:orientation="horizontal">-->
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="110dp"-->
-<!--                        android:layout_margin="8dp"-->
-<!--                        android:orientation="vertical">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="80dp"-->
+                <!--                        android:layout_height="110dp"-->
+                <!--                        android:layout_margin="8dp"-->
+                <!--                        android:orientation="vertical">-->
 
-<!--                        <ImageView-->
-<!--                            android:layout_width="60dp"-->
-<!--                            android:layout_height="60dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:background="@drawable/button_item_bg"-->
-<!--                            android:padding="8dp"-->
-<!--                            android:src="@drawable/qr_code_icon" />-->
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="60dp"-->
+                <!--                            android:layout_height="60dp"-->
+                <!--                            android:layout_gravity="center"-->
+                <!--                            android:background="@drawable/button_item_bg"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:src="@drawable/qr_code_icon" />-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:maxLines="2"-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:maxLines="2"-->
 
-<!--                            android:text="QR"-->
-<!--                            android:textSize="15sp" />-->
-<!--                    </LinearLayout>-->
+                <!--                            android:text="QR"-->
+                <!--                            android:textSize="15sp" />-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="110dp"-->
-<!--                        android:layout_margin="8dp"-->
-<!--                        android:orientation="vertical">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="80dp"-->
+                <!--                        android:layout_height="110dp"-->
+                <!--                        android:layout_margin="8dp"-->
+                <!--                        android:orientation="vertical">-->
 
-<!--                        <ImageView-->
-<!--                            android:layout_width="60dp"-->
-<!--                            android:layout_height="60dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:background="@drawable/button_item_bg"-->
-<!--                            android:padding="8dp"-->
-<!--                            android:src="@drawable/calendar_icon" />-->
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="60dp"-->
+                <!--                            android:layout_height="60dp"-->
+                <!--                            android:layout_gravity="center"-->
+                <!--                            android:background="@drawable/button_item_bg"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:src="@drawable/calendar_icon" />-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:maxLines="2"-->
-<!--                            android:text="Hellofrfe"-->
-<!--                            android:textSize="15sp" />-->
-<!--                    </LinearLayout>-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:maxLines="2"-->
+                <!--                            android:text="Hellofrfe"-->
+                <!--                            android:textSize="15sp" />-->
+                <!--                    </LinearLayout>-->
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="110dp"-->
-<!--                        android:layout_margin="8dp"-->
-<!--                        android:orientation="vertical">-->
+                <!--                    <LinearLayout-->
+                <!--                        android:layout_width="80dp"-->
+                <!--                        android:layout_height="110dp"-->
+                <!--                        android:layout_margin="8dp"-->
+                <!--                        android:orientation="vertical">-->
 
-<!--                        <ImageView-->
-<!--                            android:layout_width="60dp"-->
-<!--                            android:layout_height="60dp"-->
-<!--                            android:layout_gravity="center"-->
-<!--                            android:background="@drawable/button_item_bg"-->
-<!--                            android:padding="8dp"-->
-<!--                            android:src="@drawable/hospital_icon" />-->
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="60dp"-->
+                <!--                            android:layout_height="60dp"-->
+                <!--                            android:layout_gravity="center"-->
+                <!--                            android:background="@drawable/button_item_bg"-->
+                <!--                            android:padding="8dp"-->
+                <!--                            android:src="@drawable/hospital_icon" />-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="center"-->
-<!--                            android:maxLines="2"-->
+                <!--                        <TextView-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:gravity="center"-->
+                <!--                            android:maxLines="2"-->
 
-<!--                            android:text="QR"-->
-<!--                            android:textSize="15sp" />-->
-<!--                    </LinearLayout>-->
-<!--                </LinearLayout>-->
+                <!--                            android:text="QR"-->
+                <!--                            android:textSize="15sp" />-->
+                <!--                    </LinearLayout>-->
+                <!--                </LinearLayout>-->
             </GridLayout>
 
             <LinearLayout
@@ -252,8 +258,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="News" />
+                    android:text="News"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -269,8 +275,8 @@
                 android:id="@+id/news_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

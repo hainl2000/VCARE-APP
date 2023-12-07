@@ -23,6 +23,8 @@
             android:background="@drawable/button_item_bg"
             android:drawableStart="@drawable/search_icon"
             android:hint="@string/search"
+            android:textColorHint="@color/grey"
+            android:textColor="@color/black"
             android:inputType="text" />
 
 

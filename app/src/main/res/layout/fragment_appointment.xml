@@ -39,6 +39,7 @@
             android:paddingHorizontal="24dp">
 
             <TextView
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -51,14 +52,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/symptom"/>
                 <EditText
+                    android:textColor="@color/black"
                     android:id="@+id/symptom_input"
                     android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColorHint="@color/grey"
                     android:hint="@string/symptom_input"/>
             </LinearLayout>
 
@@ -84,11 +88,13 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chonlichkham" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:textColor="@color/black"
                     android:id="@+id/date_picker_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,6 +122,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chonthoigiankham" />
@@ -123,7 +130,7 @@
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Chọn khoảng thời gian"
+
                     android:id="@+id/pick_period_spinner"/>
 
             </LinearLayout>

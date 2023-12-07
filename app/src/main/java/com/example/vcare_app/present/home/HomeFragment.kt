@@ -147,6 +147,5 @@ class HomeFragment : Fragment(), OnCardItemClick {
     }
 
     override fun onCardItemClick(news: News) {
-        TODO("Not yet implemented")
     }
 }

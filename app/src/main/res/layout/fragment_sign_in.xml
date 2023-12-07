@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -15,17 +16,24 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_in_user_name_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:hint="@string/phone_number_user_name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_margin="12dp"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -34,17 +42,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
+                android:textColor="@color/black"
                 android:inputType="textPassword" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/sign_in_check_data"
+            android:textColor="@color/black"
             android:layout_marginEnd="12dp"
             android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/strong_green"
             android:text="@string/save_account" />
 
         <androidx.appcompat.widget.AppCompatButton

@@ -16,24 +16,32 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_user_name_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:hint="@string/email" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_phone_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:hint="@string/phone"
                 android:inputType="numberDecimal"
                 android:maxLength="11" />
@@ -43,6 +51,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -58,6 +69,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/identity_number"
                 android:inputType="numberDecimal"
+                android:textColor="@color/black"
                 android:maxLength="12" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -73,13 +88,18 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp"
+            app:passwordToggleTint="@color/black"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
 
@@ -90,6 +110,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/grey"
+            app:hintTextColor="@color/grey"
+            app:cursorColor="@color/grey"
             android:layout_margin="12dp"
             app:passwordToggleEnabled="true">
 
@@ -98,6 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:filterTouchesWhenObscured="true"
+                android:textColor="@color/black"
                 android:hint="@string/confirm_password"
                 android:inputType="textPassword" />
 

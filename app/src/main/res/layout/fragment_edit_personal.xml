@@ -57,11 +57,13 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/email" />
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_marginLeft="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -75,12 +77,14 @@
                     android:layout_marginTop="12dp">
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/phone" />
 
                     <TextView
                         android:id="@+id/edit_phone"
+                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -93,11 +97,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/full_name" />
 
                     <EditText
+                        android:textColor="@color/black"
                         android:layout_marginLeft="12dp"
                         android:id="@+id/edit_full_name"
                         android:layout_width="match_parent"
@@ -110,11 +116,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/identity_number" />
 
                     <EditText
+                        android:textColor="@color/black"
                         android:layout_marginLeft="12dp"
                         android:id="@+id/edit_identity_number"
                         android:layout_width="match_parent"
@@ -130,10 +138,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/social_insurance_number"
-
+android:textColor="@color/black"
                         />
 
                     <EditText
+                        android:textColor="@color/black"
                         android:layout_marginLeft="12dp"
                         android:id="@+id/edit_sin"
                         android:layout_width="match_parent"
@@ -146,11 +155,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/address" />
 
                     <EditText
+                        android:textColor="@color/black"
                         android:layout_marginLeft="12dp"
                         android:id="@+id/edit_address"
                         android:layout_width="match_parent"
@@ -166,6 +177,7 @@
 
                     <RadioButton
                         android:id="@+id/radio_nam"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@{profile.gender}"
