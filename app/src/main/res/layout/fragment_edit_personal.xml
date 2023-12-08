@@ -176,18 +176,25 @@ android:textColor="@color/black"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:buttonTint="@color/strong_green"
                         android:id="@+id/radio_nam"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@{profile.gender}"
+                        android:theme="@style/radioButton"
+                        app:useMaterialThemeColors="false"
                         android:text="@string/nam" />
 
                     <RadioButton
+                        android:buttonTint="@color/strong_green"
                         android:id="@+id/radio_nu"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@{!profile.gender}"
+                        android:theme="@style/radioButton"
+                        app:useMaterialThemeColors="false"
                         android:text="@string/nu" />
                 </RadioGroup>
 
@@ -196,11 +203,13 @@ android:textColor="@color/black"
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/day_of_birth" />
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:textColor="@color/black"
                         android:layout_marginLeft="12dp"
                         android:id="@+id/edit_dob"
                         android:layout_width="match_parent"

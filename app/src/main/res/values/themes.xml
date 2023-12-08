@@ -5,7 +5,13 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:textColor">@color/black</item>
     </style>
-
+    <style name="RadioButtonStyle" parent="Theme.Material3.DayNight">
+        <item name="colorAccent">@color/strong_green</item>
+    </style>
+    <style name="radioButton" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#0f0</item>
+        <item name="colorAccent">#f00</item>
+    </style>
 
     <style name="Theme.VCARE_APP" parent="Base.Theme.VCARE_APP" />
 </resources>

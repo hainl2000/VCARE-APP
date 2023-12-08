@@ -26,14 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="@{`Chi phí: ` + String.valueOf(conclusion.service.fee)}"
-            android:textColor="@color/mid_green"
-            android:textSize="@dimen/text_information_size" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:text="@{`Phòng: `+conclusion.service.room}"
             android:textColor="@color/mid_green"
             android:textSize="@dimen/text_information_size" />

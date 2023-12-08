@@ -4,4 +4,11 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+    <style name="RadioButtonStyle" parent="Theme.Material3.DayNight">
+        <item name="colorAccent">@color/strong_green</item>
+    </style>
+    <style name="radioButton" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#0f0</item>
+        <item name="colorAccent">#f00</item>
+    </style>
 </resources>

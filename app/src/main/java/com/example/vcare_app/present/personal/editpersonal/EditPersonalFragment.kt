@@ -100,10 +100,6 @@ class EditPersonalFragment : Fragment() {
             showDatePickerDialog()
         }
 
-        binding.cancelBtn.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
         viewModel.status.observe(viewLifecycleOwner) {
             if (it == LoadingStatus.Loading) {
                 LoadingDialogManager.showDialog(requireContext())

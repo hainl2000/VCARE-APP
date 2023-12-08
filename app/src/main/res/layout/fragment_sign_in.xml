@@ -34,6 +34,8 @@
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
