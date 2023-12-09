@@ -30,6 +30,7 @@ class NewsAdapter(private val listNews: List<News>, val onCardItemClick: OnCardI
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val item = listNews[position]
         holder.title.text = item.title
+        holder.title.isSelected = true
         holder.content.text = item.content
 
         /// Mock data

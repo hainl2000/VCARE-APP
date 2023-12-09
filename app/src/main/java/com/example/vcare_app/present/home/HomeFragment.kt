@@ -65,15 +65,15 @@ class HomeFragment : Fragment(), OnCardItemClick {
 
         val newsRecyclerViewAdapter = NewsAdapter(
             listOf(
-                News("R.drawable.banner1", "Banner1", "whofre are you"),
-                News("R.drawable.banner1", "Banner1", "whoe are you\nfreiushfres"),
+                News("R.drawable.banner1", "Dược phẩm", "Ngành dược học tại Việt Nam đang phát triển mạnh mẽ, với sự gia tăng của các cửa hàng thuốc và trung tâm y tế trên khắp đất nước. Các nhà thuốc không chỉ là nơi cung cấp thuốc chất lượng mà còn là địa điểm tư vấn chăm sóc sức khỏe. Việc chính phủ và ngành y tế đầu tư vào hạ tầng và đào tạo nhân sự dược học cũng đóng góp tích cực vào sự phát triển bền vững của ngành này. Việt Nam đang dần thúc đẩy nghiên cứu và sản xuất thuốc, tạo ra cơ hội lớn cho sự đổi mới và cải tiến trong lĩnh vực y tế."),
+                News("R.drawable.banner2", "Vắc xin", "\n" +
+                        "Vắc xin đóng vai trò quan trọng trong hệ thống y tế của Việt Nam, đặc biệt là trong bối cảnh đối mặt với các thách thức về dịch bệnh. Chính phủ Việt Nam đã tích cực thúc đẩy chương trình tiêm chủng quốc gia, tạo điều kiện thuận lợi cho việc cung cấp vắc xin đến cộng đồng. Sự đầu tư vào nghiên cứu và phát triển vắc xin cũng đang ngày càng được tăng cường, giúp nâng cao khả năng phòng ngừa và kiểm soát bệnh tật trong cả nước. Hệ thống tiêm chủng đa dạng và hiệu quả đã đóng vai trò quan trọng trong việc bảo vệ sức khỏe cộng đồng và giảm áp lực cho hệ thống y tế trước những thách thức y tế toàn cầu."),
                 News(
-                    "R.drawable.banner1",
-                    "Banner1",
-                    "who grare you\nfrhuifheirsuhfresf\nfreuygfhuers"
+                    "R.drawable.banner3",
+                    "Nhận thức về bệnh hiếm",
+                    "Tháng Nhận Thức về Bệnh Hiếm là dịp quan trọng tại Việt Nam, nhấn mạnh tầm quan trọng của việc nâng cao hiểu biết về các bệnh lạ và thách thức mà những người bị ảnh hưởng phải đối mặt. Trong tháng này, cộng đồng y tế và xã hội hóa mình để tăng cường giáo dục và hỗ trợ cho những người và gia đình chịu ảnh hưởng bởi các bệnh hiếm. Các sự kiện và chiến dịch trong tháng nhận thức này không chỉ giúp nâng cao ý thức mà còn góp phần quan trọng vào việc cung cấp nguồn thông tin và hỗ trợ cho những người cần giúp đỡ."
                 ),
-                News("R.drawable.banner1", "Banner1", "who are you"),
-                News("R.drawable.banner1", "Banner1", "who are you")
+
             ), this
         )
         binding.newsRecyclerView.apply {

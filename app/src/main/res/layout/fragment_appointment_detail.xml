@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="appointment"
             type="com.example.vcare_app.api.api_model.response.AppointmentDetailResponse" />
@@ -68,6 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -82,13 +84,14 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{String.valueOf(appointment.order)}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_big_title_size" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,13 +106,14 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.suggestTime}"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,11 +128,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.externalCode}"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -147,11 +151,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.finished?`Đã xong`:`Chưa hoàn thành`}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -170,11 +174,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{String.valueOf(appointment.fee)}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -192,11 +196,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.hospital.name}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -214,11 +218,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.department.name}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -236,11 +240,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.doctor.fullName}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -328,11 +332,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.medicalCondition}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -350,11 +354,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.conclude}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -372,11 +376,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.note}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
@@ -394,11 +398,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:text="@{appointment.note}"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small_title_size" />
                 </LinearLayout>
 
