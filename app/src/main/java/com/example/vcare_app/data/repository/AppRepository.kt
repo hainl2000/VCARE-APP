@@ -1,6 +1,7 @@
 package com.example.vcare_app.data.repository
 
 import com.example.vcare_app.api.ApiService
+import com.example.vcare_app.api.api_model.HealthStatus
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
@@ -45,6 +46,10 @@ class AppRepository(private val apiService: ApiService) {
         apiService.getAppointmentHistory(pageSize, pageIndex)
 
     fun getAppointmentDetail(id: Int) = apiService.getAppointment(id)
+
+    fun getHealthStatus() = apiService.getHealthStatus()
+
+    fun updateHealthStatus(healthStatus: HealthStatus) = apiService.updateHealthStatus(healthStatus)
 
     fun getNearestHospital() = listOf(
         NearestHospital("Campha", "campha quang inh", "092839282", 21.026707, 107.031126),

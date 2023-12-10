@@ -16,6 +16,7 @@ import com.example.vcare_app.model.SettingsItem
 import com.example.vcare_app.onclickinterface.OnSettingClick
 import com.example.vcare_app.present.login.LoginActivity
 import com.example.vcare_app.present.personal.editpersonal.EditPersonalFragment
+import com.example.vcare_app.present.personal.healthstatus.HealthStatusFragment
 import com.example.vcare_app.present.personal.history.HistoryFragment
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
@@ -62,6 +63,7 @@ class PersonalFragment : Fragment(), OnSettingClick {
         viewModel.getUserProfile()
         val listSetting = listOf(
             SettingsItem(R.drawable.edit_icon, resources.getString(R.string.edit)),
+            SettingsItem(R.drawable.health_status_icon,resources.getString(R.string.health_status_information)),
             SettingsItem(R.drawable.history_icon, resources.getString(R.string.history)),
             SettingsItem(R.drawable.logout_icon, resources.getString(R.string.logout))
         )
@@ -117,6 +119,15 @@ class PersonalFragment : Fragment(), OnSettingClick {
                     val editFragment = EditPersonalFragment()
                     replace(R.id.fragment_container_view, editFragment)
                     addToBackStack("edit_personal")
+                    commit()
+                }
+            }
+
+            resources.getString(R.string.health_status_information)->{
+                parentFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+                    replace(R.id.fragment_container_view, HealthStatusFragment())
+                    addToBackStack("health_status")
                     commit()
                 }
             }

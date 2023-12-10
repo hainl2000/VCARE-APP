@@ -1,5 +1,6 @@
 package com.example.vcare_app.api
 
+import com.example.vcare_app.api.api_model.HealthStatus
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
@@ -57,5 +58,14 @@ interface ApiService {
     fun getAppointment(@Path("id") id: Int): Single<AppointmentDetailResponse>
 
     @GET("appointment")
-    fun getAppointmentHistory(@Query("pageSize") pageSize: Int,@Query("pageIndex") pageIndex: Int): Single<HistoryResponse>
+    fun getAppointmentHistory(
+        @Query("pageSize") pageSize: Int,
+        @Query("pageIndex") pageIndex: Int
+    ): Single<HistoryResponse>
+
+    @POST("health-status")
+    fun updateHealthStatus(@Body healthStatus: HealthStatus): Single<HealthStatus>
+
+    @GET("health-status")
+    fun getHealthStatus(): Single<HealthStatus>
 }

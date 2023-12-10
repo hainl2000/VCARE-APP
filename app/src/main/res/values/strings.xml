@@ -52,6 +52,8 @@
     <string name="serial">Số thứ tự: </string>
     <string name="examination_time">Thời gian khám (Dự kiến): </string>
     <string name="detail_appointment_title">Thông tin</string>
+    <string name="health_status_information">Tình trạng sức khoẻ</string>
+    <string name="edit_health_status_information">Chỉnh sửa tình trạng sức khoẻ</string>
     <string name="ok">OK</string>
     <string name="symptom">Triệu chứng: </string>
     <string name="symptom_input">Nhập triệu chứng: </string>
@@ -67,6 +69,12 @@
     <string name="notification_permission_denied">Hãy cho phép quyền được thông báo để chúng tôi có thể thông báo cho bạn những thông tin cần thiết.</string>
     <string name="list_used_service">Các loại khám</string>
     <string name="back_to_home">Về màn hình chính</string>
+    <string name="back">Trở lại</string>
     <string name="add_specific_time">Thêm thời gian cụ thể</string>
     <string name="pick_appointment_note">* Hệ thống sẽ tự động đặt thời gian sớm nhất cho bạn.</string>
+    <string name="height">Chiều cao (cm)</string>
+    <string name="weight">Cân nặng (kg)</string>
+    <string name="blood_type">Nhóm máu</string>
+    <string name="blood_pressure">Huyết áp</string>
+    <string name="confirm">Xác nhận</string>
 </resources>
