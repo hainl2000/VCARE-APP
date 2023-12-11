@@ -19,7 +19,10 @@
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
-            android:layout_margin="12dp">
+            app:errorEnabled="true"
+
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_user_name_input"
@@ -27,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:hint="@string/email" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -35,7 +39,8 @@
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
-            android:layout_margin="12dp">
+            app:errorEnabled="true"
+            android:layout_marginHorizontal="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_phone_input"
@@ -46,6 +51,7 @@
                 android:inputType="numberDecimal"
                 android:maxLength="11" />
 
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -54,12 +60,13 @@
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
-            android:layout_margin="12dp">
+            android:layout_marginHorizontal="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/sign_up_social_insurance_number_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:hint="@string/social_insurance_number"
                 android:inputType="numberDecimal"
                 android:maxLength="12" />
@@ -88,10 +95,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/password_layout"
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
-            android:layout_margin="12dp"
+            app:errorEnabled="true"
+            android:layout_marginHorizontal="12dp"
             app:passwordToggleTint="@color/black"
             app:passwordToggleEnabled="true">
 
@@ -113,7 +122,8 @@
             app:boxStrokeColor="@color/grey"
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
-            android:layout_margin="12dp"
+            app:errorEnabled="true"
+            android:layout_marginHorizontal="12dp"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText

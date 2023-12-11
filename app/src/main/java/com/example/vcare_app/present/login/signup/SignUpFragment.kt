@@ -1,6 +1,8 @@
 package com.example.vcare_app.present.login.signup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,9 @@ import com.example.vcare_app.present.login.LoginActivityViewModel
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
+import com.example.vcare_app.utilities.Utilities
+import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.textfield.TextInputLayout.END_ICON_PASSWORD_TOGGLE
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,19 +51,84 @@ class SignUpFragment : Fragment() {
 
         binding = FragmentSignUpBinding.inflate(inflater)
         activityViewModel = ViewModelProvider(requireActivity())[LoginActivityViewModel::class.java]
+        binding.signUpUserNameInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!Utilities.isValidEmail(s.toString())) {
+                    binding.signUpUserNameInput.error = "Email không hợp lệ"
+                } else {
+                    binding.signUpUserNameInput.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+        binding.signUpPhoneInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!Utilities.isValidPhoneNumber(s.toString())) {
+                    binding.signUpPhoneInput.error = "Số điện thoại không hợp lệ"
+                } else {
+                    binding.signUpPhoneInput.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+        binding.signUpPasswordInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!Utilities.isValidPassword(s.toString())) {
+                    binding.passwordLayout.endIconMode = TextInputLayout.END_ICON_NONE
+                    binding.signUpPasswordInput.error = "Mật khẩu dài hơn 6 kí tự"
+                } else {
+                    binding.signUpPasswordInput.error = null
+                    binding.passwordLayout.endIconMode = END_ICON_PASSWORD_TOGGLE
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
 
 
         binding.signUpBtn.setOnClickListener {
-            if (binding.signUpConfirmPasswordInput.text.toString() == binding.signUpPasswordInput.text.toString()) {
-                viewModel.signUp(
-                    binding.signUpUserNameInput.text.toString(),
-                    binding.signUpPhoneInput.text.toString(),
-                    binding.signUpSocialInsuranceNumberInput.text.toString(),
-                    binding.signUpIdentityNumberInput.text.toString(),
-                    binding.signUpPasswordInput.text.toString()
-                )
-            } else {
-                binding.errorTextSignUp.text = "Lỗi: 2 mật khẩu không trùng nhau."
+            val email = binding.signUpUserNameInput.text.toString()
+            val phone = binding.signUpPhoneInput.text.toString()
+            val insuranceNumber = binding.signUpSocialInsuranceNumberInput.text.toString()
+            val identifyNumber = binding.signUpIdentityNumberInput.text.toString()
+            val password = binding.signUpPasswordInput.text.toString()
+            if (email.isEmpty() || phone.isEmpty() || insuranceNumber.isEmpty() || identifyNumber.isEmpty() || password.isEmpty()) {
+                binding.errorTextSignUp.text = "Lỗi: Hãy điền đầy đủ thông tin."
+            }else {
+                if (binding.signUpConfirmPasswordInput.text.toString() == binding.signUpPasswordInput.text.toString()) {
+                    viewModel.signUp(
+                        email,
+                        phone,
+                        insuranceNumber,
+                        identifyNumber,
+                        password,
+                    )
+                } else {
+                    binding.errorTextSignUp.text = "Lỗi: 2 mật khẩu không trùng nhau."
+                }
             }
         }
         viewModel.errorMsg.observe(viewLifecycleOwner) {

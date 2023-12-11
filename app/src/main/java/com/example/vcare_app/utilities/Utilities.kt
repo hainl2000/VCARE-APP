@@ -15,8 +15,25 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 class Utilities {
+
+
     companion object {
         const val INIT_PERIOD_TIME = 7
+        private val emailRegex =
+            Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$\$")
+
+        fun isValidEmail(email: String): Boolean {
+            return emailRegex.matches(email)
+        }
+
+        fun isValidPassword(password: String): Boolean {
+            return password.length >= 6
+        }
+
+        fun isValidPhoneNumber(phoneNumber: String): Boolean {
+            return phoneNumber.length >= 10
+        }
+
         fun extractFileNameFromUrl(url: String): String {
             val uri = java.net.URI(url)
             val path = uri.path

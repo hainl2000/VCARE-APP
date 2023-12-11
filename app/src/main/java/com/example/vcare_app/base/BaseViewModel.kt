@@ -24,13 +24,15 @@ open class BaseViewModel(argument: Any? = null) : ViewModel() {
                 val errorBody = error.response()?.errorBody()?.string()
                 val gson = Gson()
                 val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
-                Log.e("Error", errorResponse.message.toString())
+                Log.e("Error", errorResponse.toString())
                 errorResponse.message.joinToString()
 
             } catch (e: Exception) {
+                Log.e("Error", e.toString())
                 "Lỗi: ${e.message}"
             }
         }
+        Log.e("Error", error.toString())
         return "Lỗi: Không xác định"
     }
 
