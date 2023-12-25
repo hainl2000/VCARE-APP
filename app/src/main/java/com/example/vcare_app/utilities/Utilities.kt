@@ -1,12 +1,17 @@
 package com.example.vcare_app.utilities
 
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.vcare_app.R
+import com.example.vcare_app.utilities.Utilities.Companion.isBrowserUrl
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.atan2
@@ -18,6 +23,22 @@ class Utilities {
 
 
     companion object {
+        fun getFileFromContentUri(context: Context, contentUri: Uri): String? {
+            val contentResolver: ContentResolver = context.contentResolver
+
+            val projection = arrayOf(MediaStore.Images.Media.DATA)
+
+            val cursor = contentResolver.query(contentUri, projection, null, null, null)
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                    return it.getString(columnIndex)
+                }
+            }
+
+            return null
+        }
+
         const val INIT_PERIOD_TIME = 7
         private val emailRegex =
             Regex("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$\$")
@@ -60,8 +81,19 @@ class Utilities {
             return degrees * Math.PI / 180
         }
 
-        fun isExcelFile(url: String): Boolean {
-            return url.lowercase().endsWith(".xlsx") || url.lowercase().endsWith(".xls")
+        fun isImageUrl(url: String): Boolean {
+            return url.lowercase().endsWith(".png") || url.lowercase()
+                .endsWith(".jpg") || url.lowercase().endsWith(".jpng")
+        }
+
+        fun isBrowserUrl(url: String): Boolean {
+            if (isImageUrl(url)) return false
+            else {
+                if (url.lowercase().endsWith(".xlxs") || url.lowercase().endsWith(".xls")) {
+                    return false
+                }
+                return true
+            }
         }
 
         val listPeriod = mapOf(
@@ -85,8 +117,14 @@ fun getImage(imageView: ImageView, url: String?) {
 
 @BindingAdapter("getUrlName")
 fun getUrlName(textView: TextView, url: String) {
-    val name = url.split("/").last()
-    textView.text = name
+
+    if (isBrowserUrl(url)) {
+        textView.text = url
+    } else {
+        val name = url.split("/").last()
+        textView.text = name
+    }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)

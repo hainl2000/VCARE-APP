@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.Data
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.vcare_app.R
@@ -23,7 +24,7 @@ import com.example.vcare_app.data.repository.AppointmentFlow
 import com.example.vcare_app.databinding.FragmentAppointmentDetailBinding
 import com.example.vcare_app.mainactivity.MainActivityViewModel
 import com.example.vcare_app.model.AppointmentDetailArgument
-import com.example.vcare_app.onclickinterface.OnMedicineResultClick
+import com.example.vcare_app.onclickinterface.OnImageOrUrlClick
 import com.example.vcare_app.utilities.CustomInformationDialog
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.FullScreenImageFragment
@@ -48,7 +49,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AppointmentDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
+class AppointmentDetailFragment : Fragment(), OnImageOrUrlClick {
     // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +87,42 @@ class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
         viewModel.appointmentDetailResponse.observe(viewLifecycleOwner) {
             binding.appointment = it
             conclusionAdapter.updateData(it.services)
+            if (viewModel.appointmentDetailResponse.value?.reExamination != null) {
+                val inputData = Data.Builder()
+                    .putString(NoticeWorker.NOTIFICATION_TITLE, "Khám bệnh!")
+                    .putString(
+                        NoticeWorker.NOTIFICATION_MESSAGE,
+                        "Lịch tái khám ${viewModel.appointmentDetailResponse.value?.reExamination}"
+                    )
+                    .putInt(
+                        NoticeWorker.NOTIFICATION_APPOINTMENT_ID,
+                        viewModel.appointmentDetailResponse.value?.id ?: 0
+                    )
+                    .build()
+                val duration = if (Build.VERSION.SDK_INT >= 30) {
+                    calculateTimeDifferenceInMinutesForHigher30(
+                        "${viewModel.appointmentDetailResponse.value?.reExamination} 00:00"
+                    )
+                } else {
+                    calculateTimeDifferenceInMinutes(
+                        "${viewModel.appointmentDetailResponse.value?.reExamination} 00:00"
 
+                    )
+                }
+
+                val workerReExam =
+                    OneTimeWorkRequestBuilder<NoticeWorker>().setInputData(inputData)
+                        .setInitialDelay(duration-1440, TimeUnit.MINUTES)
+                        .build()
+                WorkManager.getInstance(requireContext()).enqueueUniqueWork(
+                    "chucnang",
+                    ExistingWorkPolicy.REPLACE,
+                    workerReExam
+                )
+
+                Log.d("TAGG", "bi len thot r")
+
+            }
             if (AppointmentFlow.isFromAppointment) {
                 launchNotice.launch(Manifest.permission.POST_NOTIFICATIONS)
                 AppointmentFlow.isFromAppointment = false
@@ -153,16 +189,18 @@ class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
                         "Lỗi không nhận diện được ngày tháng."
                     )
                 } else {
+
+                    Log.d("TAGG", "ro rang la phai show notifi")
                     val worker1DayBefore =
                         OneTimeWorkRequestBuilder<NoticeWorker>().setInputData(inputData)
-                            .setInitialDelay(duration - 1440, TimeUnit.SECONDS)
+                            .setInitialDelay(duration - 1440, TimeUnit.MINUTES)
                             .build()
                     WorkManager.getInstance(requireContext()).enqueue(
                         worker1DayBefore
                     )
                     val worker1HourBefore =
                         OneTimeWorkRequestBuilder<NoticeWorker>().setInputData(inputData)
-                            .setInitialDelay(duration - 60, TimeUnit.SECONDS)
+                            .setInitialDelay(duration - 60, TimeUnit.MINUTES)
                             .build()
                     WorkManager.getInstance(requireContext()).enqueue(
                         worker1HourBefore
@@ -170,6 +208,7 @@ class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
                 }
 
             } else {
+                Log.d("TAGG", "Tai sao deo show")
                 CustomInformationDialog.showCustomInformationDialog(
                     requireContext(),
                     requireContext().resources.getString(R.string.notification_permission_denied)
@@ -252,8 +291,8 @@ class AppointmentDetailFragment : Fragment(), OnMedicineResultClick {
         fullScreenImageFragment.show(parentFragmentManager, "fullscreenImg")
     }
 
-    override fun onMedicineResultClick(url: String) {
-        if (Utilities.isExcelFile(url)) {
+    override fun onImageOrUrlClick(url: String) {
+        if (Utilities.isBrowserUrl(url)) {
             // Create an Intent with ACTION_VIEW and set the MIME type for Excel files
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)

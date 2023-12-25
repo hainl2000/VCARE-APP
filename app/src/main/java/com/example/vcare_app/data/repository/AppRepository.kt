@@ -4,6 +4,7 @@ import com.example.vcare_app.api.ApiService
 import com.example.vcare_app.api.api_model.HealthStatus
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
+import com.example.vcare_app.api.api_model.request.PostPatientProfileRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
 import com.example.vcare_app.api.api_model.response.LoginResponse
@@ -50,6 +51,11 @@ class AppRepository(private val apiService: ApiService) {
     fun getHealthStatus() = apiService.getHealthStatus()
 
     fun updateHealthStatus(healthStatus: HealthStatus) = apiService.updateHealthStatus(healthStatus)
+
+    fun getPatientProfile() = apiService.getPatientProfile()
+
+    fun postPatientProfile(url: String) =
+        apiService.postPatientProfile(PostPatientProfileRequest(url = url))
 
     fun getNearestHospital() = listOf(
         NearestHospital("Campha", "campha quang inh", "092839282", 21.026707, 107.031126),

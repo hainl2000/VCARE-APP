@@ -51,6 +51,8 @@
     <string name="external_code">Mã khám: </string>
     <string name="serial">Số thứ tự: </string>
     <string name="examination_time">Thời gian khám (Dự kiến): </string>
+    <string name="re_examination_time">Thời gian tái khám (Dự kiến): </string>
+    <string name="period_examination_time">Khám định kì (Tháng): </string>
     <string name="detail_appointment_title">Thông tin</string>
     <string name="health_status_information">Tình trạng sức khoẻ</string>
     <string name="edit_health_status_information">Chỉnh sửa tình trạng sức khoẻ</string>
@@ -77,4 +79,10 @@
     <string name="blood_type">Nhóm máu</string>
     <string name="blood_pressure">Huyết áp</string>
     <string name="confirm">Xác nhận</string>
+    <string name="patient_profile">Hồ sơ bệnh án</string>
+    <string name="add_patient_profile">Thêm hồ sơ bệnh án</string>
+    <string name="empty_patient_profile">Mục rỗng, hãy thêm mới.</string>
+    <string name="patien_profile_upload_introduction">Chọn 1 trong 2 cách để tải dữ liệu lên trên máy chủ.</string>
+    <string name="use_image">Sử dụng ảnh</string>
+    <string name="use_url">Sử dụng đường dẫn</string>
 </resources>

@@ -5,14 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vcare_app.databinding.ItemFileOnlyBinding
 import com.example.vcare_app.databinding.ItemImageOnlyBinding
-import com.example.vcare_app.onclickinterface.OnMedicineResultClick
+import com.example.vcare_app.onclickinterface.OnImageOrUrlClick
 import com.example.vcare_app.utilities.Utilities
 
-class MedicineAdapter(var list: List<String>, val onMedicineResultClick: OnMedicineResultClick) :
+class ImageAndUrlAdapter(var list: List<String>, val onMedicineResultClick: OnImageOrUrlClick) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val TYPE_XLSX = 1
+    private val TYPE_URL = 1
     private val TYPE_IMAGE_URL = 2
+
+    fun updateData(newList:List<String>){
+        list = newList
+        notifyDataSetChanged()
+    }
 
     inner class ImageOnlyViewHolder(val binding: ItemImageOnlyBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -51,9 +56,8 @@ class MedicineAdapter(var list: List<String>, val onMedicineResultClick: OnMedic
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (Utilities.isExcelFile(list[position])) TYPE_XLSX
-        else TYPE_IMAGE_URL
-
+        return if (Utilities.isImageUrl(list[position])) TYPE_IMAGE_URL
+        else TYPE_URL
     }
 
 }

@@ -9,14 +9,14 @@
 
         <variable
             name="onClick"
-            type="com.example.vcare_app.onclickinterface.OnMedicineResultClick" />
+            type="com.example.vcare_app.onclickinterface.OnImageOrUrlClick" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
-        android:onClick="@{()->onClick.onMedicineResultClick(url)}"
+        android:onClick="@{()->onClick.onImageOrUrlClick(url)}"
         android:paddingHorizontal="12dp"
         android:paddingVertical="6dp">
 

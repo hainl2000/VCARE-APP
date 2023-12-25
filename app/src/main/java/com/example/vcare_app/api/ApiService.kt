@@ -3,14 +3,17 @@ package com.example.vcare_app.api
 import com.example.vcare_app.api.api_model.HealthStatus
 import com.example.vcare_app.api.api_model.request.AppointmentRequest
 import com.example.vcare_app.api.api_model.request.LoginRequest
+import com.example.vcare_app.api.api_model.request.PostPatientProfileRequest
 import com.example.vcare_app.api.api_model.request.SignUpRequest
 import com.example.vcare_app.api.api_model.request.UpdateUserRequest
 import com.example.vcare_app.api.api_model.response.AppointmentDetailResponse
 import com.example.vcare_app.api.api_model.response.AppointmentResponse
 import com.example.vcare_app.api.api_model.response.DepartmentResponse
+import com.example.vcare_app.api.api_model.response.GetPatientProfileResponse
 import com.example.vcare_app.api.api_model.response.HistoryResponse
 import com.example.vcare_app.api.api_model.response.HospitalListResponse
 import com.example.vcare_app.api.api_model.response.LoginResponse
+import com.example.vcare_app.api.api_model.response.PostPatientProfileResponse
 import com.example.vcare_app.api.api_model.response.Profile
 import com.example.vcare_app.api.api_model.response.UploadFileResponse
 import io.reactivex.rxjava3.core.Observable
@@ -68,4 +71,10 @@ interface ApiService {
 
     @GET("health-status")
     fun getHealthStatus(): Single<HealthStatus>
+
+    @GET("user/profile-patient")
+    fun getPatientProfile(): Single<GetPatientProfileResponse>
+
+    @POST("user/profile-patient")
+    fun postPatientProfile(@Body postPatientProfileRequest: PostPatientProfileRequest): Single<PostPatientProfileResponse>
 }

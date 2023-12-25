@@ -4,8 +4,6 @@ package com.example.vcare_app.present.personal.editpersonal
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -31,6 +29,7 @@ import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
 import com.example.vcare_app.utilities.LoadingStatus
 import com.example.vcare_app.utilities.SuccessDialog
+import com.example.vcare_app.utilities.Utilities
 import java.io.File
 import java.util.Calendar
 
@@ -144,7 +143,7 @@ class EditPersonalFragment : Fragment() {
                     binding.editPersonalAvatar.setImageURI(imgUrl)
                     Log.e("TAG", "${result.data?.data}")
                     val contentUri = result.data?.data!!
-                    val filePath = getFileFromContentUri(requireContext(), contentUri)
+                    val filePath = Utilities.getFileFromContentUri(requireContext(), contentUri)
                     file = File(filePath ?: "")
 
                     Log.e("TAG", file.path)
@@ -180,30 +179,13 @@ class EditPersonalFragment : Fragment() {
         }
     }
 
-    private fun getFileFromContentUri(context: Context, contentUri: Uri): String? {
-        val contentResolver: ContentResolver = context.contentResolver
-
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-
-        val cursor = contentResolver.query(contentUri, projection, null, null, null)
-        cursor?.use {
-            if (it.moveToFirst()) {
-                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                return it.getString(columnIndex)
-            }
-        }
-
-        return null
-    }
-
-
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
             if (it != null) {
                 imgUrl = it
                 binding.editPersonalAvatar.setImageURI(imgUrl)
                 val contentUri = it
-                val filePath = getFileFromContentUri(requireContext(), contentUri)
+                val filePath = Utilities.getFileFromContentUri(requireContext(), contentUri)
                 file = File(filePath ?: "")
 
                 viewModel.uploadImage(file)

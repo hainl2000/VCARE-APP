@@ -26,6 +26,8 @@ data class AppointmentDetailResponse(
     val department: DepartmentOnlyNameResponse,
     @SerializedName("status") val status: String,
     @SerializedName("suggest_time") val suggestTime: String,
+    @SerializedName("re_examination") val reExamination:String?,
+    @SerializedName("periodi_examination") val periodiExamination:String?,
     @SerializedName("services_result") val servicesResult: List<ServicesResult>
 )
 

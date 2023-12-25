@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context=".present.personal.patientprofile.editpatientprofile.EditPatientProfileFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/app_background_screen"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_patient_profile"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_big_title_size" />
+
+                <TextView
+                    android:id="@+id/back_to_home_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/back"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_information_size"
+                    app:drawableLeftCompat="@drawable/back_icon" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <LinearLayout
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_small_title_size"
+                android:text="@string/patien_profile_upload_introduction"
+                android:layout_marginTop="12dp"/>
+
+            <RadioGroup
+                android:id="@+id/radiobutton_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginVertical="12dp"
+                android:orientation="vertical">
+
+
+                <RadioButton
+                    android:buttonTint="@color/strong_green"
+                    android:theme="@style/radioButton"
+                    app:useMaterialThemeColors="false"
+                    android:id="@+id/img_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/use_image" />
+
+
+                <RadioButton
+                    android:buttonTint="@color/strong_green"
+                    android:layout_marginTop="12dp"
+                    android:theme="@style/radioButton"
+                    app:useMaterialThemeColors="false"
+                    android:textColor="@color/black"
+                    android:id="@+id/url_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_url" />
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/upload_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/insert_photo_icon"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                 />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/url_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                app:boxStrokeColor="@color/grey"
+                app:hintTextColor="@color/grey"
+                app:cursorColor="@color/grey"
+                android:layout_margin="12dp"
+                android:textColorHint="@color/black"
+                android:visibility="gone"
+               >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/url_input_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/black"
+                    android:hint="Url"
+                    android:textColorHint="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/post_patient_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="24dp"
+                android:background="@drawable/app_button_background_clicked"
+                android:text="@string/confirm"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
