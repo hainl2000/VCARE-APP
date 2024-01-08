@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:hint="@string/email" />
+                android:hint="@string/email_if" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,6 +123,7 @@
             app:hintTextColor="@color/grey"
             app:cursorColor="@color/grey"
             app:errorEnabled="true"
+            app:passwordToggleTint="@color/black"
             android:layout_marginHorizontal="12dp"
             app:passwordToggleEnabled="true">
 

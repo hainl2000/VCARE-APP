@@ -22,7 +22,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.vcare_app.R
 import com.example.vcare_app.databinding.FragmentEditPatientProfileBinding
-import com.example.vcare_app.present.personal.patientprofile.PatientProfileFragment
 import com.example.vcare_app.utilities.CustomInformationDialog
 import com.example.vcare_app.utilities.CustomSnackBar
 import com.example.vcare_app.utilities.LoadingDialogManager
@@ -66,8 +65,18 @@ class EditPatientProfileFragment : Fragment() {
         }
 
         viewModel.myUrl.observe(viewLifecycleOwner) {
-            Log.d("myUrl", it)
             binding.postPatientBtn.isEnabled = it.isNotEmpty()
+            if(it.isEmpty()){
+                binding.uploadImg.setImageResource(R.drawable.insert_photo_icon)
+                binding.postPatientBtn.visibility = View.GONE
+            }else{
+                binding.postPatientBtn.visibility = View.VISIBLE
+            }
+
+//            Glide.with(this).load(it)
+//                .thumbnail(0.5f)
+//                .error(R.drawable.logo_vcare)
+//                .into(binding.uploadImg)
         }
 
         binding.postPatientBtn.setOnClickListener {
@@ -130,9 +139,7 @@ class EditPatientProfileFragment : Fragment() {
                 LoadingDialogManager.dismissLoadingDialog()
                 if (it == LoadingStatus.Success) {
                     SuccessDialog.showDialog(requireContext()) {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container_view, PatientProfileFragment())
-                            .commit()
+                        parentFragmentManager.popBackStack()
                     }
                 }
                 if (it == LoadingStatus.Error) {
@@ -157,10 +164,9 @@ class EditPatientProfileFragment : Fragment() {
             if (it != null) {
                 val filePath = Utilities.getFileFromContentUri(requireContext(), it)
                 val file = File(filePath ?: "")
-                Glide.with(this).load(it)
-                    .error(R.drawable.logo_vcare)
-                    .into(binding.uploadImg)
+                binding.uploadImg.setImageURI(it)
                 viewModel.uploadImage(file)
+
             } else {
                 Glide.with(this).load(R.drawable.insert_photo_icon)
                     .error(R.drawable.logo_vcare)
@@ -177,7 +183,9 @@ class EditPatientProfileFragment : Fragment() {
                     val filePath = Utilities.getFileFromContentUri(requireContext(), contentUri)
                     val file = File(filePath ?: "")
                     Log.e("TAG", file.path)
+                    binding.uploadImg.setImageURI(contentUri)
                     viewModel.uploadImage(file)
+
                 } else {
                     Glide.with(this).load(R.drawable.insert_photo_icon)
                         .error(R.drawable.logo_vcare)

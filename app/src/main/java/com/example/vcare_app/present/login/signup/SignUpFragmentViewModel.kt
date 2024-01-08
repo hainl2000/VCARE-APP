@@ -11,7 +11,7 @@ class SignUpFragmentViewModel : BaseViewModel() {
 
     private val repository = AppRepository(ApiClient.apiService)
 
-    fun signUp(email: String, phone: String, sin: String, idn: String, password: String) {
+    fun signUp(email: String?, phone: String, sin: String?, idn: String?, password: String) {
         status.postValue(LoadingStatus.Loading)
         compositeDisposable.add(repository.signUp(email, phone, sin, idn, password)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(

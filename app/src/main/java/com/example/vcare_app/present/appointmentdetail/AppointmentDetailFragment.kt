@@ -112,7 +112,7 @@ class AppointmentDetailFragment : Fragment(), OnImageOrUrlClick {
 
                 val workerReExam =
                     OneTimeWorkRequestBuilder<NoticeWorker>().setInputData(inputData)
-                        .setInitialDelay(duration-1440, TimeUnit.MINUTES)
+                        .setInitialDelay(duration - 1440, TimeUnit.MINUTES)
                         .build()
                 WorkManager.getInstance(requireContext()).enqueueUniqueWork(
                     "chucnang",
@@ -294,6 +294,11 @@ class AppointmentDetailFragment : Fragment(), OnImageOrUrlClick {
     override fun onImageOrUrlClick(url: String) {
         if (Utilities.isBrowserUrl(url)) {
             // Create an Intent with ACTION_VIEW and set the MIME type for Excel files
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+        if (Utilities.isExcel(url)) {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)

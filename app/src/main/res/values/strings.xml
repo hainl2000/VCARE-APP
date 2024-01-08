@@ -85,4 +85,5 @@
     <string name="patien_profile_upload_introduction">Chọn 1 trong 2 cách để tải dữ liệu lên trên máy chủ.</string>
     <string name="use_image">Sử dụng ảnh</string>
     <string name="use_url">Sử dụng đường dẫn</string>
+    <string name="email_if">Email (nếu có)</string>
 </resources>

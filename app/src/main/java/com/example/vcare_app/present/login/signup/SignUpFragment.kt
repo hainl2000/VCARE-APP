@@ -110,12 +110,12 @@ class SignUpFragment : Fragment() {
 
 
         binding.signUpBtn.setOnClickListener {
-            val email = binding.signUpUserNameInput.text.toString()
+            val email: String? = binding.signUpUserNameInput.text.toString().takeIf { it.isNotEmpty() }
             val phone = binding.signUpPhoneInput.text.toString()
-            val insuranceNumber = binding.signUpSocialInsuranceNumberInput.text.toString()
-            val identifyNumber = binding.signUpIdentityNumberInput.text.toString()
+            val insuranceNumber = binding.signUpSocialInsuranceNumberInput.text.toString().takeIf { it.isNotEmpty() }
+            val identifyNumber = binding.signUpIdentityNumberInput.text.toString().toString().takeIf { it.isNotEmpty() }
             val password = binding.signUpPasswordInput.text.toString()
-            if (email.isEmpty() || phone.isEmpty() || insuranceNumber.isEmpty() || identifyNumber.isEmpty() || password.isEmpty()) {
+            if (phone.isEmpty() ||  password.isEmpty()) {
                 binding.errorTextSignUp.text = "Lỗi: Hãy điền đầy đủ thông tin."
             }else {
                 if (binding.signUpConfirmPasswordInput.text.toString() == binding.signUpPasswordInput.text.toString()) {

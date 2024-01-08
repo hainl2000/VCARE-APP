@@ -19,10 +19,10 @@ class AppRepository(private val apiService: ApiService) {
     }
 
     fun signUp(
-        email: String,
+        email: String?,
         phone: String,
-        sin: String,
-        idn: String,
+        sin: String?,
+        idn: String?,
         password: String
     ): Single<LoginResponse> {
         return apiService.registerUser(SignUpRequest(email, phone, sin, idn, password))

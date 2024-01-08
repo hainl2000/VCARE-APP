@@ -59,6 +59,7 @@ class HealthStatusFragment : Fragment() {
                 commit()
             }
         }
+
         viewModel.errorMsg.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 CustomSnackBar.showCustomSnackbar(requireView(), it)

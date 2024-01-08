@@ -86,14 +86,13 @@ class Utilities {
                 .endsWith(".jpg") || url.lowercase().endsWith(".jpng")
         }
 
+        fun isExcel(url: String): Boolean {
+            return url.lowercase().endsWith(".xlsx") || url.lowercase().endsWith(".xls")
+        }
+
         fun isBrowserUrl(url: String): Boolean {
-            if (isImageUrl(url)) return false
-            else {
-                if (url.lowercase().endsWith(".xlxs") || url.lowercase().endsWith(".xls")) {
-                    return false
-                }
-                return true
-            }
+            return !(isImageUrl(url) || isExcel(url))
+
         }
 
         val listPeriod = mapOf(

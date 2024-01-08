@@ -55,12 +55,16 @@ class EditHealthStatusFragment : Fragment() {
         }
 
         binding.confirmButton.setOnClickListener {
-            val height = Integer.parseInt(binding.editHeight.text.toString())
-            val weight = Integer.parseInt(binding.editWeight.text.toString())
-            val bloodType = binding.editBloodType.text.toString()
-            val bloodPressure = binding.editBloodPressure.text.toString()
-            val healthStatus = HealthStatus(height, weight, bloodType, bloodPressure)
-            viewModel.updateHealthStatus(healthStatus)
+            try {
+                val height = Integer.parseInt(binding.editHeight.text.toString())
+                val weight = Integer.parseInt(binding.editWeight.text.toString())
+                val bloodType = binding.editBloodType.text.toString()
+                val bloodPressure = binding.editBloodPressure.text.toString()
+                val healthStatus = HealthStatus(height, weight, bloodType, bloodPressure)
+                viewModel.updateHealthStatus(healthStatus)
+            }catch (e:Exception){
+                CustomSnackBar.showCustomSnackbar(binding.root,"Xin nhập đầy đủ chiều cao và cân nặng.")
+            }
         }
         viewModel.errorMsg.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
